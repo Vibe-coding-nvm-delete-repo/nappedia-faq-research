@@ -863,6 +863,11 @@
       <span>Sleeper Profiles</span>
       <span class="tab-count" id="cnt-sleeper-profiles">328</span>
     </button>
+    <button class="cat-tab" id="tab-pricing-sales" data-cat="pricing-sales" role="tab" type="button">
+      <span class="dot-done" aria-hidden="true"></span>
+      <span>Pricing &amp; Sales</span>
+      <span class="tab-count" id="cnt-pricing-sales">0</span>
+    </button>
     <button class="cat-tab" id="tab-research" data-cat="research" role="tab" type="button">
       <span>Research Library</span>
       <span class="tab-count" id="cnt-research">157</span>
@@ -951,6 +956,7 @@
 <script src="./data/hub_meta.js"></script>
 <script src="./data/cat_comparisons.js"></script>
 <script src="./data/cat_sleeper_profiles.js"></script>
+<script src="./data/cat_pricing_sales.js"></script>
 <script>
 const META = window.NAPPEDIA_META;
 const CATS = window.NAPPEDIA_CATS;
@@ -1051,7 +1057,7 @@ function scrollActiveCatTab() {
 
 function initFromHash() {
   const h = (location.hash || "").replace(/^#/, "").trim().toLowerCase();
-  if (["overview", "comparisons", "sleeper-profiles", "research"].includes(h)) {
+  if (["overview", "comparisons", "sleeper-profiles", "pricing-sales", "research"].includes(h)) {
     state.cat = h;
   } else if (h === "roadmap") {
     state.cat = "overview";
@@ -1109,6 +1115,7 @@ function renderTopbarAndTabs() {
   document.getElementById("cnt-overview").textContent = META.total_categories;
   document.getElementById("cnt-comparisons").textContent = CATS["comparisons"].counts.pages;
   document.getElementById("cnt-sleeper-profiles").textContent = CATS["sleeper-profiles"].counts.pages;
+  document.getElementById("cnt-pricing-sales").textContent = CATS["pricing-sales"].counts.pages;
   document.getElementById("cnt-research").textContent = META.affiliates.length + META.all_sources.length;
 
   const sheetUrl = META.sheets[state.cat] || META.sheets.overview;
@@ -1116,6 +1123,7 @@ function renderTopbarAndTabs() {
     "overview": "All 18 Categories Sheet",
     "comparisons": "Cat #1 Sheet",
     "sleeper-profiles": "Cat #2 Sheet",
+    "pricing-sales": "Cat #3 Sheet",
     "research": "Master Matrix Sheet"
   };
   const sl = document.getElementById("sheetLink");
@@ -1129,7 +1137,7 @@ function renderTopbarAndTabs() {
   });
 
   document.getElementById("overviewView").style.display = state.cat === "overview" ? "" : "none";
-  document.getElementById("categoryView").style.display = (state.cat === "comparisons" || state.cat === "sleeper-profiles") ? "" : "none";
+  document.getElementById("categoryView").style.display = Boolean(CATS[state.cat]) ? "" : "none";
   document.getElementById("researchView").style.display = state.cat === "research" ? "" : "none";
 }
 
@@ -1214,8 +1222,16 @@ function renderOverview() {
   const pct = n => ((n / f.evaluated) * 100).toFixed(1);
   const topQueue = META.roadmap.slice(0, 7);
   const minedCnt = META.roadmap.filter(r => r.done).length;
+  const unminedCnt = META.total_categories - minedCnt;
   const highCnt = META.roadmap.filter(r => !r.done && r.avg >= 8.0).length;
   const laterCnt = META.roadmap.filter(r => !r.done && r.avg < 8.0).length;
+  const catOrder = Object.keys(CATS);
+  const catValMeta = catOrder.map((k, i) => `Cat #${i+1}: ${CATS[k].counts.pages} (${CATS[k].counts.t1} T1, ${CATS[k].counts.t2} T2)`).join(" · ");
+  const catMergeMeta = catOrder.map((k, i) => `Cat #${i+1}: ${CATS[k].counts.merged}`).join(" · ");
+  const catCovMeta = catOrder.map((k, i) => `Cat #${i+1}: ${CATS[k].counts.covered}`).join(" · ");
+  const catExclMeta = catOrder.map((k, i) => `Cat #${i+1}: ${CATS[k].counts.excluded}`).join(" · ");
+  const catSearchMeta = catOrder.map((k, i) => `Cat #${i+1}: ${CATS[k].counts.search}`).join(" · ");
+  const catMsMeta = catOrder.map((k, i) => `Cat #${i+1}: ${CATS[k].counts.multisource}`).join(" · ");
 
   ov.innerHTML = `
     <div class="dash-kpis">
@@ -1230,25 +1246,25 @@ function renderOverview() {
         <div class="dk-sub">Proven Google/Bing keywords · <strong>${f.evaluated.toLocaleString()}</strong> candidates audited · <strong>${META.all_sources.length}</strong> verified citations</div>
       </div>
       <div class="dash-kpi">
-        <div class="dk-label"><span>Remaining Runway to Mine</span><span class="pill p-muted">16 Queued</span></div>
-        <div class="dk-num">${META.total_categories - META.done_categories} <span style="font-size:15px;font-weight:500;color:var(--sub);">categories</span></div>
-        <div class="dk-sub"><strong>${META.unmined_subcats}</strong> granular subcategories left · <strong>4</strong> top-tier 8.5/10 pillars ready next</div>
+        <div class="dk-label"><span>Remaining Runway to Mine</span><span class="pill p-muted">${unminedCnt} Queued</span></div>
+        <div class="dk-num">${unminedCnt} <span style="font-size:15px;font-weight:500;color:var(--sub);">categories</span></div>
+        <div class="dk-sub"><strong>${META.unmined_subcats}</strong> granular subcategories left · <strong>${highCnt}</strong> top-tier 8.5/10 pillars ready next</div>
       </div>
       <div class="dash-kpi">
         <div class="dk-label"><span>Est. Total Catalog Potential</span><span class="pill p-gap">Projected</span></div>
         <div class="dk-num">~${META.est_total_low.toLocaleString()}–${META.est_total_high.toLocaleString()}</div>
-        <div class="dk-sub">Includes ${META.total_kept_pages} validated + ~${META.est_remaining_low.toLocaleString()}–${META.est_remaining_high.toLocaleString()} estimated across 16 unmined categories</div>
+        <div class="dk-sub">Includes ${META.total_kept_pages.toLocaleString()} validated + ~${META.est_remaining_low.toLocaleString()}–${META.est_remaining_high.toLocaleString()} estimated across ${unminedCnt} unmined categories</div>
       </div>
     </div>
 
     <div class="dash-charts">
       <div class="chart-card">
         <div class="chart-head">
-          <h2 class="chart-title">All 18 Categories — Opportunity Priority Matrix</h2>
+          <h2 class="chart-title">All 18 Categories - Opportunity Priority Matrix</h2>
           <span class="chart-hint">Hover bubbles for detail · Click to open or inspect</span>
         </div>
         <div class="legend">
-          <span class="leg-item"><span class="leg-dot" style="background:#16a34a;"></span>Mined &amp; 100% Validated (2)</span>
+          <span class="leg-item"><span class="leg-dot" style="background:#16a34a;"></span>Mined &amp; 100% Validated (${minedCnt})</span>
           <span class="leg-item"><span class="leg-dot" style="background:#0066cc;"></span>High-Priority Next (&ge;8.0 Avg)</span>
           <span class="leg-item"><span class="leg-dot" style="background:#94a3b8;"></span>Remaining Queue (&lt;8.0 Avg)</span>
           <span class="leg-item" style="margin-left:auto;">Bubble size = subcategories</span>
@@ -1264,31 +1280,31 @@ function renderOverview() {
 
         <div class="funnel-block">
           <div class="funnel-label-row">
-            <span><strong>Quality Gate Funnel</strong> (${f.evaluated.toLocaleString()} candidates evaluated across Cat #1–#2)</span>
+            <span><strong>Quality Gate Funnel</strong> (${f.evaluated.toLocaleString()} candidates evaluated across Cat #1-#${minedCnt})</span>
             <span><strong>0</strong> dropped</span>
           </div>
           <div class="stacked-bar" id="funnelBarWrap">
-            <div class="seg-bar" tabindex="0" style="width:${pct(f.validated)}%;background:#16a34a;" data-tt-title="Validated Net-New Pages (${f.validated})" data-tt-meta="Cat #1: 485 (395 T1, 90 T2) · Cat #2: 328 (178 T1, 150 T2)" data-tt-accent="100% Dual-Critic PASS · Zero cannibalization">${f.validated}</div>
-            <div class="seg-bar" tabindex="0" style="width:${pct(f.merged)}%;background:#0066cc;" data-tt-title="Merged Phrasing Twins (${f.merged.toLocaleString()})" data-tt-meta="Cat #1: 305 · Cat #2: 791 — rolled into canonical pages so zero duplicate pages compete" data-tt-accent="Preserves every search variant inside parent pages">${f.merged.toLocaleString()}</div>
-            <div class="seg-bar" tabindex="0" style="width:${pct(f.covered)}%;background:#f59e0b;" data-tt-title="Already Covered (${f.covered})" data-tt-meta="Cat #1: 262 (vs 322 corpus pages) · Cat #2: 157 (vs 807 corpus + Cat #1 pages)" data-tt-accent="Stopped cannibalization before a single draft was written">${f.covered}</div>
-            <div class="seg-bar" tabindex="0" style="width:${pct(f.excluded)}%;background:#94a3b8;" data-tt-title="Excluded Out-of-Scope (${f.excluded})" data-tt-meta="Cat #1: 182 · Cat #2: 368 — brands, non-US, accessories, hospital DME, off-category drift" data-tt-accent="100% logged in Audit Trail">${f.excluded}</div>
+            <div class="seg-bar" tabindex="0" style="width:${pct(f.validated)}%;background:#16a34a;" data-tt-title="Validated Net-New Pages (${f.validated.toLocaleString()})" data-tt-meta="${esc(catValMeta)}" data-tt-accent="100% Dual-Critic PASS · Zero cannibalization">${f.validated.toLocaleString()}</div>
+            <div class="seg-bar" tabindex="0" style="width:${pct(f.merged)}%;background:#0066cc;" data-tt-title="Merged Phrasing Twins (${f.merged.toLocaleString()})" data-tt-meta="${esc(catMergeMeta)} - rolled into canonical pages so zero duplicate pages compete" data-tt-accent="Preserves every search variant inside parent pages">${f.merged.toLocaleString()}</div>
+            <div class="seg-bar" tabindex="0" style="width:${pct(f.covered)}%;background:#f59e0b;" data-tt-title="Already Covered (${f.covered.toLocaleString()})" data-tt-meta="${esc(catCovMeta)} - stopped overlap against built corpus and prior mined categories" data-tt-accent="Stopped cannibalization before a single draft was written">${f.covered.toLocaleString()}</div>
+            <div class="seg-bar" tabindex="0" style="width:${pct(f.excluded)}%;background:#94a3b8;" data-tt-title="Excluded Out-of-Scope (${f.excluded.toLocaleString()})" data-tt-meta="${esc(catExclMeta)} - brands, non-US, accessories, hospital DME, off-category drift" data-tt-accent="100% logged in Audit Trail">${f.excluded.toLocaleString()}</div>
           </div>
           <div class="bar-legend">
-            <span class="leg-item"><span class="leg-dot" style="background:#16a34a;"></span>Validated (${f.validated})</span>
+            <span class="leg-item"><span class="leg-dot" style="background:#16a34a;"></span>Validated (${f.validated.toLocaleString()})</span>
             <span class="leg-item"><span class="leg-dot" style="background:#0066cc;"></span>Merged (${f.merged.toLocaleString()})</span>
-            <span class="leg-item"><span class="leg-dot" style="background:#f59e0b;"></span>Covered (${f.covered})</span>
-            <span class="leg-item"><span class="leg-dot" style="background:#94a3b8;"></span>Excluded (${f.excluded})</span>
+            <span class="leg-item"><span class="leg-dot" style="background:#f59e0b;"></span>Covered (${f.covered.toLocaleString()})</span>
+            <span class="leg-item"><span class="leg-dot" style="background:#94a3b8;"></span>Excluded (${f.excluded.toLocaleString()})</span>
           </div>
         </div>
 
         <div class="funnel-block" style="margin-bottom:12px;">
           <div class="funnel-label-row">
-            <span><strong>Evidence Provenance</strong> (${META.total_kept_pages} validated pages)</span>
-            <span>${META.total_search_proven} Search · ${META.total_multisource} Research/Forum</span>
+            <span><strong>Evidence Provenance</strong> (${META.total_kept_pages.toLocaleString()} validated pages)</span>
+            <span>${META.total_search_proven.toLocaleString()} Search · ${META.total_multisource} Research/Forum</span>
           </div>
           <div class="stacked-bar" style="height:14px;">
-            <div class="seg-bar" tabindex="0" style="width:${((META.total_search_proven/META.total_kept_pages)*100).toFixed(1)}%;background:#0284c7;" data-tt-title="Search-Proven Pages (${META.total_search_proven})" data-tt-meta="Backed by live Google & Bing autocomplete/SERP demand across 5,470 proven keywords" data-tt-accent="Cat #1: 409 · Cat #2: 285"></div>
-            <div class="seg-bar" tabindex="0" style="width:${((META.total_multisource/META.total_kept_pages)*100).toFixed(1)}%;background:#7c3aed;" data-tt-title="Multi-Source Research & Forum Pages (${META.total_multisource})" data-tt-meta="Curated from PubMed clinical studies, CPSC/ASTM standards, r/Mattress/TMU forums & 68 affiliate gap sweeps" data-tt-accent="Cat #1: 76 · Cat #2: 43"></div>
+            <div class="seg-bar" tabindex="0" style="width:${((META.total_search_proven/META.total_kept_pages)*100).toFixed(1)}%;background:#0284c7;" data-tt-title="Search-Proven Pages (${META.total_search_proven.toLocaleString()})" data-tt-meta="Backed by live Google & Bing autocomplete/SERP demand across ${META.total_proven_kws.toLocaleString()} proven keywords" data-tt-accent="${esc(catSearchMeta)}"></div>
+            <div class="seg-bar" tabindex="0" style="width:${((META.total_multisource/META.total_kept_pages)*100).toFixed(1)}%;background:#7c3aed;" data-tt-title="Multi-Source Research & Forum Pages (${META.total_multisource})" data-tt-meta="Curated from PubMed/FTC/CFPB/IRS/CPSC primary rules, r/Mattress/TMU forums & 68 affiliate gap sweeps" data-tt-accent="${esc(catMsMeta)}"></div>
           </div>
         </div>
 
