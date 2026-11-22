@@ -32,6 +32,10 @@
     --r-lg: 14px;
   }
   * { box-sizing: border-box; }
+  html {
+    overflow-y: scroll;
+    scrollbar-gutter: stable;
+  }
   html, body {
     margin: 0;
     max-width: 100%;
@@ -121,7 +125,7 @@
     border: none;
     background: transparent;
     color: var(--sub);
-    padding: 8px 14px;
+    padding: 8px 14px 8px 16px;
     border-radius: 10px;
     font-size: 13.5px;
     font-weight: 600;
@@ -139,7 +143,6 @@
     background: var(--surface);
     color: var(--ink);
     box-shadow: var(--shadow-sm);
-    padding-left: 16px;
   }
   .cat-tab.active::before {
     content: "";
@@ -1049,9 +1052,13 @@ function hideTooltip() {
 }
 
 function scrollActiveCatTab() {
+  const nav = document.getElementById("catTabs");
   const activeBtn = document.querySelector(`.cat-tab[data-cat="${state.cat}"]`);
-  if (activeBtn && activeBtn.scrollIntoView) {
-    activeBtn.scrollIntoView({ block: "nearest", inline: "center" });
+  if (!nav || !activeBtn) return;
+  const nr = nav.getBoundingClientRect();
+  const br = activeBtn.getBoundingClientRect();
+  if (br.left < nr.left || br.right > nr.right) {
+    activeBtn.scrollIntoView({ block: "nearest", inline: "nearest" });
   }
 }
 
@@ -1118,17 +1125,9 @@ function renderTopbarAndTabs() {
   document.getElementById("cnt-pricing-sales").textContent = CATS["pricing-sales"].counts.pages;
   document.getElementById("cnt-research").textContent = META.affiliates.length + META.all_sources.length;
 
-  const sheetUrl = META.sheets[state.cat] || META.sheets.overview;
-  const sheetNames = {
-    "overview": "All 18 Categories Sheet",
-    "comparisons": "Cat #1 Sheet",
-    "sleeper-profiles": "Cat #2 Sheet",
-    "pricing-sales": "Cat #3 Sheet",
-    "research": "Master Matrix Sheet"
-  };
   const sl = document.getElementById("sheetLink");
-  sl.href = sheetUrl;
-  sl.innerHTML = `${sheetNames[state.cat] || "Google Sheet"} &#8599;`;
+  sl.href = META.sheets.overview;
+  sl.innerHTML = `Master Sheet &#8599;`;
 
   document.querySelectorAll(".cat-tab").forEach(btn => {
     const active = btn.dataset.cat === state.cat;
@@ -1555,7 +1554,10 @@ function renderValidationStrip(catObj) {
         </span>
       `).join("")}
     </div>
-    <button class="mini-btn" id="inspectAuditBtn" type="button" style="white-space:nowrap;">Audit Trail &rarr;</button>
+    <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
+      <a class="mini-btn" href="${esc(catObj.sheet_url)}" target="_blank" rel="noopener" style="white-space:nowrap;color:var(--accent);text-decoration:none;">Sheet &#8599;</a>
+      <button class="mini-btn" id="inspectAuditBtn" type="button" style="white-space:nowrap;">Audit Trail &rarr;</button>
+    </div>
   `;
   document.getElementById("valMobileToggle").addEventListener("click", () => vs.classList.toggle("mobile-expanded"));
   vs.querySelectorAll(".val-chip").forEach(el => {
