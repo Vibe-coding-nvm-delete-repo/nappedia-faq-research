@@ -830,9 +830,9 @@
     .toolbar { padding: 0 13px 11px; }
     .sub-strip { padding: 0 13px 10px; }
     thead th, tbody td { padding: 9px 8px; }
-    .rank-cell { width: 30px; }
+    .rank-cell { width: 28px; padding-right: 4px; }
     .title-cell { min-width: 0; }
-    .score-cell { width: 88px; }
+    .score-cell { width: auto; white-space: nowrap; padding-left: 6px; padding-right: 10px; }
     .col-topic-hide, .col-origin-hide, .col-sub-hide { display: none; }
     .cat-bar-row { grid-template-columns: 120px 1fr 64px; font-size: 12px; }
   }
@@ -861,6 +861,7 @@
     <button class="cat-tab" id="tab-pricing-sales" data-cat="pricing-sales" role="tab" type="button"><span class="dot-done" aria-hidden="true"></span><span>Pricing</span><span class="tab-count" id="cnt-pricing-sales">190</span></button>
     <button class="cat-tab" id="tab-firmness" data-cat="firmness" role="tab" type="button"><span class="dot-done" aria-hidden="true"></span><span>Firmness</span><span class="tab-count" id="cnt-firmness">204</span></button>
     <button class="cat-tab" id="tab-health-pain" data-cat="health-pain" role="tab" type="button"><span class="dot-done" aria-hidden="true"></span><span>Health</span><span class="tab-count" id="cnt-health-pain">462</span></button>
+    <button class="cat-tab" id="tab-mattress-types" data-cat="mattress-types" role="tab" type="button"><span class="dot-done" aria-hidden="true"></span><span>Types</span><span class="tab-count" id="cnt-mattress-types">151</span></button>
     <button class="cat-tab" id="tab-research" data-cat="research" role="tab" type="button">
       <span>Library</span>
       <span class="tab-count" id="cnt-research">157</span>
@@ -952,6 +953,7 @@
 <script src="./data/cat_pricing_sales.js"></script>
 <script src="./data/cat_firmness.js"></script>
 <script src="./data/cat_health_pain.js"></script>
+<script src="./data/cat_mattress_types.js"></script>
 <script>
 const META = window.NAPPEDIA_META;
 const CATS = window.NAPPEDIA_CATS;
@@ -1212,7 +1214,7 @@ function renderOverview() {
   const ov = document.getElementById("overviewView");
   const f = META.funnel;
   const pct = n => ((n / f.evaluated) * 100).toFixed(1);
-  const topQueue = META.roadmap.slice(0, 7);
+  const topQueue = META.roadmap.slice(0, 10);
   const minedCnt = META.roadmap.filter(r => r.done).length;
   const unminedCnt = META.total_categories - minedCnt;
   const highCnt = META.roadmap.filter(r => !r.done && r.avg >= 8.0).length;
@@ -1301,7 +1303,7 @@ function renderOverview() {
         </div>
 
         <div class="funnel-label-row" style="margin-bottom:4px;">
-          <span><strong>Top 7 Priority Pillars</strong> (Mined vs. Ready Next)</span>
+          <span><strong>Top 10 Priority Pillars</strong> (Mined vs. Ready Next)</span>
           <span>Avg Score</span>
         </div>
         <div class="cat-bar-list" id="topPillarsList">
