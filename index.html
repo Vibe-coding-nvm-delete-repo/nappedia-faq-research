@@ -829,10 +829,13 @@
     .card-head { padding: 13px 13px 10px; }
     .toolbar { padding: 0 13px 11px; }
     .sub-strip { padding: 0 13px 10px; }
-    thead th, tbody td { padding: 9px 8px; }
-    .rank-cell { width: 28px; padding-right: 4px; }
+    thead th, tbody td { padding: 8px 6px; }
+    thead th { white-space: normal; font-size: 10.5px; }
+    .rank-cell { width: 24px; padding-right: 2px; }
     .title-cell { min-width: 0; }
-    .score-cell { width: auto; white-space: nowrap; padding-left: 6px; padding-right: 10px; }
+    .score-cell { width: 76px; white-space: nowrap; padding-left: 4px; padding-right: 8px; }
+    .score-val { margin-left: 3px; font-size: 12.5px; }
+    .vars-sub { font-size: 10.5px; }
     .col-topic-hide, .col-origin-hide, .col-sub-hide { display: none; }
     .cat-bar-row { grid-template-columns: 120px 1fr 64px; font-size: 12px; }
   }
@@ -862,6 +865,7 @@
     <button class="cat-tab" id="tab-firmness" data-cat="firmness" role="tab" type="button"><span class="dot-done" aria-hidden="true"></span><span>Firmness</span><span class="tab-count" id="cnt-firmness">204</span></button>
     <button class="cat-tab" id="tab-health-pain" data-cat="health-pain" role="tab" type="button"><span class="dot-done" aria-hidden="true"></span><span>Health</span><span class="tab-count" id="cnt-health-pain">462</span></button>
     <button class="cat-tab" id="tab-mattress-types" data-cat="mattress-types" role="tab" type="button"><span class="dot-done" aria-hidden="true"></span><span>Types</span><span class="tab-count" id="cnt-mattress-types">151</span></button>
+    <button class="cat-tab" id="tab-buying-process" data-cat="buying-process" role="tab" type="button"><span class="dot-done" aria-hidden="true"></span><span>Buying</span><span class="tab-count" id="cnt-buying-process">26</span></button>
     <button class="cat-tab" id="tab-research" data-cat="research" role="tab" type="button">
       <span>Library</span>
       <span class="tab-count" id="cnt-research">157</span>
@@ -954,6 +958,7 @@
 <script src="./data/cat_firmness.js"></script>
 <script src="./data/cat_health_pain.js"></script>
 <script src="./data/cat_mattress_types.js"></script>
+<script src="./data/cat_buying_process.js"></script>
 <script>
 const META = window.NAPPEDIA_META;
 const CATS = window.NAPPEDIA_CATS;
