@@ -866,6 +866,7 @@
     <button class="cat-tab" id="tab-health-pain" data-cat="health-pain" role="tab" type="button"><span class="dot-done" aria-hidden="true"></span><span>Health</span><span class="tab-count" id="cnt-health-pain">462</span></button>
     <button class="cat-tab" id="tab-mattress-types" data-cat="mattress-types" role="tab" type="button"><span class="dot-done" aria-hidden="true"></span><span>Types</span><span class="tab-count" id="cnt-mattress-types">151</span></button>
     <button class="cat-tab" id="tab-buying-process" data-cat="buying-process" role="tab" type="button"><span class="dot-done" aria-hidden="true"></span><span>Buying</span><span class="tab-count" id="cnt-buying-process">26</span></button>
+    <button class="cat-tab" id="tab-safety-certs" data-cat="safety-certs" role="tab" type="button"><span class="dot-done" aria-hidden="true"></span><span>Safety</span><span class="tab-count" id="cnt-safety-certs">45</span></button>
     <button class="cat-tab" id="tab-research" data-cat="research" role="tab" type="button">
       <span>Library</span>
       <span class="tab-count" id="cnt-research">157</span>
@@ -959,6 +960,7 @@
 <script src="./data/cat_health_pain.js"></script>
 <script src="./data/cat_mattress_types.js"></script>
 <script src="./data/cat_buying_process.js"></script>
+<script src="./data/cat_safety_certs.js"></script>
 <script>
 const META = window.NAPPEDIA_META;
 const CATS = window.NAPPEDIA_CATS;
@@ -1237,7 +1239,7 @@ function renderOverview() {
       <div class="dash-kpi">
         <div class="dk-label"><span>Validated Pages Mined</span><span class="pill p-valid">100% Verified</span></div>
         <div class="dk-num">${META.total_kept_pages.toLocaleString()}</div>
-        <div class="dk-sub"><strong>${META.total_t1}</strong> Tier 1 · <strong>${META.total_t2}</strong> Tier 2 across <strong>${META.done_categories} of ${META.total_categories}</strong> categories (${META.total_topics_mined} Topics)</div>
+        <div class="dk-sub"><strong>${META.total_t1.toLocaleString()}</strong> Tier 1 · <strong>${META.total_t2.toLocaleString()}</strong> Tier 2 across <strong>${META.done_categories} of ${META.total_categories}</strong> categories (${META.total_topics_mined} Topics)</div>
       </div>
       <div class="dash-kpi">
         <div class="dk-label"><span>Live Search Proof &amp; Audit</span><span class="pill p-search">Zero Drops</span></div>
