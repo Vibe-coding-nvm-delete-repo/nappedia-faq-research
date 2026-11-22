@@ -114,7 +114,7 @@
   .cat-tabs {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 3px;
     overflow-x: auto;
     padding: 2px 2px 12px;
     -webkit-overflow-scrolling: touch;
@@ -125,16 +125,16 @@
     border: none;
     background: transparent;
     color: var(--sub);
-    padding: 8px 14px 8px 16px;
-    border-radius: 10px;
-    font-size: 13.5px;
+    padding: 7px 9px 7px 11px;
+    border-radius: 9px;
+    font-size: 12.5px;
     font-weight: 600;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 5px;
     white-space: nowrap;
-    min-height: 36px;
+    min-height: 34px;
     position: relative;
     transition: background 0.12s ease, color 0.12s ease;
   }
@@ -856,23 +856,12 @@
       <span>Overview</span>
       <span class="tab-count" id="cnt-overview">18</span>
     </button>
-    <button class="cat-tab" id="tab-comparisons" data-cat="comparisons" role="tab" type="button">
-      <span class="dot-done" aria-hidden="true"></span>
-      <span>Construction Comparisons</span>
-      <span class="tab-count" id="cnt-comparisons">485</span>
-    </button>
-    <button class="cat-tab" id="tab-sleeper-profiles" data-cat="sleeper-profiles" role="tab" type="button">
-      <span class="dot-done" aria-hidden="true"></span>
-      <span>Sleeper Profiles</span>
-      <span class="tab-count" id="cnt-sleeper-profiles">328</span>
-    </button>
-    <button class="cat-tab" id="tab-pricing-sales" data-cat="pricing-sales" role="tab" type="button">
-      <span class="dot-done" aria-hidden="true"></span>
-      <span>Pricing &amp; Sales</span>
-      <span class="tab-count" id="cnt-pricing-sales">0</span>
-    </button>
+    <button class="cat-tab" id="tab-comparisons" data-cat="comparisons" role="tab" type="button"><span class="dot-done" aria-hidden="true"></span><span>Comparisons</span><span class="tab-count" id="cnt-comparisons">485</span></button>
+    <button class="cat-tab" id="tab-sleeper-profiles" data-cat="sleeper-profiles" role="tab" type="button"><span class="dot-done" aria-hidden="true"></span><span>Sleepers</span><span class="tab-count" id="cnt-sleeper-profiles">328</span></button>
+    <button class="cat-tab" id="tab-pricing-sales" data-cat="pricing-sales" role="tab" type="button"><span class="dot-done" aria-hidden="true"></span><span>Pricing</span><span class="tab-count" id="cnt-pricing-sales">190</span></button>
+    <button class="cat-tab" id="tab-firmness" data-cat="firmness" role="tab" type="button"><span class="dot-done" aria-hidden="true"></span><span>Firmness</span><span class="tab-count" id="cnt-firmness">204</span></button>
     <button class="cat-tab" id="tab-research" data-cat="research" role="tab" type="button">
-      <span>Research Library</span>
+      <span>Library</span>
       <span class="tab-count" id="cnt-research">157</span>
     </button>
   </nav>
@@ -960,6 +949,7 @@
 <script src="./data/cat_comparisons.js"></script>
 <script src="./data/cat_sleeper_profiles.js"></script>
 <script src="./data/cat_pricing_sales.js"></script>
+<script src="./data/cat_firmness.js"></script>
 <script>
 const META = window.NAPPEDIA_META;
 const CATS = window.NAPPEDIA_CATS;
@@ -1064,7 +1054,7 @@ function scrollActiveCatTab() {
 
 function initFromHash() {
   const h = (location.hash || "").replace(/^#/, "").trim().toLowerCase();
-  if (["overview", "comparisons", "sleeper-profiles", "pricing-sales", "research"].includes(h)) {
+  if (h === "overview" || h === "research" || Boolean(CATS[h])) {
     state.cat = h;
   } else if (h === "roadmap") {
     state.cat = "overview";
@@ -1120,9 +1110,10 @@ function renderTopbarAndTabs() {
   document.getElementById("brandMeta").textContent =
     `${META.total_kept_pages.toLocaleString()} validated pages · ${META.done_categories} of ${META.total_categories} categories mined`;
   document.getElementById("cnt-overview").textContent = META.total_categories;
-  document.getElementById("cnt-comparisons").textContent = CATS["comparisons"].counts.pages;
-  document.getElementById("cnt-sleeper-profiles").textContent = CATS["sleeper-profiles"].counts.pages;
-  document.getElementById("cnt-pricing-sales").textContent = CATS["pricing-sales"].counts.pages;
+  Object.keys(CATS).forEach(k => {
+    const el = document.getElementById("cnt-" + k);
+    if (el) el.textContent = CATS[k].counts.pages;
+  });
   document.getElementById("cnt-research").textContent = META.affiliates.length + META.all_sources.length;
 
   const sl = document.getElementById("sheetLink");
