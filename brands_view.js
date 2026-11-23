@@ -619,11 +619,21 @@
   function mountModels(panel, data) {
     const models = data.models || [];
     const brandsMap = new Map();
-    models.forEach(m => { if (!brandsMap.has(m.brand_slug)) brandsMap.set(m.brand_slug, m.brand_name); });
+    let actCnt = 0, discCnt = 0;
+    models.forEach(m => {
+      if (!brandsMap.has(m.brand_slug)) brandsMap.set(m.brand_slug, m.brand_name);
+      if (m.model_status && m.model_status !== "Active") discCnt++; else actCnt++;
+    });
     const brandOpts = [...brandsMap.entries()].sort((a, b) => a[1].localeCompare(b[1]));
     const typeOpts = [...new Set(models.map(m => m.model_type).filter(Boolean))].sort();
+    if (!bState.mStatus) bState.mStatus = "";
 
     panel.innerHTML = `
+      <div class="b-scope-bar" id="mScopeBar">
+        <button class="b-scope-pill active" data-mscope="" type="button">All Models <span>${models.length.toLocaleString()}</span></button>
+        <button class="b-scope-pill" data-mscope="Active" type="button">Active <span>${actCnt.toLocaleString()}</span></button>
+        <button class="b-scope-pill" data-mscope="Discontinued / Historical" type="button">Discontinued / Historical <span>${discCnt.toLocaleString()}</span></button>
+      </div>
       <div id="mFilterBannerWrap"></div>
       <div class="card">
         <div class="b-controls">
@@ -643,10 +653,11 @@
               <tr>
                 <th class="sortable" data-col="brand">Brand</th>
                 <th class="sortable" data-col="model">Model Name</th>
+                <th class="sortable" data-col="status">Status</th>
                 <th class="sortable" data-col="type">Type</th>
                 <th class="sortable num" data-col="price">Queen Price</th>
                 <th class="b-col-hide-sm">Catalog Source</th>
-                <th class="b-col-hide-sm">Official Link</th>
+                <th class="b-col-hide-sm">Link</th>
               </tr>
             </thead>
             <tbody id="mTbody"></tbody>
@@ -662,6 +673,11 @@
     const bannerWrap = document.getElementById("mFilterBannerWrap");
     const brandSel = document.getElementById("mBrandSel");
 
+    function modelStatusPill(st) {
+      if (st && st !== "Active") return `<span class="b-st-pill st-disc">Discontinued</span>`;
+      return `<span class="b-st-pill st-active">Active</span>`;
+    }
+
     function renderModelRows() {
       brandSel.value = bState.mBrand;
       const activeBrandName = bState.mBrand ? (brandsMap.get(bState.mBrand) || bState.mBrand) : "";
@@ -673,6 +689,8 @@
       const filtered = [];
       for (let i = 0; i < models.length; i++) {
         const m = models[i];
+        const mst = m.model_status || "Active";
+        if (bState.mStatus && mst !== bState.mStatus) continue;
         if (bState.mBrand && m.brand_slug !== bState.mBrand) continue;
         if (bState.mType && m.model_type !== bState.mType) continue;
         if (ql && !m._q.includes(ql)) continue;
@@ -682,6 +700,7 @@
       filtered.sort((a, b) => {
         if (col === "brand") return cmpNullable(a.brand_name, b.brand_name, dir, true) || (a.model_name || "").localeCompare(b.model_name || "");
         if (col === "model") return cmpNullable(a.model_name, b.model_name, dir, true);
+        if (col === "status") return cmpNullable(a.model_status || "Active", b.model_status || "Active", dir, true);
         if (col === "type") return cmpNullable(a.model_type, b.model_type, dir, true);
         if (col === "price") return cmpNullable(a.queen_price_usd, b.queen_price_usd, dir, false);
         return 0;
@@ -699,19 +718,28 @@
         <tr>
           <td><strong>${esc(m.brand_name)}</strong></td>
           <td>${esc(m.model_name)}</td>
+          <td>${modelStatusPill(m.model_status)}</td>
           <td>${typePill(m.model_type)}</td>
           <td class="num"><strong>${fmtUsd(m.queen_price_usd)}</strong></td>
           <td class="b-col-hide-sm"><span class="b-muted">${esc(m.source || "")}</span></td>
           <td class="b-col-hide-sm"><a href="${esc(m.url)}" target="_blank" rel="noopener">View &#8599;</a></td>
         </tr>
-      `).join("") : `<tr><td colspan="6" style="text-align:center;padding:28px;color:var(--sub);">No models match your current filter.</td></tr>`;
+      `).join("") : `<tr><td colspan="7" style="text-align:center;padding:28px;color:var(--sub);">No models match your current filter.</td></tr>`;
 
       foot.innerHTML = `<span>Showing ${shown.length.toLocaleString()} of ${filtered.length.toLocaleString()} models</span>`
-        + (shown.length < filtered.length ? `<button class="load-btn" type="button" id="mLoadAll">Show all ${filtered.length.toLocaleString()}</button>` : "");
+        + (shown.length < filtered.length ? `<button class="load-btn" type="button" id="mLoadMore">Show +250 more</button>` : "");
     }
 
     updateModelsViewFn = renderModelRows;
 
+    document.getElementById("mScopeBar").addEventListener("click", e => {
+      const btn = e.target.closest(".b-scope-pill");
+      if (!btn) return;
+      bState.mStatus = btn.dataset.mscope;
+      bState.mLimit = 150;
+      document.querySelectorAll("#mScopeBar .b-scope-pill").forEach(x => x.classList.toggle("active", x === btn));
+      renderModelRows();
+    });
     bannerWrap.addEventListener("click", e => {
       if (e.target.id === "mClearBrand") {
         bState.mBrand = "";
@@ -728,7 +756,7 @@
       renderModelRows();
     });
     foot.addEventListener("click", e => {
-      if (e.target.id === "mLoadAll") { bState.mLimit = models.length; renderModelRows(); }
+      if (e.target.id === "mLoadMore") { bState.mLimit += 250; renderModelRows(); }
     });
     document.getElementById("mSearch").addEventListener("input", debounce(e => { bState.mQ = e.target.value; renderModelRows(); }, 60));
     brandSel.addEventListener("change", e => {
