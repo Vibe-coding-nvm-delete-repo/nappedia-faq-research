@@ -1167,6 +1167,10 @@
           <span>FAQs</span>
           <span class="tab-count" id="cnt-macro-faqs">0</span>
         </button>
+        <button class="macro-pill" id="macro-brand-faqs" data-macro="brand-faqs" role="tab" type="button" aria-selected="false">
+          <span>Brand FAQs</span>
+          <span class="tab-count" id="cnt-macro-brand-faqs">0</span>
+        </button>
         <button class="macro-pill" id="macro-brands" data-macro="brands" role="tab" type="button" aria-selected="false">
           <span>Brands</span>
           <span class="tab-count" id="cnt-macro-brands">0</span>
@@ -1212,6 +1216,21 @@
     <button class="cat-tab" id="tab-research" data-cat="research" role="tab" type="button">
       <span>Library</span>
       <span class="tab-count" id="cnt-research">157</span>
+    </button>
+  </nav>
+
+  <nav class="cat-tabs" id="brandFaqTabs" role="tablist" aria-label="Brand FAQs Sections" style="display:none;gap:4px;">
+    <button class="cat-tab active" id="bftab-explorer" data-bfsub="explorer" role="tab" type="button">
+      <span>All FAQs</span>
+      <span class="tab-count" id="cnt-bf-explorer">0</span>
+    </button>
+    <button class="cat-tab" id="bftab-brands" data-bfsub="brands" role="tab" type="button">
+      <span>By Brand</span>
+      <span class="tab-count" id="cnt-bf-brands">0</span>
+    </button>
+    <button class="cat-tab" id="bftab-audit" data-bfsub="audit" role="tab" type="button">
+      <span>Audit</span>
+      <span class="tab-count" id="cnt-bf-audit">0</span>
     </button>
   </nav>
 
@@ -1308,6 +1327,10 @@
   </section>
 
   <!-- VIEW 4: MACRO PILLAR - BRANDS RESEARCH -->
+  <section id="brandFaqsView" style="display:none;">
+    <div id="brandFaqsContent"></div>
+  </section>
+
   <section id="brandsView" style="display:none;">
     <div id="brandsContent"></div>
   </section>
@@ -1356,6 +1379,8 @@
 <script src="./data/cat_care_cleaning.js"></script>
 <script src="./data/cat_moving_disposal.js"></script>
 <script src="./data/brands_master.js"></script>
+<script src="./data/brand_faqs.js"></script>
+<script src="./brand_faqs_view.js"></script>
 <script src="./data/brand_reviews_tracker.js"></script>
 <script src="./brands_analytics.js"></script>
 <script src="./brands_view.js"></script>
@@ -1494,6 +1519,12 @@ function initFromHash() {
   } else if (h === "brands-sources") {
     state.macro = "brands";
     state.brandSub = "sources";
+  } else if (h === "brand-faqs" || h === "brand-faqs-explorer" || h === "brand-faqs-brands" || h === "brand-faqs-audit") {
+    state.macro = "brand-faqs";
+    if (window.setBrandFaqSub) {
+      const sub = h === "brand-faqs-brands" ? "brands" : (h === "brand-faqs-audit" ? "audit" : "explorer");
+      window.setBrandFaqSub(sub, false);
+    }
   } else if (h === "overview" || h === "research" || Boolean(CATS[h])) {
     state.macro = "faqs";
     state.cat = h;
@@ -1510,6 +1541,7 @@ function setMacro(macro, resetHash = true) {
       ? "#reviews"
       : macro === "brands"
       ? (state.brandSub === "benchmarks" ? "#brands" : "#brands-" + state.brandSub)
+      : macro === "brand-faqs" ? "#brand-faqs"
       : "#" + state.cat;
     history.replaceState(null, "", nextHash);
   }
@@ -1577,11 +1609,16 @@ function sortRows(rows, key, dir) {
 function renderTopbarAndTabs() {
   const isBrands = state.macro === "brands";
   const isReviews = state.macro === "reviews";
+  const isBrandFaqs = state.macro === "brand-faqs";
+  const isFaqs = !isBrands && !isReviews && !isBrandFaqs;
+  const bfSum = (window.NAPPEDIA_BRAND_FAQS && window.NAPPEDIA_BRAND_FAQS.summary) || { kept_pages: 0, brands_covered: 0, live_sources_used: [] };
   const isFaqs = !isBrands && !isReviews;
   const bCounts = BRANDS_DATA ? BRANDS_DATA.benchmarks.counts : { active_us_brands: 0, primary_verified_brands: 0 };
   const rvData = window.NAPPEDIA_BRAND_REVIEWS;
 
   document.getElementById("cnt-macro-faqs").textContent = META.total_kept_pages.toLocaleString();
+  const bfMacroEl = document.getElementById("cnt-macro-brand-faqs");
+  if (bfMacroEl) bfMacroEl.textContent = (bfSum.kept_pages || 0).toLocaleString();
   document.getElementById("cnt-macro-brands").textContent = bCounts.active_us_brands.toLocaleString();
   const rvCntEl = document.getElementById("cnt-macro-reviews");
   if (rvCntEl && rvData) rvCntEl.textContent = rvData.summary.total.toLocaleString();
@@ -2548,6 +2585,8 @@ function render() {
   renderTopbarAndTabs();
   if (state.macro === "reviews") {
     if (window.renderReviewsWorkspace) window.renderReviewsWorkspace();
+  } else if (state.macro === "brand-faqs") {
+    if (window.renderBrandFaqsView) window.renderBrandFaqsView();
   } else if (state.macro === "brands") {
     if (window.renderBrandsWorkspace) window.renderBrandsWorkspace(state.brandSub, state.brandModelFilter);
   } else if (state.cat === "overview") {
@@ -2562,6 +2601,9 @@ document.querySelectorAll(".macro-pill").forEach(btn => {
 });
 document.querySelectorAll("#catTabs .cat-tab").forEach(btn => {
   btn.addEventListener("click", () => setCategory(btn.dataset.cat));
+});
+document.querySelectorAll("#brandFaqTabs .cat-tab").forEach(btn => {
+  btn.addEventListener("click", () => { if (window.setBrandFaqSub) window.setBrandFaqSub(btn.dataset.bfsub); });
 });
 document.querySelectorAll("#brandTabs .cat-tab").forEach(btn => {
   btn.addEventListener("click", () => setBrandSub(btn.dataset.bsub));
