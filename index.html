@@ -71,7 +71,31 @@
     padding: 16px 20px 48px;
   }
 
-  /* --- Top Bar --- */
+  /* --- Universal Sticky Top Header --- */
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 60;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06), 0 4px 16px rgba(15, 23, 42, 0.04);
+  }
+  .site-header-inner {
+    max-width: 1280px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: nowrap;
+  }
+  @media (max-width: 1080px) {
+    .site-header-inner { flex-wrap: wrap; }
+  }
   .topbar {
     display: flex;
     align-items: center;
@@ -80,35 +104,40 @@
     flex-wrap: wrap;
     margin-bottom: 10px;
   }
-  .brand-wrap { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .brand-wrap { display: flex; align-items: center; gap: 10px; flex-wrap: nowrap; min-width: 0; }
   .brand {
     font-family: Georgia, "Times New Roman", serif;
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 700;
     color: var(--ink);
     margin: 0;
     line-height: 1.2;
-  }
-  .brand-meta { font-size: 13px; color: var(--sub); }
-  .top-actions { display: flex; align-items: center; gap: 8px; }
-  .util-btn {
-    border: none;
-    background: var(--surface);
-    color: var(--ink);
-    padding: 7px 12px;
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: var(--shadow-sm);
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    min-height: 32px;
+    letter-spacing: -0.01em;
     white-space: nowrap;
   }
-  .util-btn:hover { background: #f8fafc; text-decoration: none; }
-  .util-btn.link-btn { color: var(--accent); }
+  .brand-meta { display: none; }
+  .header-nav-center { display: flex; align-items: center; flex-shrink: 0; }
+  .top-actions { display: flex; align-items: center; gap: 8px; flex-wrap: nowrap; flex-shrink: 0; }
+  .util-btn {
+    border: none;
+    background: var(--control);
+    color: var(--ink);
+    padding: 6px 11px;
+    border-radius: 8px;
+    font-size: 12.5px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    min-height: 32px;
+    white-space: nowrap;
+    transition: background 0.12s ease;
+  }
+  .util-btn:hover { background: var(--control-hover); text-decoration: none; }
+  .util-btn.link-btn { color: var(--accent); background: var(--accent-soft); }
+  .util-btn.link-btn:hover { background: #d6e8fb; }
 
   /* --- Top-Level Category Tabs --- */
   .cat-tabs {
@@ -1103,8 +1132,20 @@
 .rv-live-link { color: #0066cc; font-weight: 600; text-decoration: none; white-space: nowrap; }
 .rv-live-link:hover { text-decoration: underline; }
 .rv-live-muted { color: #64748b; font-weight: 500; }
+.rv-engine-badge { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 999px; background: #e8f2fc; color: #0066cc; font-size: 11.5px; font-weight: 700; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; white-space: nowrap; }
+.rv-date { font-size: 12.5px; font-weight: 600; color: var(--ink); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.rv-time { font-size: 11px; color: var(--sub); white-space: nowrap; font-variant-numeric: tabular-nums; margin-top: 1px; }
+.rv-th-inner { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
+.rv-help { display: inline-flex; align-items: center; justify-content: center; width: 15px; height: 15px; border-radius: 999px; background: #e2e8f0; color: #475569; font-size: 10px; font-weight: 700; line-height: 1; cursor: help; flex-shrink: 0; transition: background 0.12s ease, color 0.12s ease; text-transform: none; letter-spacing: 0; }
+.rv-help:hover, .rv-help:focus-visible { background: #0066cc; color: #ffffff; outline: none; }
+.rv-col-tooltip { position: fixed; z-index: 120; max-width: 280px; padding: 9px 12px; border-radius: 9px; background: #0f172a; color: #f8fafc; font-size: 12px; line-height: 1.45; font-weight: 400; box-shadow: 0 10px 28px rgba(15, 23, 42, 0.28), 0 2px 6px rgba(15, 23, 42, 0.14); pointer-events: none; opacity: 0; transform: translateY(4px); transition: opacity 0.12s ease, transform 0.12s ease; }
+.rv-col-tooltip.visible { opacity: 1; transform: translateY(0); }
+.rv-col-tooltip strong { display: block; font-size: 12px; font-weight: 700; color: #ffffff; margin-bottom: 3px; }
 @media (max-width: 1080px) { .rv-kpi-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (max-width: 640px) {
+  .site-header-inner { padding: 10px 12px; gap: 8px; }
+  .brand { font-size: 18px; }
+  .brand-meta { display: none; }
   .rv-kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
   .rv-kpi { padding: 12px; }
   .rv-kpi-val { font-size: 22px; }
@@ -1113,14 +1154,14 @@
 </style>
 </head>
 <body>
-<div class="app">
-  <header class="topbar">
+<header class="site-header" role="banner">
+  <div class="site-header-inner">
     <div class="brand-wrap">
       <h1 class="brand">Nappedia Research</h1>
       <span class="macro-crumb" id="macroCrumb">Research &#8250; FAQs</span>
       <span class="brand-meta" id="brandMeta"></span>
     </div>
-    <div class="top-actions">
+    <nav class="header-nav-center" aria-label="Primary Research Tabs">
       <div class="macro-switch" id="macroSwitch" role="tablist" aria-label="Macro Research Pillars">
         <button class="macro-pill active" id="macro-faqs" data-macro="faqs" role="tab" type="button" aria-selected="true">
           <span>FAQs</span>
@@ -1135,10 +1176,15 @@
           <span class="tab-count" id="cnt-macro-reviews">0</span>
         </button>
       </div>
+    </nav>
+    <div class="top-actions">
+      <a class="util-btn link-btn" href="https://www.nappedia.com/reviews" target="_blank" rel="noopener">Nappedia.com &#8599;</a>
       <a class="util-btn link-btn" id="sheetLink" href="#" target="_blank" rel="noopener">Google Sheet &#8599;</a>
       <button class="util-btn" id="methodBtn" type="button">How Pages Are Validated</button>
     </div>
-  </header>
+  </div>
+</header>
+<div class="app">
 
   <nav class="cat-tabs" id="catTabs" role="tablist" aria-label="FAQ Research Sections">
     <button class="cat-tab active" id="tab-overview" data-cat="overview" role="tab" type="button">
@@ -1273,6 +1319,7 @@
 </div>
 
 <div class="chart-tooltip" id="chartTooltip" role="tooltip"></div>
+<div class="rv-col-tooltip" id="rvColTooltip" role="tooltip" aria-hidden="true"></div>
 
 <div class="modal-backdrop" id="methodModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
   <div class="modal">
@@ -1551,7 +1598,7 @@ function renderTopbarAndTabs() {
   });
 
   document.getElementById("brandMeta").textContent = isReviews && rvData
-    ? `${rvData.summary.written_total.toLocaleString()} of ${rvData.summary.total.toLocaleString()} written · ${rvData.summary.live.toLocaleString()} live now · ${(rvData.summary.merged_deploying + rvData.summary.shipping).toLocaleString()} deploying in MR !428`
+    ? `${rvData.summary.live.toLocaleString()} of ${rvData.summary.total.toLocaleString()} live · Engine ${rvData.engineVersion || "v3.1"}`
     : isBrands
     ? `${bCounts.active_us_brands.toLocaleString()} active US brands · ${(bCounts.primary_verified_brands + (bCounts.enriched_live_brands || 0)).toLocaleString()} live-scraped · ${BRANDS_DATA.meta.schema_field_count} fields`
     : `${META.total_kept_pages.toLocaleString()} validated pages · ${META.done_categories} of ${META.total_categories} categories mined`;
