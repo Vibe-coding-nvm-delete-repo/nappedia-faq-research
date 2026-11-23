@@ -1,7 +1,8 @@
 /* =========================================================================
- * Nappedia Research > Brands Workspace (v1)
- * Renders Benchmarks & Averages, Brand Universe (496 Active US + 68 Audit),
- * 46-Field Data Schema, and Sources & Methodology.
+ * Nappedia Research > Brands Workspace (v2)
+ * Renders Benchmarks & Averages, Brand Universe (1,376+ Active US + 68 Audit),
+ * Brand Models Catalog (with clickable Brand -> Models cross-filter),
+ * 50-Field Data Schema, and Sources & Discovery Exhaustion Log.
  * Universal 10 compliant (light shadows and subtle tints only).
  * ========================================================================= */
 (function () {
@@ -11,17 +12,57 @@
 
   const fmtUsd = v => (typeof v === "number" && !Number.isNaN(v)) ? "$" + Math.round(v).toLocaleString() : "—";
 
+  const TYPE_CLASS = {
+    "Memory Foam": "t-foam",
+    "Hybrid": "t-hybrid",
+    "All-Latex": "t-latex",
+    "Organic Hybrid": "t-organic",
+    "Innerspring": "t-spring",
+    "Air / Smart": "t-smart",
+    "Gel Grid": "t-grid",
+    "Crib / Kids": "t-crib",
+    "RV / Custom": "t-rv",
+    "Specialty (Crib)": "t-crib",
+    "Medical / Alternating Pressure": "t-rv",
+  };
+
+  function typePill(t) {
+    if (!t) return "—";
+    const cls = TYPE_CLASS[t] || "t-default";
+    return `<span class="b-type-pill ${cls}">${esc(t)}</span>`;
+  }
+
+  function fgPill(status) {
+    if (status === "No") return `<span class="b-fg-pill fg-no">No</span>`;
+    if (status === "Historical (Removed)") return `<span class="b-fg-pill fg-hist" title="Used fiberglass pre-2023/2024; phased out">Historical</span>`;
+    if (status === "Yes") return `<span class="b-fg-pill fg-yes">Yes</span>`;
+    return `<span class="b-muted">—</span>`;
+  }
+
+  function lawsuitPill(cnt) {
+    if (cnt == null) return `<span class="b-muted">—</span>`;
+    if (cnt === 0) return `<span class="b-law-pill law-zero">0</span>`;
+    return `<span class="b-law-pill law-hit">${cnt}</span>`;
+  }
+
   const bState = {
-    sub: "benchmarks", // benchmarks | directory | schema | sources
+    sub: "benchmarks", // benchmarks | directory | models | schema | sources
     scope: "active",   // active | primary | directory | excluded
     q: "",
     seg: "",
     ftype: "",
     brk: "",
-    war: "",
+    fg: "",
+    law: "",
     sort: "tier_name",
     limit: 100,
     expanded: new Set(),
+    // Models tab state
+    mBrand: "",
+    mType: "",
+    mQ: "",
+    mSort: "brand_asc",
+    mLimit: 120,
   };
 
   function copyStat(btn) {
@@ -36,6 +77,22 @@
       btn.textContent = old;
       btn.classList.remove("copied");
     }, 1200);
+  }
+
+  function jumpToBrandModels(brandSlug) {
+    bState.mBrand = brandSlug || "";
+    bState.mType = "";
+    bState.mQ = "";
+    bState.mLimit = 200;
+    if (window.setBrandSub) {
+      window.setBrandSub("models", false);
+    } else {
+      bState.sub = "models";
+    }
+    const h = brandSlug ? `#brands-models?brand=${encodeURIComponent(brandSlug)}` : "#brands-models";
+    history.replaceState(null, "", h);
+    window.renderBrandsWorkspace("models", brandSlug);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   function renderBenchmarks(root, data) {
@@ -118,12 +175,12 @@
         <div class="kpi-card">
           <div class="kpi-label">Active US Mattress Brands</div>
           <div class="kpi-val">${c.active_us_brands.toLocaleString()}</div>
-          <div class="kpi-sub">${c.total_discovered_entities} discovered · ${c.discontinued_or_non_us} defunct/non-US audited</div>
+          <div class="kpi-sub">${c.total_discovered_entities.toLocaleString()} discovered · ${c.calrecycle_registered_brands || 0} CalRecycle CA-registered</div>
         </div>
         <div class="kpi-card">
-          <div class="kpi-label">Primary-Verified Dossiers</div>
-          <div class="kpi-val">${c.primary_verified_brands}</div>
-          <div class="kpi-sub">Live official policy &amp; pricing scrape (${esc(bm.verified_date)})</div>
+          <div class="kpi-label">Primary-Verified &amp; Models</div>
+          <div class="kpi-val">${c.primary_verified_brands} <span style="font-size:15px;color:var(--sub);font-family:Inter,sans-serif;font-weight:600;">(${(c.total_models_tracked || 0).toLocaleString()} models)</span></div>
+          <div class="kpi-sub">Live official policy, fiberglass &amp; catalog scrape (${esc(bm.verified_date)})</div>
         </div>
         <div class="kpi-card">
           <div class="kpi-label">Avg Queen Sale Price</div>
@@ -163,7 +220,7 @@
                 const pctW = Math.max(8, Math.round((r.avg_sale_usd / maxPrice) * 100));
                 return `
                   <tr>
-                    <td><strong>${esc(r.type)}</strong></td>
+                    <td>${typePill(r.type)}</td>
                     <td class="num">${r.n}</td>
                     <td class="num"><strong>${fmtUsd(r.avg_sale_usd)}</strong></td>
                     <td class="num">${fmtUsd(r.median_sale_usd)}</td>
@@ -211,6 +268,8 @@
         (b.parent_company || "").toLowerCase().includes(ql) ||
         (b.flagship_model || "").toLowerCase().includes(ql) ||
         (b.market_segment || "").toLowerCase().includes(ql) ||
+        (b.fiberglass_exact_name || "").toLowerCase().includes(ql) ||
+        (b.hq_location || "").toLowerCase().includes(ql) ||
         (b.certifications || []).join(" ").toLowerCase().includes(ql)
       );
     }
@@ -220,15 +279,18 @@
     else if (bState.brk === "any") rows = rows.filter(b => b.mandatory_break_in_required === true);
     else if (bState.brk === "none") rows = rows.filter(b => b.mandatory_break_in_required === false);
 
-    if (bState.war === "lifetime") rows = rows.filter(b => b.is_lifetime_warranty === true);
-    else if (bState.war === "20plus") rows = rows.filter(b => !b.is_lifetime_warranty && typeof b.warranty_years === "number" && b.warranty_years >= 20);
-    else if (bState.war === "10to15") rows = rows.filter(b => !b.is_lifetime_warranty && typeof b.warranty_years === "number" && b.warranty_years >= 10 && b.warranty_years <= 15);
+    if (bState.fg === "no") rows = rows.filter(b => b.fiberglass_status === "No");
+    else if (bState.fg === "hist") rows = rows.filter(b => b.fiberglass_status === "Historical (Removed)" || b.fiberglass_status === "Yes");
+
+    if (bState.law === "any") rows = rows.filter(b => typeof b.lawsuit_count === "number" && b.lawsuit_count > 0);
+    else if (bState.law === "zero") rows = rows.filter(b => b.lawsuit_count === 0);
 
     rows = rows.slice().sort((a, b) => {
       if (bState.sort === "name_asc") return (a.brand_name || "").localeCompare(b.brand_name || "");
       if (bState.sort === "price_asc") return (a.queen_sale_usd ?? 999999) - (b.queen_sale_usd ?? 999999);
       if (bState.sort === "price_desc") return (b.queen_sale_usd ?? -1) - (a.queen_sale_usd ?? -1);
-      if (bState.sort === "trial_desc") return (b.trial_nights ?? -1) - (a.trial_nights ?? -1);
+      if (bState.sort === "models_desc") return (b.models_count ?? 0) - (a.models_count ?? 0);
+      if (bState.sort === "lawsuits_desc") return (b.lawsuit_count ?? -1) - (a.lawsuit_count ?? -1);
       if (bState.sort === "founded_asc") return (a.founded_year ?? 9999) - (b.founded_year ?? 9999);
       const ta = a.verification_tier === "PRIMARY_VERIFIED" ? 0 : 1;
       const tb = b.verification_tier === "PRIMARY_VERIFIED" ? 0 : 1;
@@ -245,16 +307,15 @@
           <div class="b-drawer-grid">
             <div>
               <h4>Discovery &amp; Classification</h4>
-              <p><strong>Status:</strong> ${esc(b.us_active_status)} (${esc(b.verification_tier)})</p>
-              <p><strong>Market Segment:</strong> ${esc(b.market_segment)}</p>
-              <p><strong>Sales Channel:</strong> ${esc(b.sales_channel || "—")}</p>
-              <p><strong>Parent Company:</strong> ${esc(b.parent_company || "Unverified")}</p>
+              <p><strong>Status:</strong> ${esc(b.us_active_status)} (${esc(b.verification_tier)}) ${b.calrecycle_registered ? '<span class="b-cal-badge">CalRecycle CA-Reg</span>' : ""}</p>
+              <p><strong>Market Segment:</strong> ${esc(b.market_segment)} · <strong>Sales Channel:</strong> ${esc(b.sales_channel || "—")}</p>
+              <p><strong>Parent / Account:</strong> ${esc(b.parent_company || "Unverified")} · <strong>HQ:</strong> ${esc(b.hq_location || "—")}</p>
               ${b.audit_reason ? `<p><strong>Audit Note:</strong> ${esc(b.audit_reason)}</p>` : ""}
             </div>
             <div>
               <h4>Discovery Provenance &amp; Next Step</h4>
               <p><strong>Discovered Via:</strong> ${(b.discovery_sources || []).map(s => `<span class="pill p-search">${esc(s)}</span>`).join(" ")}</p>
-              <p><strong>Types Offered:</strong> ${esc((b.types_offered || []).join(", ") || "—")}</p>
+              <p><strong>Types Offered:</strong> ${(b.types_offered || []).map(t => typePill(t)).join(" ") || "—"}</p>
               <p><strong>Reference Link:</strong> <a href="${esc(b.website_url)}" target="_blank" rel="noopener">${esc(b.website_url)} &#8599;</a></p>
             </div>
           </div>
@@ -272,19 +333,19 @@
       <div class="b-drawer">
         <div class="b-drawer-grid">
           <div>
-            <h4>Pricing, Ownership &amp; Logistics</h4>
-            <p><strong>Flagship Priced:</strong> ${esc(b.flagship_model || "—")} (${esc(b.flagship_type || "—")})</p>
+            <h4>Pricing, Ownership &amp; Models</h4>
+            <p><strong>Flagship Priced:</strong> ${esc(b.flagship_model || "—")} ${typePill(b.flagship_type)}</p>
             <p><strong>Queen Price:</strong> <strong>${fmtUsd(b.queen_sale_usd)}</strong> sale · ${fmtUsd(b.queen_msrp_usd)} MSRP (${esc(spread)})</p>
-            <p><strong>Parent Company:</strong> ${esc(b.parent_company || "Independent")} · Founded ${b.founded_year || "—"} · ${esc(b.hq_location || "—")}</p>
+            <p><strong>Parent Company:</strong> ${esc(b.parent_company || "Independent")} · <strong>Founded:</strong> ${b.founded_year || "—"} · ${esc(b.hq_location || "—")}</p>
             <p><strong>Manufacturing:</strong> ${esc(b.made_in_usa || "Unverified")} · <strong>Split King:</strong> ${b.offers_split_king ? "Yes" : "No"} · <strong>Flippable:</strong> ${b.offers_flippable_or_dual ? "Yes" : "No"}</p>
-            <p><strong>White-Glove:</strong> ${b.white_glove_available ? (b.white_glove_fee_usd === 0 ? "Free" : fmtUsd(b.white_glove_fee_usd)) : "Not offered"} · <strong>0% APR Financing:</strong> ${b.financing_zero_apr ? "Yes" : "No"}</p>
+            <p><strong>White-Glove:</strong> ${b.white_glove_available ? (b.white_glove_fee_usd === 0 ? "Free" : fmtUsd(b.white_glove_fee_usd)) : "Not offered"} · <strong>0% APR Financing:</strong> ${b.financing_zero_apr ? "Yes" : "No"} · <strong>Models:</strong> <button class="b-model-link" type="button" data-jump-brand="${esc(b.slug)}">View ${b.models_count || 0} models &#8594;</button></p>
           </div>
           <div>
-            <h4>Trial, Returns, Warranty &amp; Safety</h4>
-            <p><strong>Sleep Trial:</strong> ${b.trial_nights ? b.trial_nights + " nights" : "No brand trial"} · <strong>Mandatory Break-In:</strong> ${b.mandatory_break_in_required ? `Yes (${b.mandatory_break_in_days} days)` : "No (0 days)"}</p>
-            <p><strong>Returns:</strong> ${b.free_returns ? "Free ($0)" : (b.return_fee_usd ? fmtUsd(b.return_fee_usd) + " fee" : "Fee / Exchange-only")} · ${esc(b.return_method || "")}</p>
+            <h4>Trial, Warranty, Fiberglass &amp; Lawsuits</h4>
+            <p><strong>Sleep Trial:</strong> ${b.trial_nights ? b.trial_nights + " nights" : "No brand trial"} · <strong>Mandatory Break-In:</strong> ${b.mandatory_break_in_required ? `Yes (${b.mandatory_break_in_days} days)` : "No (0 days)"} · <strong>Returns:</strong> ${b.free_returns ? "Free ($0)" : (b.return_fee_usd ? fmtUsd(b.return_fee_usd) + " fee" : "Fee / Exchange")}</p>
             <p><strong>Warranty:</strong> ${esc(warStr)} · <strong>Non-Prorated:</strong> ${b.non_prorated_years ? b.non_prorated_years + " yrs" : "—"} · <strong>Sag Threshold:</strong> ${b.sag_threshold_inches ? b.sag_threshold_inches + '"' : "—"} · <strong>Max Slat Gap:</strong> ${b.max_slat_spacing_inches ? b.max_slat_spacing_inches + '"' : "—"}</p>
-            <p><strong>Fiberglass-Free:</strong> ${esc(b.fiberglass_free || "Unverified")} · <strong>Fire Barrier:</strong> ${esc(b.fire_barrier_type || "Undisclosed")}</p>
+            <p><strong>Fiberglass:</strong> ${fgPill(b.fiberglass_status)} · <strong>Exact Material Spec:</strong> ${esc(b.fiberglass_exact_name || b.fire_barrier_type || "Undisclosed")}</p>
+            <p><strong>Documented Lawsuits / FTC Actions (${b.lawsuit_count ?? 0}):</strong> ${esc(b.lawsuit_summary || "None documented.")}</p>
             <p><strong>Certifications:</strong> ${(b.certifications || []).length ? b.certifications.map(c => `<span class="pill p-study">${esc(c)}</span>`).join(" ") : "None disclosed"}</p>
           </div>
         </div>
@@ -309,15 +370,15 @@
 
     root.innerHTML = `
       <div class="b-scope-bar">
-        <button class="b-scope-pill ${bState.scope === "active" ? "active" : ""}" data-scope="active" type="button">All Active US <span>${c.active_us_brands}</span></button>
+        <button class="b-scope-pill ${bState.scope === "active" ? "active" : ""}" data-scope="active" type="button">All Active US <span>${c.active_us_brands.toLocaleString()}</span></button>
         <button class="b-scope-pill ${bState.scope === "primary" ? "active" : ""}" data-scope="primary" type="button">Primary-Verified Core <span>${c.primary_verified_brands}</span></button>
-        <button class="b-scope-pill ${bState.scope === "directory" ? "active" : ""}" data-scope="directory" type="button">Directory Queue <span>${c.directory_queued_brands}</span></button>
+        <button class="b-scope-pill ${bState.scope === "directory" ? "active" : ""}" data-scope="directory" type="button">Directory &amp; CalRecycle Queue <span>${c.directory_queued_brands.toLocaleString()}</span></button>
         <button class="b-scope-pill ${bState.scope === "excluded" ? "active" : ""}" data-scope="excluded" type="button">Excluded Audit Log <span>${c.discontinued_or_non_us}</span></button>
       </div>
 
       <div class="card">
         <div class="b-controls">
-          <input id="bSearch" class="b-input" type="search" placeholder="Search brand, parent company, model, certification..." value="${esc(bState.q)}">
+          <input id="bSearch" class="b-input" type="search" placeholder="Search brand, parent, model, fiberglass, city/state..." value="${esc(bState.q)}">
           <select id="bSeg" class="b-select" aria-label="Market Segment">
             <option value="">All Segments</option>
             ${allSegs.map(s => `<option value="${esc(s)}" ${bState.seg === s ? "selected" : ""}>${esc(s)}</option>`).join("")}
@@ -332,18 +393,23 @@
             <option value="any" ${bState.brk === "any" ? "selected" : ""}>Any Forced Break-In</option>
             <option value="none" ${bState.brk === "none" ? "selected" : ""}>No Mandatory Wait (0d)</option>
           </select>
-          <select id="bWar" class="b-select" aria-label="Warranty">
-            <option value="">Warranty: All</option>
-            <option value="lifetime" ${bState.war === "lifetime" ? "selected" : ""}>Lifetime Warranty</option>
-            <option value="20plus" ${bState.war === "20plus" ? "selected" : ""}>20–30 Years</option>
-            <option value="10to15" ${bState.war === "10to15" ? "selected" : ""}>10–15 Years</option>
+          <select id="bFg" class="b-select" aria-label="Fiberglass">
+            <option value="">Fiberglass: All</option>
+            <option value="no" ${bState.fg === "no" ? "selected" : ""}>Fiberglass-Free (No)</option>
+            <option value="hist" ${bState.fg === "hist" ? "selected" : ""}>Historical / Yes</option>
+          </select>
+          <select id="bLaw" class="b-select" aria-label="Lawsuits">
+            <option value="">Lawsuits: All</option>
+            <option value="any" ${bState.law === "any" ? "selected" : ""}>Has Lawsuits / FTC (1+)</option>
+            <option value="zero" ${bState.law === "zero" ? "selected" : ""}>0 Documented</option>
           </select>
           <select id="bSort" class="b-select" aria-label="Sort Brands">
             <option value="tier_name" ${bState.sort === "tier_name" ? "selected" : ""}>Sort: Verified First</option>
             <option value="name_asc" ${bState.sort === "name_asc" ? "selected" : ""}>Sort: Name A–Z</option>
+            <option value="models_desc" ${bState.sort === "models_desc" ? "selected" : ""}>Sort: Most Models</option>
             <option value="price_asc" ${bState.sort === "price_asc" ? "selected" : ""}>Sort: Queen Price Low–High</option>
             <option value="price_desc" ${bState.sort === "price_desc" ? "selected" : ""}>Sort: Queen Price High–Low</option>
-            <option value="trial_desc" ${bState.sort === "trial_desc" ? "selected" : ""}>Sort: Longest Sleep Trial</option>
+            <option value="lawsuits_desc" ${bState.sort === "lawsuits_desc" ? "selected" : ""}>Sort: Most Lawsuits</option>
             <option value="founded_asc" ${bState.sort === "founded_asc" ? "selected" : ""}>Sort: Oldest Brand First</option>
           </select>
         </div>
@@ -353,13 +419,14 @@
             <thead>
               <tr>
                 <th>Brand</th>
-                <th class="b-col-seg-hide-sm">Segment</th>
-                <th class="b-col-hide-sm">Flagship Type</th>
-                <th class="num">Queen Sale</th>
-                <th class="num b-col-hide-sm">Trial</th>
-                <th class="b-col-hide-sm">Break-In</th>
+                <th class="num b-col-hide-md">Est.</th>
+                <th class="b-col-seg-hide-sm">Type</th>
+                <th class="b-col-hide-sm">Models</th>
+                <th class="num">Queen</th>
+                <th class="b-col-hide-sm">Trial / Wait</th>
+                <th class="b-col-hide-md">Fiberglass</th>
+                <th class="num b-col-hide-md">Lawsuits</th>
                 <th class="b-col-hide-md">Warranty</th>
-                <th class="b-col-hide-md">Return Fee</th>
               </tr>
             </thead>
             <tbody id="bDirTbody"></tbody>
@@ -374,7 +441,7 @@
       const shown = rows.slice(0, bState.limit);
       const tbody = document.getElementById("bDirTbody");
       if (!shown.length) {
-        tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;padding:28px;color:var(--sub);">No brands match your current filters.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="9" style="text-align:center;padding:28px;color:var(--sub);">No brands match your current filters.</td></tr>`;
       } else {
         tbody.innerHTML = shown.map(b => {
           const isOpen = bState.expanded.has(b.slug);
@@ -382,29 +449,42 @@
             ? `<span class="dot-done" title="Primary-Verified Core Dossier"></span>`
             : `<span class="b-dot-dir" title="${esc(b.verification_tier)}"></span>`;
           const warLbl = b.is_lifetime_warranty ? "Lifetime" : (b.warranty_years ? `${b.warranty_years} yr` : "—");
-          const brkLbl = b.mandatory_break_in_required === true
+          const brkTag = b.mandatory_break_in_required === true
             ? `<span class="pill p-forum">${b.mandatory_break_in_days}d wait</span>`
-            : (b.mandatory_break_in_required === false ? `<span class="pill p-study">None</span>` : "—");
-          const feeLbl = b.free_returns === true
-            ? `<span class="pill p-study">$0 Free</span>`
-            : (b.return_fee_usd ? `<span class="pill p-gap">${fmtUsd(b.return_fee_usd)}</span>` : (b.free_returns === false ? "Fee/Exch" : "—"));
+            : (b.mandatory_break_in_required === false ? `<span class="pill p-study">0d</span>` : "");
+          const trialCell = b.trial_nights != null
+            ? `${b.trial_nights === 0 ? "None" : b.trial_nights + "n"} ${brkTag}`
+            : "—";
+          const modelsCell = (b.models_count && b.models_count > 0)
+            ? `<button class="b-model-link" type="button" data-jump-brand="${esc(b.slug)}">${b.models_count} ${b.models_count === 1 ? "model" : "models"} &#8594;</button>`
+            : `<span class="b-muted">—</span>`;
+          const calTag = b.calrecycle_registered ? ` <span class="b-cal-badge" title="Registered in California CalRecycle Oct 2026 Registry">CA</span>` : "";
+
           return `
             <tr class="b-data-row ${isOpen ? "open" : ""}" data-slug="${esc(b.slug)}" tabindex="0">
               <td>
-                <div class="b-name-cell">${tierDot} <strong>${esc(b.brand_name)}</strong></div>
+                <div class="b-name-cell">${tierDot} <strong>${esc(b.brand_name)}</strong>${calTag}</div>
                 <div class="b-name-sub">${esc(b.parent_company || (b.verification_tier === "PRIMARY_VERIFIED" ? "Independent" : (b.discovery_sources || [])[0] || ""))} · ${esc(b.market_segment)}</div>
               </td>
-              <td class="b-col-seg-hide-sm"><span class="b-seg-tag">${esc(b.market_segment)}</span></td>
-              <td class="b-col-hide-sm">${esc(b.flagship_type || (b.types_offered || [])[0] || "—")}</td>
+              <td class="num b-col-hide-md">${b.founded_year || "—"}</td>
+              <td class="b-col-seg-hide-sm">${typePill(b.flagship_type || (b.types_offered || [])[0])}</td>
+              <td class="b-col-hide-sm">${modelsCell}</td>
               <td class="num"><strong>${fmtUsd(b.queen_sale_usd)}</strong></td>
-              <td class="num b-col-hide-sm">${b.trial_nights != null ? (b.trial_nights === 0 ? "None" : b.trial_nights + "n") : "—"}</td>
-              <td class="b-col-hide-sm">${brkLbl}</td>
+              <td class="b-col-hide-sm">${trialCell}</td>
+              <td class="b-col-hide-md">${fgPill(b.fiberglass_status)}</td>
+              <td class="num b-col-hide-md">${lawsuitPill(b.lawsuit_count)}</td>
               <td class="b-col-hide-md">${esc(warLbl)}</td>
-              <td class="b-col-hide-md">${feeLbl}</td>
             </tr>
-            ${isOpen ? `<tr class="b-drawer-row"><td colspan="8">${renderBrandDrawer(b)}</td></tr>` : ""}
+            ${isOpen ? `<tr class="b-drawer-row"><td colspan="9">${renderBrandDrawer(b)}</td></tr>` : ""}
           `;
         }).join("");
+
+        tbody.querySelectorAll(".b-model-link").forEach(btn => {
+          btn.addEventListener("click", e => {
+            e.stopPropagation();
+            jumpToBrandModels(btn.dataset.jumpBrand);
+          });
+        });
 
         tbody.querySelectorAll("tr.b-data-row").forEach(tr => {
           const toggle = () => {
@@ -437,10 +517,122 @@
     document.getElementById("bSeg").addEventListener("change", e => { bState.seg = e.target.value; bState.limit = 100; renderTableOnly(); });
     document.getElementById("bType").addEventListener("change", e => { bState.ftype = e.target.value; bState.limit = 100; renderTableOnly(); });
     document.getElementById("bBrk").addEventListener("change", e => { bState.brk = e.target.value; bState.limit = 100; renderTableOnly(); });
-    document.getElementById("bWar").addEventListener("change", e => { bState.war = e.target.value; bState.limit = 100; renderTableOnly(); });
+    document.getElementById("bFg").addEventListener("change", e => { bState.fg = e.target.value; bState.limit = 100; renderTableOnly(); });
+    document.getElementById("bLaw").addEventListener("change", e => { bState.law = e.target.value; bState.limit = 100; renderTableOnly(); });
     document.getElementById("bSort").addEventListener("change", e => { bState.sort = e.target.value; renderTableOnly(); });
 
     renderTableOnly();
+  }
+
+  function renderModels(root, data) {
+    const models = data.models || [];
+    const brandsMap = new Map();
+    models.forEach(m => { if (!brandsMap.has(m.brand_slug)) brandsMap.set(m.brand_slug, m.brand_name); });
+    const brandOpts = [...brandsMap.entries()].sort((a, b) => a[1].localeCompare(b[1]));
+    const typeOpts = [...new Set(models.map(m => m.model_type).filter(Boolean))].sort();
+    const activeBrandName = bState.mBrand ? (brandsMap.get(bState.mBrand) || bState.mBrand) : "";
+
+    root.innerHTML = `
+      ${activeBrandName ? `
+        <div class="b-filter-banner">
+          <span>Filtered to brand: <strong>${esc(activeBrandName)}</strong></span>
+          <button class="b-copy-btn" type="button" id="mClearBrand">Show All Brands</button>
+        </div>
+      ` : ""}
+      <div class="card">
+        <div class="b-controls">
+          <input id="mSearch" class="b-input" type="search" placeholder="Search model name or brand..." value="${esc(bState.mQ)}">
+          <select id="mBrandSel" class="b-select" aria-label="Filter by Brand">
+            <option value="">All Brands (${brandOpts.length})</option>
+            ${brandOpts.map(([sl, nm]) => `<option value="${esc(sl)}" ${bState.mBrand === sl ? "selected" : ""}>${esc(nm)}</option>`).join("")}
+          </select>
+          <select id="mTypeSel" class="b-select" aria-label="Filter by Type">
+            <option value="">All Construction Types</option>
+            ${typeOpts.map(t => `<option value="${esc(t)}" ${bState.mType === t ? "selected" : ""}>${esc(t)}</option>`).join("")}
+          </select>
+          <select id="mSortSel" class="b-select" aria-label="Sort Models">
+            <option value="brand_asc" ${bState.mSort === "brand_asc" ? "selected" : ""}>Sort: Brand A–Z</option>
+            <option value="model_asc" ${bState.mSort === "model_asc" ? "selected" : ""}>Sort: Model A–Z</option>
+            <option value="price_asc" ${bState.mSort === "price_asc" ? "selected" : ""}>Sort: Queen Price Low–High</option>
+            <option value="price_desc" ${bState.mSort === "price_desc" ? "selected" : ""}>Sort: Queen Price High–Low</option>
+          </select>
+        </div>
+
+        <div class="b-table-wrap">
+          <table class="b-table" id="mTable">
+            <thead>
+              <tr>
+                <th>Brand</th>
+                <th>Model Name</th>
+                <th>Type</th>
+                <th class="num">Queen Price</th>
+                <th class="b-col-hide-sm">Catalog Source</th>
+                <th class="b-col-hide-sm">Official Link</th>
+              </tr>
+            </thead>
+            <tbody id="mTbody"></tbody>
+          </table>
+        </div>
+        <div class="b-foot" id="mFoot"></div>
+      </div>
+    `;
+
+    function renderModelsTableOnly() {
+      let rows = models.slice();
+      if (bState.mBrand) rows = rows.filter(m => m.brand_slug === bState.mBrand);
+      if (bState.mType) rows = rows.filter(m => m.model_type === bState.mType);
+      if (bState.mQ) {
+        const ql = bState.mQ.toLowerCase();
+        rows = rows.filter(m => (m.model_name || "").toLowerCase().includes(ql) || (m.brand_name || "").toLowerCase().includes(ql));
+      }
+      rows.sort((a, b) => {
+        if (bState.mSort === "model_asc") return (a.model_name || "").localeCompare(b.model_name || "");
+        if (bState.mSort === "price_asc") return (a.queen_price_usd ?? 999999) - (b.queen_price_usd ?? 999999);
+        if (bState.mSort === "price_desc") return (b.queen_price_usd ?? -1) - (a.queen_price_usd ?? -1);
+        const bc = (a.brand_name || "").localeCompare(b.brand_name || "");
+        return bc !== 0 ? bc : (a.model_name || "").localeCompare(b.model_name || "");
+      });
+
+      const shown = rows.slice(0, bState.mLimit);
+      const tbody = document.getElementById("mTbody");
+      if (!shown.length) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:28px;color:var(--sub);">No models match your current filter.</td></tr>`;
+      } else {
+        tbody.innerHTML = shown.map(m => `
+          <tr>
+            <td><strong>${esc(m.brand_name)}</strong></td>
+            <td>${esc(m.model_name)}</td>
+            <td>${typePill(m.model_type)}</td>
+            <td class="num"><strong>${fmtUsd(m.queen_price_usd)}</strong></td>
+            <td class="b-col-hide-sm"><span class="b-muted">${esc(m.source || "")}</span></td>
+            <td class="b-col-hide-sm"><a href="${esc(m.url)}" target="_blank" rel="noopener">View &#8599;</a></td>
+          </tr>
+        `).join("");
+      }
+
+      const foot = document.getElementById("mFoot");
+      foot.innerHTML = `<span>Showing ${shown.length.toLocaleString()} of ${rows.length.toLocaleString()} models</span>`
+        + (shown.length < rows.length ? `<button class="load-btn" type="button" id="mLoadAll">Show all ${rows.length.toLocaleString()}</button>` : "");
+      const btn = document.getElementById("mLoadAll");
+      if (btn) btn.addEventListener("click", () => { bState.mLimit = rows.length; renderModelsTableOnly(); });
+    }
+
+    const clr = document.getElementById("mClearBrand");
+    if (clr) clr.addEventListener("click", () => {
+      bState.mBrand = "";
+      history.replaceState(null, "", "#brands-models");
+      renderModels(root, data);
+    });
+    document.getElementById("mSearch").addEventListener("input", e => { bState.mQ = e.target.value; renderModelsTableOnly(); });
+    document.getElementById("mBrandSel").addEventListener("change", e => {
+      bState.mBrand = e.target.value;
+      history.replaceState(null, "", bState.mBrand ? `#brands-models?brand=${encodeURIComponent(bState.mBrand)}` : "#brands-models");
+      renderModels(root, data);
+    });
+    document.getElementById("mTypeSel").addEventListener("change", e => { bState.mType = e.target.value; renderModelsTableOnly(); });
+    document.getElementById("mSortSel").addEventListener("change", e => { bState.mSort = e.target.value; renderModelsTableOnly(); });
+
+    renderModelsTableOnly();
   }
 
   function renderSchema(root, data) {
@@ -506,16 +698,49 @@
 
   function renderSources(root, data) {
     const c = data.benchmarks.counts;
+    const rounds = data.discovery_rounds || [];
     root.innerHTML = `
       <div class="card b-intro-card">
-        <h3>Independent Discovery &amp; Anti-Hallucination Methodology</h3>
+        <h3>Independent Discovery &amp; 90/10 Exhaustion Proof</h3>
         <p class="b-card-desc">
-          <strong>Zero StandardCommand Data Used:</strong> This entire US mattress brand universe (${c.active_us_brands} active US brands + ${c.discontinued_or_non_us} audited non-active/non-US entities) was discovered independently from external public directories, official brand websites, and trade records so Nappedia can audit gaps objectively.
+          <strong>Zero StandardCommand Data Used:</strong> This entire US mattress brand universe (${c.active_us_brands.toLocaleString()} active US brands + ${c.discontinued_or_non_us} audited non-active/non-US entities) was discovered independently from California's statutory CalRecycle registry (Oct 13, 2026), GoodBed, 10 review/lab indexes, live Google+Bing A–Z autocomplete, and niche verticals.
         </p>
         <p class="b-card-desc" style="margin-top:8px;">
           <strong>Strict Denominator Integrity:</strong> Every average and percentage in the Benchmarks tab is computed deterministically in Python strictly over verified, non-null primary records (with explicit <code>n=X</code> badges). Undisclosed or blocked fields remain <code>null</code> and never pollute averages.
         </p>
       </div>
+
+      ${rounds.length ? `
+        <div class="card b-schema-card">
+          <div class="b-card-head">
+            <h3>Multi-Round Discovery Exhaustion Log</h3>
+            <span class="b-n-pill">${rounds.length} angles logged</span>
+          </div>
+          <div class="b-table-wrap">
+            <table class="b-table">
+              <thead>
+                <tr>
+                  <th>Round</th>
+                  <th>Sources &amp; Angles Harvested</th>
+                  <th class="num">New Active Added</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${rounds.map(r => `
+                  <tr>
+                    <td><strong>${esc(r.round)}</strong></td>
+                    <td>${esc(r.sources)}</td>
+                    <td class="num"><strong>+${(r.new_active_added || 0).toLocaleString()}</strong></td>
+                    <td><span class="pill ${r.status.startsWith("BLOCKED") ? "p-forum" : "p-study"}">${esc(r.status)}</span></td>
+                  </tr>
+                `).join("")}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      ` : ""}
+
       <div class="card b-schema-card">
         <div class="b-card-head">
           <h3>Primary &amp; Directory Research Sources (${data.research_sources.length})</h3>
@@ -545,11 +770,12 @@
     `;
   }
 
-  window.renderBrandsWorkspace = function (subTab) {
+  window.renderBrandsWorkspace = function (subTab, brandFilterSlug) {
     const data = window.NAPPEDIA_BRANDS;
     const root = document.getElementById("brandsContent");
     if (!root || !data) return;
     if (subTab) bState.sub = subTab;
+    if (typeof brandFilterSlug === "string") bState.mBrand = brandFilterSlug;
 
     document.querySelectorAll("#brandTabs .cat-tab").forEach(btn => {
       const act = btn.dataset.bsub === bState.sub;
@@ -559,6 +785,7 @@
 
     if (bState.sub === "benchmarks") renderBenchmarks(root, data);
     else if (bState.sub === "directory") renderDirectory(root, data);
+    else if (bState.sub === "models") renderModels(root, data);
     else if (bState.sub === "schema") renderSchema(root, data);
     else if (bState.sub === "sources") renderSources(root, data);
   };

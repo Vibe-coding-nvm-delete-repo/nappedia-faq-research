@@ -1015,6 +1015,28 @@
   .b-sources-strip { margin-top: 10px; font-size: 12px; color: var(--sub); display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
   .b-foot { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; font-size: 12.5px; color: var(--sub); background: #f8fafc; }
 
+  /* Color-coded Type, Fiberglass, Lawsuit, CalRecycle & Models-Link pills (Universal 10: zero borders, soft tints) */
+  .b-type-pill { display: inline-block; font-size: 11.5px; font-weight: 700; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
+  .t-foam { background: #e0e7ff; color: #3730a3; }
+  .t-hybrid { background: #dbeafe; color: #1d4ed8; }
+  .t-latex { background: #d1fae5; color: #065f46; }
+  .t-organic { background: #dcfce7; color: #166534; }
+  .t-spring { background: #fef3c7; color: #92400e; }
+  .t-smart { background: #f3e8ff; color: #6b21a8; }
+  .t-grid { background: #cffafe; color: #155e75; }
+  .t-crib { background: #ffe4e6; color: #9f1239; }
+  .t-rv { background: #f1f5f9; color: #334155; }
+  .t-default { background: #eef2f6; color: var(--ink); }
+
+  .b-fg-pill, .b-law-pill { display: inline-block; font-size: 11.5px; font-weight: 700; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
+  .fg-no, .law-zero { background: #dcfce7; color: #166534; }
+  .fg-hist { background: #fef3c7; color: #92400e; }
+  .fg-yes, .law-hit { background: #fee2e2; color: #991b1b; }
+  .b-cal-badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 5px; border-radius: 5px; background: #e0f2fe; color: #0369a1; vertical-align: middle; }
+  .b-model-link { border: none; background: var(--accent-soft); color: var(--accent); padding: 3px 9px; border-radius: 7px; font-size: 12px; font-weight: 700; cursor: pointer; white-space: nowrap; }
+  .b-model-link:hover { background: #d6e8fb; }
+  .b-filter-banner { display: flex; align-items: center; justify-content: space-between; gap: 10px; background: var(--accent-soft); color: var(--ink); padding: 10px 14px; border-radius: 10px; margin-bottom: 12px; font-size: 13px; }
+
   @media (max-width: 960px) {
     .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .b-cards-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -1088,11 +1110,15 @@
     </button>
     <button class="cat-tab" id="btab-directory" data-bsub="directory" role="tab" type="button">
       <span>Brand Universe</span>
-      <span class="tab-count" id="cnt-b-directory">496</span>
+      <span class="tab-count" id="cnt-b-directory">1,376</span>
+    </button>
+    <button class="cat-tab" id="btab-models" data-bsub="models" role="tab" type="button">
+      <span>Models</span>
+      <span class="tab-count" id="cnt-b-models">0</span>
     </button>
     <button class="cat-tab" id="btab-schema" data-bsub="schema" role="tab" type="button">
       <span>Data Schema</span>
-      <span class="tab-count" id="cnt-b-schema">46</span>
+      <span class="tab-count" id="cnt-b-schema">50</span>
     </button>
     <button class="cat-tab" id="btab-sources" data-bsub="sources" role="tab" type="button">
       <span>Sources &amp; Methodology</span>
@@ -1301,13 +1327,20 @@ function scrollActiveCatTab() {
 }
 
 function initFromHash() {
-  const h = (location.hash || "").replace(/^#/, "").trim().toLowerCase();
+  const raw = (location.hash || "").replace(/^#/, "").trim();
+  const [hPart, qPart] = raw.split("?");
+  const h = (hPart || "").toLowerCase();
+  const params = new URLSearchParams(qPart || "");
   if (h === "brands" || h === "brands-benchmarks") {
     state.macro = "brands";
     state.brandSub = "benchmarks";
   } else if (h === "brands-directory" || h === "brands-universe") {
     state.macro = "brands";
     state.brandSub = "directory";
+  } else if (h === "brands-models") {
+    state.macro = "brands";
+    state.brandSub = "models";
+    state.brandModelFilter = params.get("brand") || "";
   } else if (h === "brands-schema") {
     state.macro = "brands";
     state.brandSub = "schema";
@@ -1339,10 +1372,12 @@ function setMacro(macro, resetHash = true) {
 function setBrandSub(sub, resetHash = true) {
   state.macro = "brands";
   state.brandSub = sub;
+  if (sub !== "models") state.brandModelFilter = "";
   if (resetHash) history.replaceState(null, "", sub === "benchmarks" ? "#brands" : "#brands-" + sub);
   hideTooltip();
   render();
 }
+window.setBrandSub = setBrandSub;
 
 function setCategory(cat, resetHash = true) {
   state.macro = "faqs";
@@ -1417,7 +1452,8 @@ function renderTopbarAndTabs() {
 
   if (BRANDS_DATA) {
     document.getElementById("cnt-b-benchmarks").textContent = BRANDS_DATA.benchmarks.cards.length;
-    document.getElementById("cnt-b-directory").textContent = bCounts.active_us_brands;
+    document.getElementById("cnt-b-directory").textContent = bCounts.active_us_brands.toLocaleString();
+    document.getElementById("cnt-b-models").textContent = (BRANDS_DATA.models || []).length.toLocaleString();
     document.getElementById("cnt-b-schema").textContent = BRANDS_DATA.meta.schema_field_count;
     document.getElementById("cnt-b-sources").textContent = BRANDS_DATA.research_sources.length;
   }
@@ -2348,7 +2384,7 @@ function renderGenericFoot(elId, shown, total, onLoad) {
 function render() {
   renderTopbarAndTabs();
   if (state.macro === "brands") {
-    if (window.renderBrandsWorkspace) window.renderBrandsWorkspace(state.brandSub);
+    if (window.renderBrandsWorkspace) window.renderBrandsWorkspace(state.brandSub, state.brandModelFilter);
   } else if (state.cat === "overview") renderOverview();
   else if (state.cat === "research") renderResearchView();
   else renderCategoryWorkspace();
