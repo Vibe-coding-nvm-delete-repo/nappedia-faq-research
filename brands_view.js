@@ -381,12 +381,14 @@
     const c = data.benchmarks.counts;
     const enrichedCnt = (c.primary_verified_brands || 0) + (c.enriched_live_brands || 0);
     const needsCnt = c.total_discovered_entities - enrichedCnt;
+    const missingNapCnt = data.brands.filter(b => b.on_nappedia_reviews === false && b.us_active_status === "Active US").length;
     const allSegs = [...new Set(data.brands.map(b => b.market_segment).filter(Boolean))].sort();
     const allTypes = ["Memory Foam", "Hybrid", "Innerspring", "All-Latex", "Organic Hybrid", "Air / Smart", "Gel Grid", "Crib / Kids", "RV / Custom"];
 
     panel.innerHTML = `
       <div class="b-scope-bar" id="bScopeBar">
         <button class="b-scope-pill active" data-scope="all" type="button">All Brands <span>${c.total_discovered_entities.toLocaleString()}</span></button>
+        <button class="b-scope-pill" data-scope="missing_nappedia" type="button">Missing on Nappedia <span>${missingNapCnt.toLocaleString()}</span></button>
         <button class="b-scope-pill" data-scope="enriched" type="button">Live-Scraped Data <span>${enrichedCnt.toLocaleString()}</span></button>
         <button class="b-scope-pill" data-scope="needs_scrape" type="button">Registry-Only Queue <span>${needsCnt.toLocaleString()}</span></button>
         <button class="b-scope-pill" data-scope="discontinued" type="button">Discontinued <span>${(c.discontinued_brands || 0).toLocaleString()}</span></button>
@@ -473,6 +475,7 @@
         if (bState.scope === "enriched" && !b._hasData) continue;
         if (bState.scope === "needs_scrape" && b._hasData) continue;
         if (bState.scope === "discontinued" && b.us_active_status !== "Discontinued / Defunct") continue;
+        if (bState.scope === "missing_nappedia" && !(b.on_nappedia_reviews === false && b.us_active_status === "Active US")) continue;
         if (bState.statusFilter && b.us_active_status !== bState.statusFilter) continue;
         if (ql && !b._q.includes(ql)) continue;
         if (bState.seg && b.market_segment !== bState.seg) continue;
