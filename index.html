@@ -1076,6 +1076,40 @@
     .b-select { max-width: 100%; flex: 1 1 140px; }
     .macro-crumb { display: none; }
   }
+/* --- Brand Reviews 3rd Tab Pipeline --- */
+.rv-kpi-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; margin-bottom: 16px; }
+.rv-kpi { background: #fff; border-radius: 12px; padding: 14px 16px; box-shadow: 0 1px 3px rgba(15,23,42,0.06), 0 4px 12px rgba(15,23,42,0.03); }
+.rv-kpi-lbl { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--sub); }
+.rv-kpi-val { font-family: Georgia, "Times New Roman", serif; font-size: 26px; font-weight: 700; color: var(--ink); margin: 4px 0 2px; line-height: 1.15; font-variant-numeric: tabular-nums; }
+.rv-kpi-sub { font-size: 11.5px; color: var(--sub); line-height: 1.35; }
+.rv-card { padding: 18px 20px; }
+.rv-pipe-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+.rv-updated { font-size: 12px; color: var(--sub); background: #f1f5f9; padding: 4px 10px; border-radius: 999px; white-space: nowrap; }
+.rv-bar-track { display: flex; height: 12px; border-radius: 999px; overflow: hidden; background: #eef2f6; margin-bottom: 14px; }
+.rv-bar-seg { height: 100%; transition: width 0.25s ease; }
+.rv-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+.rv-pill { display: inline-flex; align-items: center; gap: 6px; padding: 6px 11px; border: 0; border-radius: 999px; background: #f1f5f9; color: var(--sub); font-size: 12.5px; font-weight: 600; cursor: pointer; transition: background 0.12s ease, color 0.12s ease; }
+.rv-pill:hover { background: #e2e8f0; color: var(--ink); }
+.rv-pill.active { background: #e6f0fa; color: #0066cc; box-shadow: 0 1px 2px rgba(0,102,204,0.12); }
+.rv-pill.active .tab-count { background: #cfe4f9; color: #0066cc; }
+.rv-dot { width: 8px; height: 8px; border-radius: 999px; display: inline-block; flex-shrink: 0; }
+.rv-toolbar { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 12px; align-items: center; }
+.rv-toolbar .search-input { flex: 1 1 240px; min-width: 180px; }
+.rv-toolbar .filter-select { border: 0; border-radius: 8px; background: #f1f5f9; color: var(--ink); font-size: 13px; font-weight: 500; padding: 8px 12px; box-shadow: 0 1px 2px rgba(15,23,42,0.06); cursor: pointer; }
+.rv-toolbar .filter-select:hover { background: #e8edf3; }
+.rv-slug { font-size: 11px; color: var(--sub); margin-top: 1px; }
+.rv-badge { display: inline-block; padding: 3px 9px; border-radius: 999px; font-size: 11.5px; font-weight: 700; white-space: nowrap; }
+.rv-mr { font-size: 12px; color: var(--sub); white-space: nowrap; }
+.rv-live-link { color: #0066cc; font-weight: 600; text-decoration: none; white-space: nowrap; }
+.rv-live-link:hover { text-decoration: underline; }
+.rv-live-muted { color: #64748b; font-weight: 500; }
+@media (max-width: 1080px) { .rv-kpi-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 640px) {
+  .rv-kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .rv-kpi { padding: 12px; }
+  .rv-kpi-val { font-size: 22px; }
+  .rv-card { padding: 14px 12px; }
+}
 </style>
 </head>
 <body>
@@ -1095,6 +1129,10 @@
         <button class="macro-pill" id="macro-brands" data-macro="brands" role="tab" type="button" aria-selected="false">
           <span>Brands</span>
           <span class="tab-count" id="cnt-macro-brands">0</span>
+        </button>
+        <button class="macro-pill" id="macro-reviews" data-macro="reviews" role="tab" type="button" aria-selected="false">
+          <span>Brand Reviews</span>
+          <span class="tab-count" id="cnt-macro-reviews">0</span>
         </button>
       </div>
       <a class="util-btn link-btn" id="sheetLink" href="#" target="_blank" rel="noopener">Google Sheet &#8599;</a>
@@ -1227,6 +1265,11 @@
   <section id="brandsView" style="display:none;">
     <div id="brandsContent"></div>
   </section>
+
+  <!-- VIEW 5: MACRO PILLAR - BRAND REVIEWS PIPELINE -->
+  <section id="reviewsView" style="display:none;">
+    <div id="reviewsContent"></div>
+  </section>
 </div>
 
 <div class="chart-tooltip" id="chartTooltip" role="tooltip"></div>
@@ -1266,8 +1309,10 @@
 <script src="./data/cat_care_cleaning.js"></script>
 <script src="./data/cat_moving_disposal.js"></script>
 <script src="./data/brands_master.js"></script>
+<script src="./data/brand_reviews_tracker.js"></script>
 <script src="./brands_analytics.js"></script>
 <script src="./brands_view.js"></script>
+<script src="./reviews_view.js"></script>
 <script>
 const META = window.NAPPEDIA_META;
 const CATS = window.NAPPEDIA_CATS;
@@ -1378,7 +1423,9 @@ function initFromHash() {
   const [hPart, qPart] = raw.split("?");
   const h = (hPart || "").toLowerCase();
   const params = new URLSearchParams(qPart || "");
-  if (h === "brands" || h === "brands-benchmarks") {
+  if (h === "reviews" || h === "brand-reviews") {
+    state.macro = "reviews";
+  } else if (h === "brands" || h === "brands-benchmarks") {
     state.macro = "brands";
     state.brandSub = "benchmarks";
   } else if (h === "brands-analytics") {
@@ -1412,7 +1459,9 @@ function initFromHash() {
 function setMacro(macro, resetHash = true) {
   state.macro = macro;
   if (resetHash) {
-    const nextHash = macro === "brands"
+    const nextHash = macro === "reviews"
+      ? "#reviews"
+      : macro === "brands"
       ? (state.brandSub === "benchmarks" ? "#brands" : "#brands-" + state.brandSub)
       : "#" + state.cat;
     history.replaceState(null, "", nextHash);
@@ -1480,11 +1529,20 @@ function sortRows(rows, key, dir) {
 
 function renderTopbarAndTabs() {
   const isBrands = state.macro === "brands";
+  const isReviews = state.macro === "reviews";
+  const isFaqs = !isBrands && !isReviews;
   const bCounts = BRANDS_DATA ? BRANDS_DATA.benchmarks.counts : { active_us_brands: 0, primary_verified_brands: 0 };
+  const rvData = window.NAPPEDIA_BRAND_REVIEWS;
 
   document.getElementById("cnt-macro-faqs").textContent = META.total_kept_pages.toLocaleString();
   document.getElementById("cnt-macro-brands").textContent = bCounts.active_us_brands.toLocaleString();
-  document.getElementById("macroCrumb").innerHTML = isBrands ? "Research &#8250; Brands" : "Research &#8250; FAQs";
+  const rvCntEl = document.getElementById("cnt-macro-reviews");
+  if (rvCntEl && rvData) rvCntEl.textContent = rvData.summary.total.toLocaleString();
+  document.getElementById("macroCrumb").innerHTML = isReviews
+    ? "Research &#8250; Brand Reviews"
+    : isBrands
+    ? "Research &#8250; Brands"
+    : "Research &#8250; FAQs";
 
   document.querySelectorAll(".macro-pill").forEach(btn => {
     const active = btn.dataset.macro === state.macro;
@@ -1492,7 +1550,9 @@ function renderTopbarAndTabs() {
     btn.setAttribute("aria-selected", active ? "true" : "false");
   });
 
-  document.getElementById("brandMeta").textContent = isBrands
+  document.getElementById("brandMeta").textContent = isReviews && rvData
+    ? `${rvData.summary.written_total.toLocaleString()} of ${rvData.summary.total.toLocaleString()} written · ${rvData.summary.live.toLocaleString()} live now · ${(rvData.summary.merged_deploying + rvData.summary.shipping).toLocaleString()} deploying in MR !428`
+    : isBrands
     ? `${bCounts.active_us_brands.toLocaleString()} active US brands · ${(bCounts.primary_verified_brands + (bCounts.enriched_live_brands || 0)).toLocaleString()} live-scraped · ${BRANDS_DATA.meta.schema_field_count} fields`
     : `${META.total_kept_pages.toLocaleString()} validated pages · ${META.done_categories} of ${META.total_categories} categories mined`;
 
@@ -1514,9 +1574,9 @@ function renderTopbarAndTabs() {
 
   const sl = document.getElementById("sheetLink");
   const mb = document.getElementById("methodBtn");
-  if (isBrands) {
+  if (isReviews || isBrands) {
     sl.style.display = "none";
-    mb.textContent = "Brands Methodology";
+    mb.textContent = isReviews ? "v3.1 QA Pipeline" : "Brands Methodology";
   } else {
     sl.style.display = "";
     sl.href = META.sheets.overview;
@@ -1524,19 +1584,20 @@ function renderTopbarAndTabs() {
     mb.textContent = "How Pages Are Validated";
   }
 
-  document.getElementById("catTabs").style.display = isBrands ? "none" : "";
+  document.getElementById("catTabs").style.display = isFaqs ? "" : "none";
   document.getElementById("brandTabs").style.display = isBrands ? "" : "none";
 
   document.querySelectorAll("#catTabs .cat-tab").forEach(btn => {
-    const active = !isBrands && btn.dataset.cat === state.cat;
+    const active = isFaqs && btn.dataset.cat === state.cat;
     btn.classList.toggle("active", active);
     btn.setAttribute("aria-selected", active ? "true" : "false");
   });
 
-  document.getElementById("overviewView").style.display = (!isBrands && state.cat === "overview") ? "" : "none";
-  document.getElementById("categoryView").style.display = (!isBrands && Boolean(CATS[state.cat])) ? "" : "none";
-  document.getElementById("researchView").style.display = (!isBrands && state.cat === "research") ? "" : "none";
+  document.getElementById("overviewView").style.display = (isFaqs && state.cat === "overview") ? "" : "none";
+  document.getElementById("categoryView").style.display = (isFaqs && Boolean(CATS[state.cat])) ? "" : "none";
+  document.getElementById("researchView").style.display = (isFaqs && state.cat === "research") ? "" : "none";
   document.getElementById("brandsView").style.display = isBrands ? "" : "none";
+  document.getElementById("reviewsView").style.display = isReviews ? "" : "none";
 }
 
 // =========================================================================
@@ -2438,7 +2499,9 @@ function renderGenericFoot(elId, shown, total, onLoad) {
 let overviewRendered = false;
 function render() {
   renderTopbarAndTabs();
-  if (state.macro === "brands") {
+  if (state.macro === "reviews") {
+    if (window.renderReviewsWorkspace) window.renderReviewsWorkspace();
+  } else if (state.macro === "brands") {
     if (window.renderBrandsWorkspace) window.renderBrandsWorkspace(state.brandSub, state.brandModelFilter);
   } else if (state.cat === "overview") {
     if (!overviewRendered) { renderOverview(); overviewRendered = true; }
