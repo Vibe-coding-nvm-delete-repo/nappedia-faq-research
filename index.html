@@ -93,6 +93,9 @@
     gap: 12px;
     flex-wrap: nowrap;
   }
+  @media (max-width: 1320px) {
+    .macro-crumb { display: none; }
+  }
   @media (max-width: 1080px) {
     .site-header-inner { flex-wrap: wrap; }
   }
@@ -1795,14 +1798,14 @@ function renderOverview() {
         <div class="dk-sub">Proven Google/Bing keywords · <strong>${f.evaluated.toLocaleString()}</strong> candidates audited · <strong>${META.all_sources.length}</strong> verified citations</div>
       </div>
       <div class="dash-kpi">
-        <div class="dk-label"><span>Remaining Runway to Mine</span><span class="pill p-muted">${unminedCnt} Queued</span></div>
+        <div class="dk-label"><span>Remaining Runway to Mine</span><span class="pill ${unminedCnt === 0 ? "p-valid" : "p-muted"}">${unminedCnt === 0 ? "100% Complete" : `${unminedCnt} Queued`}</span></div>
         <div class="dk-num">${unminedCnt} <span style="font-size:15px;font-weight:500;color:var(--sub);">categories</span></div>
-        <div class="dk-sub"><strong>${META.unmined_subcats}</strong> granular subcategories left · <strong>${highCnt}</strong> top-tier 8.5/10 pillars ready next</div>
+        <div class="dk-sub">${unminedCnt === 0 ? `All <strong>128</strong> granular subcategories mined across <strong>18/18</strong> pillars` : `<strong>${META.unmined_subcats}</strong> granular subcategories left · <strong>${highCnt}</strong> top-tier 8.5/10 pillars ready next`}</div>
       </div>
       <div class="dash-kpi">
-        <div class="dk-label"><span>Est. Total Catalog Potential</span><span class="pill p-gap">Projected</span></div>
-        <div class="dk-num">~${META.est_total_low.toLocaleString()}–${META.est_total_high.toLocaleString()}</div>
-        <div class="dk-sub">Includes ${META.total_kept_pages.toLocaleString()} validated + ~${META.est_remaining_low.toLocaleString()}–${META.est_remaining_high.toLocaleString()} estimated across ${unminedCnt} unmined categories</div>
+        <div class="dk-label"><span>${unminedCnt === 0 ? "Final Validated Catalog" : "Est. Total Catalog Potential"}</span><span class="pill ${unminedCnt === 0 ? "p-valid" : "p-gap"}">${unminedCnt === 0 ? "Finalized" : "Projected"}</span></div>
+        <div class="dk-num">${unminedCnt === 0 ? META.total_kept_pages.toLocaleString() : `~${META.est_total_low.toLocaleString()}–${META.est_total_high.toLocaleString()}`}</div>
+        <div class="dk-sub">${unminedCnt === 0 ? `100% mined &amp; critic-verified across all 18 categories · 0 unmined remaining` : `Includes ${META.total_kept_pages.toLocaleString()} validated + ~${META.est_remaining_low.toLocaleString()}–${META.est_remaining_high.toLocaleString()} estimated across ${unminedCnt} unmined categories`}</div>
       </div>
     </div>
 
