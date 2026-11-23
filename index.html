@@ -839,22 +839,230 @@
     .col-topic-hide, .col-origin-hide, .col-sub-hide { display: none; }
     .cat-bar-row { grid-template-columns: 120px 1fr 64px; font-size: 12px; }
   }
+
+  /* --- Macro-Level Research Navigation (Research > FAQs | Research > Brands) --- */
+  .macro-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: #e5eaf0;
+    padding: 3px;
+    border-radius: 10px;
+    box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.06);
+  }
+  .macro-pill {
+    border: none;
+    background: transparent;
+    color: var(--sub);
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 30px;
+    white-space: nowrap;
+    transition: background 0.12s ease, color 0.12s ease, box-shadow 0.12s ease;
+  }
+  .macro-pill:hover { color: var(--ink); }
+  .macro-pill.active {
+    background: var(--surface);
+    color: var(--ink);
+    box-shadow: var(--shadow-sm);
+  }
+  .macro-pill .tab-count { font-size: 11px; padding: 1px 6px; }
+  .macro-pill.active .tab-count { background: var(--accent-soft); color: var(--accent); }
+  .macro-crumb {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 3px 9px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+
+  /* --- Brands Research Workspace (Universal 10: zero borders, light shadows & tints) --- */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .kpi-card {
+    background: var(--surface);
+    border-radius: var(--r-lg);
+    padding: 15px 16px;
+    box-shadow: var(--shadow-card);
+  }
+  .kpi-label { font-size: 12px; font-weight: 600; color: var(--sub); text-transform: uppercase; letter-spacing: 0.03em; }
+  .kpi-val { font-family: Georgia, "Times New Roman", serif; font-size: 28px; font-weight: 700; color: var(--ink); margin: 4px 0 3px; line-height: 1.15; font-variant-numeric: tabular-nums; }
+  .kpi-sub { font-size: 12px; color: var(--sub); line-height: 1.35; }
+
+  .b-type-card, .b-schema-card, .b-intro-card { margin-bottom: 16px; }
+  .b-intro-card { padding: 16px 18px; }
+  .b-intro-card h3, .b-card-head h3 { margin: 0; font-size: 16px; font-weight: 700; color: var(--ink); }
+  .b-card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 15px 18px 10px; }
+  .b-card-desc { margin: 4px 0 0; font-size: 13px; color: var(--sub); line-height: 1.45; }
+
+  .b-section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin: 18px 0 10px; }
+  .b-section-head h3 { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: 17px; color: var(--ink); }
+  .b-section-sub { font-size: 12px; color: var(--sub); }
+
+  .b-cards-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-bottom: 8px; }
+  .b-stat-card {
+    background: var(--surface);
+    border-radius: var(--r-lg);
+    padding: 14px 16px;
+    box-shadow: var(--shadow-card);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 6px;
+  }
+  .b-stat-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .b-stat-label { font-size: 12.5px; font-weight: 700; color: var(--ink); }
+  .b-n-pill { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: #eef2f6; color: var(--sub); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .b-stat-val { font-family: Georgia, "Times New Roman", serif; font-size: 26px; font-weight: 700; color: var(--accent); line-height: 1.15; font-variant-numeric: tabular-nums; }
+  .b-stat-sub { font-size: 12.5px; color: var(--sub); line-height: 1.4; }
+  .b-stat-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 6px; padding-top: 8px; background: linear-gradient(to right, rgba(226,232,240,0.45), rgba(226,232,240,0.45)) top / 100% 1px no-repeat; }
+  .b-copy-btn {
+    border: none;
+    background: var(--accent-soft);
+    color: var(--accent);
+    padding: 4px 10px;
+    border-radius: 7px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    min-height: 28px;
+  }
+  .b-copy-btn:hover { background: #d6e8fb; }
+  .b-copy-btn.copied { background: #dcfce7; color: #166534; }
+  .b-stat-date { font-size: 11px; color: var(--sub); }
+
+  .b-dist-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
+  .b-dist-card { padding-bottom: 14px; }
+  .b-bars { padding: 4px 18px 4px; display: flex; flex-direction: column; gap: 8px; }
+  .b-bar-row { display: grid; grid-template-columns: minmax(110px, 185px) 1fr 78px; align-items: center; gap: 10px; font-size: 12.5px; }
+  .b-bar-lbl { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--ink); font-weight: 500; }
+  .b-bar-track { height: 9px; background: #eef2f6; border-radius: 999px; overflow: hidden; }
+  .b-bar-fill { height: 100%; background: var(--accent); border-radius: 999px; }
+  .b-fill-teal { background: #2d8b82; }
+  .b-bar-num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--sub); font-size: 12px; }
+  .b-bar-num strong { color: var(--ink); }
+
+  .b-scope-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+  .b-scope-pill {
+    border: none;
+    background: var(--surface);
+    color: var(--sub);
+    padding: 7px 13px;
+    border-radius: 9px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .b-scope-pill span { font-size: 11.5px; font-weight: 700; padding: 1px 7px; border-radius: 999px; background: #eef2f6; color: var(--sub); }
+  .b-scope-pill.active { background: var(--accent); color: #fff; }
+  .b-scope-pill.active span { background: rgba(255,255,255,0.22); color: #fff; }
+
+  .b-controls { display: flex; gap: 8px; flex-wrap: wrap; padding: 14px 16px; background: #f8fafc; }
+  .b-input, .b-select {
+    border: none;
+    background: var(--surface);
+    color: var(--ink);
+    padding: 7px 11px;
+    border-radius: 8px;
+    font-size: 13px;
+    box-shadow: var(--shadow-sm);
+    min-height: 34px;
+  }
+  .b-input { flex: 1 1 220px; min-width: 180px; }
+  .b-select { flex: 0 1 auto; max-width: 210px; }
+
+  .b-table-wrap { width: 100%; overflow-x: auto; }
+  .b-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .b-table thead th { text-align: left; padding: 10px 12px; font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--sub); background: #f8fafc; white-space: nowrap; }
+  .b-table tbody td { padding: 10px 12px; vertical-align: middle; }
+  .b-table td code { white-space: nowrap; }
+  .b-table tbody tr:nth-child(even) { background: #f8fafc; }
+  .b-table tbody tr.b-data-row { cursor: pointer; }
+  .b-table tbody tr.b-data-row:hover { background: #eef6ff; }
+  .b-table tbody tr.b-drawer-row { background: #f3f7fb; }
+  .b-col-bar { width: 140px; }
+  .b-name-cell { display: flex; align-items: center; gap: 7px; }
+  .b-name-sub { font-size: 11.5px; color: var(--sub); padding-left: 14px; }
+  .b-dot-dir { width: 7px; height: 7px; border-radius: 999px; background: #94a3b8; flex-shrink: 0; }
+  .b-seg-tag { font-size: 11.5px; font-weight: 600; background: #eef2f6; color: var(--ink); padding: 2px 8px; border-radius: 6px; white-space: nowrap; }
+  .b-muted { color: var(--sub); font-size: 12px; }
+
+  .b-drawer { padding: 14px 16px; background: var(--surface); border-radius: 10px; box-shadow: var(--shadow-sm); margin: 4px 0; max-width: 100%; overflow-wrap: anywhere; }
+  .b-drawer-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .b-drawer h4 { margin: 0 0 8px; font-size: 13px; font-weight: 700; color: var(--ink); text-transform: uppercase; letter-spacing: 0.03em; }
+  .b-drawer p { margin: 0 0 6px; font-size: 13px; color: var(--ink); line-height: 1.45; word-break: break-word; }
+  .b-quotes { margin-top: 10px; padding: 10px 12px; background: #f8fafc; border-radius: 8px; font-size: 12.5px; color: var(--sub); }
+  .b-quote-item { margin-top: 5px; font-style: italic; color: var(--ink); }
+  .b-sources-strip { margin-top: 10px; font-size: 12px; color: var(--sub); display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .b-foot { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; font-size: 12.5px; color: var(--sub); background: #f8fafc; }
+
+  @media (max-width: 960px) {
+    .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .b-cards-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .b-dist-grid { grid-template-columns: 1fr; }
+    .b-col-hide-md { display: none; }
+  }
+  @media (max-width: 600px) {
+    .top-actions { flex-wrap: wrap; width: 100%; }
+    .util-btn { font-size: 12px; padding: 6px 10px; }
+    .kpi-grid { grid-template-columns: 1fr; }
+    .b-cards-grid { grid-template-columns: 1fr; }
+    .b-drawer-grid { grid-template-columns: 1fr; }
+    .b-col-hide-sm, .b-col-seg-hide-sm, .b-col-bar { display: none; }
+    .b-table { table-layout: auto; }
+    .b-table tbody td { padding: 9px 8px; }
+    .b-drawer { padding: 12px; }
+    .b-bar-row { grid-template-columns: 115px 1fr 72px; font-size: 12px; }
+    .b-controls { padding: 10px; }
+    .b-select { max-width: 100%; flex: 1 1 140px; }
+    .macro-crumb { display: none; }
+  }
 </style>
 </head>
 <body>
 <div class="app">
   <header class="topbar">
     <div class="brand-wrap">
-      <h1 class="brand">Nappedia FAQ Research</h1>
+      <h1 class="brand">Nappedia Research</h1>
+      <span class="macro-crumb" id="macroCrumb">Research &#8250; FAQs</span>
       <span class="brand-meta" id="brandMeta"></span>
     </div>
     <div class="top-actions">
+      <div class="macro-switch" id="macroSwitch" role="tablist" aria-label="Macro Research Pillars">
+        <button class="macro-pill active" id="macro-faqs" data-macro="faqs" role="tab" type="button" aria-selected="true">
+          <span>FAQs</span>
+          <span class="tab-count" id="cnt-macro-faqs">0</span>
+        </button>
+        <button class="macro-pill" id="macro-brands" data-macro="brands" role="tab" type="button" aria-selected="false">
+          <span>Brands</span>
+          <span class="tab-count" id="cnt-macro-brands">0</span>
+        </button>
+      </div>
       <a class="util-btn link-btn" id="sheetLink" href="#" target="_blank" rel="noopener">Google Sheet &#8599;</a>
       <button class="util-btn" id="methodBtn" type="button">How Pages Are Validated</button>
     </div>
   </header>
 
-  <nav class="cat-tabs" id="catTabs" role="tablist" aria-label="Primary Sections">
+  <nav class="cat-tabs" id="catTabs" role="tablist" aria-label="FAQ Research Sections">
     <button class="cat-tab active" id="tab-overview" data-cat="overview" role="tab" type="button">
       <span>Overview</span>
       <span class="tab-count" id="cnt-overview">18</span>
@@ -870,6 +1078,25 @@
     <button class="cat-tab" id="tab-research" data-cat="research" role="tab" type="button">
       <span>Library</span>
       <span class="tab-count" id="cnt-research">157</span>
+    </button>
+  </nav>
+
+  <nav class="cat-tabs" id="brandTabs" role="tablist" aria-label="Brand Research Sections" style="display:none;">
+    <button class="cat-tab active" id="btab-benchmarks" data-bsub="benchmarks" role="tab" type="button">
+      <span>Benchmarks &amp; Averages</span>
+      <span class="tab-count" id="cnt-b-benchmarks">18</span>
+    </button>
+    <button class="cat-tab" id="btab-directory" data-bsub="directory" role="tab" type="button">
+      <span>Brand Universe</span>
+      <span class="tab-count" id="cnt-b-directory">496</span>
+    </button>
+    <button class="cat-tab" id="btab-schema" data-bsub="schema" role="tab" type="button">
+      <span>Data Schema</span>
+      <span class="tab-count" id="cnt-b-schema">46</span>
+    </button>
+    <button class="cat-tab" id="btab-sources" data-bsub="sources" role="tab" type="button">
+      <span>Sources &amp; Methodology</span>
+      <span class="tab-count" id="cnt-b-sources">9</span>
     </button>
   </nav>
 
@@ -933,6 +1160,11 @@
       <div class="table-foot" id="resTfoot"></div>
     </main>
   </section>
+
+  <!-- VIEW 4: MACRO PILLAR - BRANDS RESEARCH -->
+  <section id="brandsView" style="display:none;">
+    <div id="brandsContent"></div>
+  </section>
 </div>
 
 <div class="chart-tooltip" id="chartTooltip" role="tooltip"></div>
@@ -961,9 +1193,12 @@
 <script src="./data/cat_mattress_types.js"></script>
 <script src="./data/cat_buying_process.js"></script>
 <script src="./data/cat_safety_certs.js"></script>
+<script src="./data/brands_master.js"></script>
+<script src="./brands_view.js"></script>
 <script>
 const META = window.NAPPEDIA_META;
 const CATS = window.NAPPEDIA_CATS;
+const BRANDS_DATA = window.NAPPEDIA_BRANDS;
 
 const PROV_SHORT = {
   search_proven: "Search",
@@ -979,6 +1214,8 @@ const PROV_FULL = {
 };
 
 const state = {
+  macro: "faqs",        // faqs | brands (extensible macro research pillars)
+  brandSub: "benchmarks", // benchmarks | directory | schema | sources
   cat: "overview",      // overview | comparisons | sleeper-profiles | research
   view: "pages",        // pages | sources | audit
   auditTab: "merged",   // merged | covered | excluded | keywords
@@ -1065,14 +1302,50 @@ function scrollActiveCatTab() {
 
 function initFromHash() {
   const h = (location.hash || "").replace(/^#/, "").trim().toLowerCase();
-  if (h === "overview" || h === "research" || Boolean(CATS[h])) {
+  if (h === "brands" || h === "brands-benchmarks") {
+    state.macro = "brands";
+    state.brandSub = "benchmarks";
+  } else if (h === "brands-directory" || h === "brands-universe") {
+    state.macro = "brands";
+    state.brandSub = "directory";
+  } else if (h === "brands-schema") {
+    state.macro = "brands";
+    state.brandSub = "schema";
+  } else if (h === "brands-sources") {
+    state.macro = "brands";
+    state.brandSub = "sources";
+  } else if (h === "overview" || h === "research" || Boolean(CATS[h])) {
+    state.macro = "faqs";
     state.cat = h;
   } else if (h === "roadmap") {
+    state.macro = "faqs";
     state.cat = "overview";
   }
 }
 
+function setMacro(macro, resetHash = true) {
+  state.macro = macro;
+  if (resetHash) {
+    const nextHash = macro === "brands"
+      ? (state.brandSub === "benchmarks" ? "#brands" : "#brands-" + state.brandSub)
+      : "#" + state.cat;
+    history.replaceState(null, "", nextHash);
+  }
+  hideTooltip();
+  render();
+  if (macro === "faqs") scrollActiveCatTab();
+}
+
+function setBrandSub(sub, resetHash = true) {
+  state.macro = "brands";
+  state.brandSub = sub;
+  if (resetHash) history.replaceState(null, "", sub === "benchmarks" ? "#brands" : "#brands-" + sub);
+  hideTooltip();
+  render();
+}
+
 function setCategory(cat, resetHash = true) {
+  state.macro = "faqs";
   state.cat = cat;
   state.view = "pages";
   state.auditTab = "merged";
@@ -1118,8 +1391,23 @@ function sortRows(rows, key, dir) {
 }
 
 function renderTopbarAndTabs() {
-  document.getElementById("brandMeta").textContent =
-    `${META.total_kept_pages.toLocaleString()} validated pages · ${META.done_categories} of ${META.total_categories} categories mined`;
+  const isBrands = state.macro === "brands";
+  const bCounts = BRANDS_DATA ? BRANDS_DATA.benchmarks.counts : { active_us_brands: 0, primary_verified_brands: 0 };
+
+  document.getElementById("cnt-macro-faqs").textContent = META.total_kept_pages.toLocaleString();
+  document.getElementById("cnt-macro-brands").textContent = bCounts.active_us_brands.toLocaleString();
+  document.getElementById("macroCrumb").innerHTML = isBrands ? "Research &#8250; Brands" : "Research &#8250; FAQs";
+
+  document.querySelectorAll(".macro-pill").forEach(btn => {
+    const active = btn.dataset.macro === state.macro;
+    btn.classList.toggle("active", active);
+    btn.setAttribute("aria-selected", active ? "true" : "false");
+  });
+
+  document.getElementById("brandMeta").textContent = isBrands
+    ? `${bCounts.active_us_brands.toLocaleString()} active US brands · ${bCounts.primary_verified_brands} primary-verified · ${BRANDS_DATA.meta.schema_field_count} fields`
+    : `${META.total_kept_pages.toLocaleString()} validated pages · ${META.done_categories} of ${META.total_categories} categories mined`;
+
   document.getElementById("cnt-overview").textContent = META.total_categories;
   Object.keys(CATS).forEach(k => {
     const el = document.getElementById("cnt-" + k);
@@ -1127,19 +1415,38 @@ function renderTopbarAndTabs() {
   });
   document.getElementById("cnt-research").textContent = META.affiliates.length + META.all_sources.length;
 
-  const sl = document.getElementById("sheetLink");
-  sl.href = META.sheets.overview;
-  sl.innerHTML = `Master Sheet &#8599;`;
+  if (BRANDS_DATA) {
+    document.getElementById("cnt-b-benchmarks").textContent = BRANDS_DATA.benchmarks.cards.length;
+    document.getElementById("cnt-b-directory").textContent = bCounts.active_us_brands;
+    document.getElementById("cnt-b-schema").textContent = BRANDS_DATA.meta.schema_field_count;
+    document.getElementById("cnt-b-sources").textContent = BRANDS_DATA.research_sources.length;
+  }
 
-  document.querySelectorAll(".cat-tab").forEach(btn => {
-    const active = btn.dataset.cat === state.cat;
+  const sl = document.getElementById("sheetLink");
+  const mb = document.getElementById("methodBtn");
+  if (isBrands) {
+    sl.style.display = "none";
+    mb.textContent = "Brands Methodology";
+  } else {
+    sl.style.display = "";
+    sl.href = META.sheets.overview;
+    sl.innerHTML = `Master Sheet &#8599;`;
+    mb.textContent = "How Pages Are Validated";
+  }
+
+  document.getElementById("catTabs").style.display = isBrands ? "none" : "";
+  document.getElementById("brandTabs").style.display = isBrands ? "" : "none";
+
+  document.querySelectorAll("#catTabs .cat-tab").forEach(btn => {
+    const active = !isBrands && btn.dataset.cat === state.cat;
     btn.classList.toggle("active", active);
     btn.setAttribute("aria-selected", active ? "true" : "false");
   });
 
-  document.getElementById("overviewView").style.display = state.cat === "overview" ? "" : "none";
-  document.getElementById("categoryView").style.display = Boolean(CATS[state.cat]) ? "" : "none";
-  document.getElementById("researchView").style.display = state.cat === "research" ? "" : "none";
+  document.getElementById("overviewView").style.display = (!isBrands && state.cat === "overview") ? "" : "none";
+  document.getElementById("categoryView").style.display = (!isBrands && Boolean(CATS[state.cat])) ? "" : "none";
+  document.getElementById("researchView").style.display = (!isBrands && state.cat === "research") ? "" : "none";
+  document.getElementById("brandsView").style.display = isBrands ? "" : "none";
 }
 
 // =========================================================================
@@ -2040,14 +2347,22 @@ function renderGenericFoot(elId, shown, total, onLoad) {
 
 function render() {
   renderTopbarAndTabs();
-  if (state.cat === "overview") renderOverview();
+  if (state.macro === "brands") {
+    if (window.renderBrandsWorkspace) window.renderBrandsWorkspace(state.brandSub);
+  } else if (state.cat === "overview") renderOverview();
   else if (state.cat === "research") renderResearchView();
   else renderCategoryWorkspace();
 }
 
 // Global listeners
-document.querySelectorAll(".cat-tab").forEach(btn => {
+document.querySelectorAll(".macro-pill").forEach(btn => {
+  btn.addEventListener("click", () => setMacro(btn.dataset.macro));
+});
+document.querySelectorAll("#catTabs .cat-tab").forEach(btn => {
   btn.addEventListener("click", () => setCategory(btn.dataset.cat));
+});
+document.querySelectorAll("#brandTabs .cat-tab").forEach(btn => {
+  btn.addEventListener("click", () => setBrandSub(btn.dataset.bsub));
 });
 document.getElementById("topicFilter").addEventListener("input", e => {
   state.topicQ = e.target.value;
@@ -2059,7 +2374,10 @@ document.getElementById("mobileTopicBtn").addEventListener("click", () => {
 window.addEventListener("hashchange", () => { initFromHash(); render(); scrollActiveCatTab(); });
 
 const modal = document.getElementById("methodModal");
-document.getElementById("methodBtn").addEventListener("click", () => modal.classList.add("open"));
+document.getElementById("methodBtn").addEventListener("click", () => {
+  if (state.macro === "brands") setBrandSub("sources");
+  else modal.classList.add("open");
+});
 document.getElementById("closeModalBtn").addEventListener("click", () => modal.classList.remove("open"));
 modal.addEventListener("click", e => { if (e.target === modal) modal.classList.remove("open"); });
 document.addEventListener("keydown", e => { if (e.key === "Escape") modal.classList.remove("open"); });
