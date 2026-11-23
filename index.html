@@ -1612,7 +1612,6 @@ function renderTopbarAndTabs() {
   const isBrandFaqs = state.macro === "brand-faqs";
   const isFaqs = !isBrands && !isReviews && !isBrandFaqs;
   const bfSum = (window.NAPPEDIA_BRAND_FAQS && window.NAPPEDIA_BRAND_FAQS.summary) || { kept_pages: 0, brands_covered: 0, live_sources_used: [] };
-  const isFaqs = !isBrands && !isReviews;
   const bCounts = BRANDS_DATA ? BRANDS_DATA.benchmarks.counts : { active_us_brands: 0, primary_verified_brands: 0 };
   const rvData = window.NAPPEDIA_BRAND_REVIEWS;
 
