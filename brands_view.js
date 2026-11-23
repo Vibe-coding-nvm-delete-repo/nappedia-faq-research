@@ -63,6 +63,13 @@
     mQ: "",
     mSort: "brand_asc",
     mLimit: 120,
+    // Manufacturers tab state
+    mfQ: "",
+    mfType: "",
+    mfCountry: "",
+    mfState: "",
+    mfSort: "major_first",
+    mfLimit: 120,
   };
 
   function copyStat(btn) {
@@ -635,6 +642,154 @@
     renderModelsTableOnly();
   }
 
+  const MFR_TYPE_CLASS = {
+    "Major Conglomerate": "t-smart",
+    "Vertically Integrated D2C": "t-hybrid",
+    "OEM / Private-Label": "t-foam",
+    "Regional Factory-Direct": "t-organic",
+    "Luxury Artisan": "t-spring",
+    "Foam / Latex / Coil Supplier": "t-grid",
+    "Medical / Specialty": "t-crib",
+    "International Importer": "t-rv",
+  };
+
+  function renderManufacturers(root, data) {
+    const mfrs = data.manufacturers || [];
+    const usCount = mfrs.filter(m => m.country === "USA").length;
+    const intlCount = mfrs.length - usCount;
+    const typeOpts = [...new Set(mfrs.map(m => m.mfr_type).filter(Boolean))].sort();
+    const stateOpts = [...new Set(mfrs.filter(m => m.country === "USA" && m.state).map(m => m.state))].sort();
+
+    root.innerHTML = `
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-label">Registered Manufacturers</div>
+          <div class="kpi-val">${mfrs.length.toLocaleString()}</div>
+          <div class="kpi-sub">Major conglomerates, OEMs, factories &amp; CalRecycle Oct 2026 registry</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">US Domestic Factories / OEMs</div>
+          <div class="kpi-val">${usCount.toLocaleString()}</div>
+          <div class="kpi-sub">${((usCount / Math.max(mfrs.length, 1)) * 100).toFixed(1)}% headquartered in the United States</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">International Suppliers</div>
+          <div class="kpi-val">${intlCount.toLocaleString()}</div>
+          <div class="kpi-sub">Registered overseas factories exporting mattresses into the US</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">US States Represented</div>
+          <div class="kpi-val">${stateOpts.length}</div>
+          <div class="kpi-sub">Filter by state below to find regional &amp; factory-direct plants</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="b-controls">
+          <input id="mfSearch" class="b-input" type="search" placeholder="Search manufacturer, DBA, brand owned, city, state..." value="${esc(bState.mfQ)}">
+          <select id="mfTypeSel" class="b-select" aria-label="Manufacturer Type">
+            <option value="">All Manufacturer Types</option>
+            ${typeOpts.map(t => `<option value="${esc(t)}" ${bState.mfType === t ? "selected" : ""}>${esc(t)}</option>`).join("")}
+          </select>
+          <select id="mfCountrySel" class="b-select" aria-label="Country">
+            <option value="">All Countries</option>
+            <option value="USA" ${bState.mfCountry === "USA" ? "selected" : ""}>USA Domestic (${usCount})</option>
+            <option value="INTL" ${bState.mfCountry === "INTL" ? "selected" : ""}>International (${intlCount})</option>
+          </select>
+          <select id="mfStateSel" class="b-select" aria-label="US State">
+            <option value="">All US States</option>
+            ${stateOpts.map(s => `<option value="${esc(s)}" ${bState.mfState === s ? "selected" : ""}>${esc(s)}</option>`).join("")}
+          </select>
+          <select id="mfSortSel" class="b-select" aria-label="Sort Manufacturers">
+            <option value="major_first" ${bState.mfSort === "major_first" ? "selected" : ""}>Sort: Major OEMs First</option>
+            <option value="name_asc" ${bState.mfSort === "name_asc" ? "selected" : ""}>Sort: Name A–Z</option>
+            <option value="state_asc" ${bState.mfSort === "state_asc" ? "selected" : ""}>Sort: State / Country</option>
+            <option value="founded_asc" ${bState.mfSort === "founded_asc" ? "selected" : ""}>Sort: Oldest First</option>
+          </select>
+        </div>
+
+        <div class="b-table-wrap">
+          <table class="b-table" id="mfTable">
+            <thead>
+              <tr>
+                <th>Manufacturer / Legal Account</th>
+                <th>Type</th>
+                <th class="num b-col-hide-md">Est.</th>
+                <th>Location</th>
+                <th class="b-col-hide-sm">Brands Owned / Manufactured</th>
+                <th class="b-col-hide-md">Role / Notes</th>
+              </tr>
+            </thead>
+            <tbody id="mfTbody"></tbody>
+          </table>
+        </div>
+        <div class="b-foot" id="mfFoot"></div>
+      </div>
+    `;
+
+    function renderMfrTableOnly() {
+      let rows = mfrs.slice();
+      if (bState.mfType) rows = rows.filter(m => m.mfr_type === bState.mfType);
+      if (bState.mfCountry === "USA") rows = rows.filter(m => m.country === "USA");
+      else if (bState.mfCountry === "INTL") rows = rows.filter(m => m.country !== "USA");
+      if (bState.mfState) rows = rows.filter(m => m.state === bState.mfState);
+      if (bState.mfQ) {
+        const ql = bState.mfQ.toLowerCase();
+        rows = rows.filter(m =>
+          (m.manufacturer_name || "").toLowerCase().includes(ql) ||
+          (m.dba_name || "").toLowerCase().includes(ql) ||
+          (m.brands_made || "").toLowerCase().includes(ql) ||
+          (m.city || "").toLowerCase().includes(ql) ||
+          (m.state || "").toLowerCase().includes(ql) ||
+          (m.notes || "").toLowerCase().includes(ql)
+        );
+      }
+      if (bState.mfSort === "name_asc") rows.sort((a, b) => (a.manufacturer_name || "").localeCompare(b.manufacturer_name || ""));
+      else if (bState.mfSort === "state_asc") rows.sort((a, b) => (a.country + a.state).localeCompare(b.country + b.state));
+      else if (bState.mfSort === "founded_asc") rows.sort((a, b) => (a.founded_year ?? 9999) - (b.founded_year ?? 9999));
+
+      const shown = rows.slice(0, bState.mfLimit);
+      const tbody = document.getElementById("mfTbody");
+      if (!shown.length) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:28px;color:var(--sub);">No manufacturers match your filters.</td></tr>`;
+      } else {
+        tbody.innerHTML = shown.map(m => {
+          const cls = MFR_TYPE_CLASS[m.mfr_type] || "t-default";
+          const loc = [m.city, m.state, m.country !== "USA" ? m.country : ""].filter(Boolean).join(", ") || m.country || "—";
+          const calTag = m.calrecycle_registered ? ` <span class="b-cal-badge" title="Registered in California CalRecycle Oct 2026 Registry">CA</span>` : "";
+          return `
+            <tr>
+              <td>
+                <div><strong>${esc(m.manufacturer_name)}</strong>${calTag}</div>
+                ${m.dba_name && m.dba_name !== m.manufacturer_name ? `<div class="b-muted">DBA: ${esc(m.dba_name)}</div>` : ""}
+                ${m.address ? `<div class="b-muted">${esc(m.address)}</div>` : ""}
+              </td>
+              <td><span class="b-type-pill ${cls}">${esc(m.mfr_type)}</span></td>
+              <td class="num b-col-hide-md">${m.founded_year || "—"}</td>
+              <td>${esc(loc)}</td>
+              <td class="b-col-hide-sm">${esc(m.brands_made || "—")}</td>
+              <td class="b-col-hide-md"><span class="b-muted">${esc(m.notes || "")}</span></td>
+            </tr>
+          `;
+        }).join("");
+      }
+
+      const foot = document.getElementById("mfFoot");
+      foot.innerHTML = `<span>Showing ${shown.length.toLocaleString()} of ${rows.length.toLocaleString()} manufacturers</span>`
+        + (shown.length < rows.length ? `<button class="load-btn" type="button" id="mfLoadAll">Show all ${rows.length.toLocaleString()}</button>` : "");
+      const btn = document.getElementById("mfLoadAll");
+      if (btn) btn.addEventListener("click", () => { bState.mfLimit = rows.length; renderMfrTableOnly(); });
+    }
+
+    document.getElementById("mfSearch").addEventListener("input", e => { bState.mfQ = e.target.value; bState.mfLimit = 120; renderMfrTableOnly(); });
+    document.getElementById("mfTypeSel").addEventListener("change", e => { bState.mfType = e.target.value; bState.mfLimit = 120; renderMfrTableOnly(); });
+    document.getElementById("mfCountrySel").addEventListener("change", e => { bState.mfCountry = e.target.value; bState.mfLimit = 120; renderMfrTableOnly(); });
+    document.getElementById("mfStateSel").addEventListener("change", e => { bState.mfState = e.target.value; bState.mfLimit = 120; renderMfrTableOnly(); });
+    document.getElementById("mfSortSel").addEventListener("change", e => { bState.mfSort = e.target.value; renderMfrTableOnly(); });
+
+    renderMfrTableOnly();
+  }
+
   function renderSchema(root, data) {
     const pv = data.brands.filter(b => b.verification_tier === "PRIMARY_VERIFIED");
     const fillFor = key => {
@@ -786,6 +941,7 @@
     if (bState.sub === "benchmarks") renderBenchmarks(root, data);
     else if (bState.sub === "directory") renderDirectory(root, data);
     else if (bState.sub === "models") renderModels(root, data);
+    else if (bState.sub === "manufacturers") renderManufacturers(root, data);
     else if (bState.sub === "schema") renderSchema(root, data);
     else if (bState.sub === "sources") renderSources(root, data);
   };

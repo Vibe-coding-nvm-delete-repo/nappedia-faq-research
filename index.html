@@ -1116,6 +1116,10 @@
       <span>Models</span>
       <span class="tab-count" id="cnt-b-models">0</span>
     </button>
+    <button class="cat-tab" id="btab-manufacturers" data-bsub="manufacturers" role="tab" type="button">
+      <span>Manufacturers</span>
+      <span class="tab-count" id="cnt-b-manufacturers">0</span>
+    </button>
     <button class="cat-tab" id="btab-schema" data-bsub="schema" role="tab" type="button">
       <span>Data Schema</span>
       <span class="tab-count" id="cnt-b-schema">50</span>
@@ -1341,6 +1345,9 @@ function initFromHash() {
     state.macro = "brands";
     state.brandSub = "models";
     state.brandModelFilter = params.get("brand") || "";
+  } else if (h === "brands-manufacturers") {
+    state.macro = "brands";
+    state.brandSub = "manufacturers";
   } else if (h === "brands-schema") {
     state.macro = "brands";
     state.brandSub = "schema";
@@ -1454,6 +1461,7 @@ function renderTopbarAndTabs() {
     document.getElementById("cnt-b-benchmarks").textContent = BRANDS_DATA.benchmarks.cards.length;
     document.getElementById("cnt-b-directory").textContent = bCounts.active_us_brands.toLocaleString();
     document.getElementById("cnt-b-models").textContent = (BRANDS_DATA.models || []).length.toLocaleString();
+    document.getElementById("cnt-b-manufacturers").textContent = (BRANDS_DATA.manufacturers || []).length.toLocaleString();
     document.getElementById("cnt-b-schema").textContent = BRANDS_DATA.meta.schema_field_count;
     document.getElementById("cnt-b-sources").textContent = BRANDS_DATA.research_sources.length;
   }
