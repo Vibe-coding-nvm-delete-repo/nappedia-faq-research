@@ -360,6 +360,7 @@
             <p><strong>Fiberglass:</strong> ${fgPill(b.fiberglass_status)} · <strong>Exact Spec:</strong> ${esc(b.fiberglass_exact_name || b.fire_barrier_type || "Undisclosed")}</p>
             <p><strong>Lawsuits / FTC (${b.lawsuit_count ?? 0}):</strong> ${esc(b.lawsuit_summary || "No major federal class actions documented.")}</p>
             <p><strong>Certifications:</strong> ${(b.certifications || []).length ? b.certifications.map(c => `<span class="pill p-study">${esc(c)}</span>`).join(" ") : "None disclosed"}</p>
+            ${(b.channel_classification || b.evidence_note) ? `<p><strong>Channel &amp; Audit Note:</strong> ${b.channel_classification ? `<span class="b-cal-badge">${esc(b.channel_classification)}</span> ` : ""}${esc(b.evidence_note || "")}</p>` : ""}
           </div>
         </div>
         ${quotes.length ? `
