@@ -1660,6 +1660,11 @@ function renderTopbarAndTabs() {
   if (isReviews || isBrands) {
     sl.style.display = "none";
     mb.textContent = isReviews ? "v3.1 QA Pipeline" : "Brands Methodology";
+  } else if (isBrandFaqs) {
+    sl.style.display = "";
+    sl.href = META.sheets["brand-faqs"] || META.sheets.overview;
+    sl.innerHTML = `Brand FAQs Sheet &#8599;`;
+    mb.textContent = "Brand FAQs Methodology";
   } else {
     sl.style.display = "";
     sl.href = META.sheets.overview;
@@ -1668,6 +1673,7 @@ function renderTopbarAndTabs() {
   }
 
   document.getElementById("catTabs").style.display = isFaqs ? "" : "none";
+  document.getElementById("brandFaqTabs").style.display = isBrandFaqs ? "" : "none";
   document.getElementById("brandTabs").style.display = isBrands ? "" : "none";
 
   document.querySelectorAll("#catTabs .cat-tab").forEach(btn => {
@@ -1679,6 +1685,7 @@ function renderTopbarAndTabs() {
   document.getElementById("overviewView").style.display = (isFaqs && state.cat === "overview") ? "" : "none";
   document.getElementById("categoryView").style.display = (isFaqs && Boolean(CATS[state.cat])) ? "" : "none";
   document.getElementById("researchView").style.display = (isFaqs && state.cat === "research") ? "" : "none";
+  document.getElementById("brandFaqsView").style.display = isBrandFaqs ? "" : "none";
   document.getElementById("brandsView").style.display = isBrands ? "" : "none";
   document.getElementById("reviewsView").style.display = isReviews ? "" : "none";
 }
