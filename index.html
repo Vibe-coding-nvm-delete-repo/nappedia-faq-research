@@ -94,7 +94,12 @@
     flex-wrap: nowrap;
   }
   @media (max-width: 1320px) {
-    .macro-crumb { display: none; }
+    .macro-crumb { display: none !important; }
+  }
+  @media (max-width: 640px) {
+    .macro-switch { max-width: 100%; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .macro-switch::-webkit-scrollbar { display: none; }
+    .macro-pill { padding: 5px 9px; font-size: 12px; white-space: nowrap; flex-shrink: 0; }
   }
   @media (max-width: 1080px) {
     .site-header-inner { flex-wrap: wrap; }
