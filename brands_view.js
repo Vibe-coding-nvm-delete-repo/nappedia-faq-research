@@ -150,6 +150,7 @@
     panelsCreated = true;
     root.innerHTML = `
       <div id="bpanel-benchmarks" style="display:none;"></div>
+      <div id="bpanel-analytics" style="display:none;"></div>
       <div id="bpanel-directory" style="display:none;"></div>
       <div id="bpanel-models" style="display:none;"></div>
       <div id="bpanel-manufacturers" style="display:none;"></div>
@@ -949,7 +950,7 @@
       btn.setAttribute("aria-selected", act ? "true" : "false");
     });
 
-    const subKeys = ["benchmarks", "directory", "models", "manufacturers", "schema", "sources"];
+    const subKeys = ["benchmarks", "analytics", "directory", "models", "manufacturers", "schema", "sources"];
     for (let i = 0; i < subKeys.length; i++) {
       const k = subKeys[i];
       const p = document.getElementById("bpanel-" + k);
@@ -960,6 +961,7 @@
     if (!mounted[bState.sub]) {
       mounted[bState.sub] = true;
       if (bState.sub === "benchmarks") mountBenchmarks(activePanel, data);
+      else if (bState.sub === "analytics" && window.mountBrandsAnalytics) window.mountBrandsAnalytics(activePanel, data);
       else if (bState.sub === "directory") mountDirectory(activePanel, data);
       else if (bState.sub === "models") mountModels(activePanel, data);
       else if (bState.sub === "manufacturers") mountManufacturers(activePanel, data);

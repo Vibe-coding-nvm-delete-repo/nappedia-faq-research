@@ -1037,6 +1037,19 @@
   .b-table thead th.sortable { cursor: pointer; user-select: none; transition: background 0.1s ease, color 0.1s ease; }
   .b-table thead th.sortable:hover { background: #eef2f6; color: var(--ink); }
   .b-table thead th.sortable.sorted { color: var(--accent); background: #eef6ff; }
+
+  /* Analytics Tab Grid & SVG Charts */
+  .an-kpi-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-bottom: 14px; }
+  .an-chart-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+  .an-chart-card { padding-bottom: 10px; }
+  .an-svg-wrap { padding: 4px 14px 8px; width: 100%; overflow: hidden; }
+  .an-svg { width: 100%; height: auto; display: block; }
+  .an-bar-g rect:hover, .an-dot:hover { opacity: 1; fill-opacity: 1; cursor: pointer; }
+  .an-legend { display: flex; flex-wrap: wrap; gap: 8px 12px; padding: 0 18px 6px; font-size: 11.5px; color: var(--sub); }
+  .an-leg-item { display: inline-flex; align-items: center; gap: 5px; }
+  .an-leg-dot { width: 8px; height: 8px; border-radius: 999px; display: inline-block; }
+  @media (max-width: 960px) { .an-kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .an-chart-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 600px) { .an-kpi-grid { grid-template-columns: 1fr; } }
   .b-cal-badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 5px; border-radius: 5px; background: #e0f2fe; color: #0369a1; vertical-align: middle; }
   .b-model-link { border: none; background: var(--accent-soft); color: var(--accent); padding: 3px 9px; border-radius: 7px; font-size: 12px; font-weight: 700; cursor: pointer; white-space: nowrap; }
   .b-model-link:hover { background: #d6e8fb; }
@@ -1102,6 +1115,16 @@
     <button class="cat-tab" id="tab-mattress-types" data-cat="mattress-types" role="tab" type="button"><span class="dot-done" aria-hidden="true"></span><span>Types</span><span class="tab-count" id="cnt-mattress-types">151</span></button>
     <button class="cat-tab" id="tab-buying-process" data-cat="buying-process" role="tab" type="button"><span class="dot-done" aria-hidden="true"></span><span>Buying</span><span class="tab-count" id="cnt-buying-process">26</span></button>
     <button class="cat-tab" id="tab-safety-certs" data-cat="safety-certs" role="tab" type="button"><span class="dot-done" aria-hidden="true"></span><span>Safety</span><span class="tab-count" id="cnt-safety-certs">45</span></button>
+    <button class="cat-tab" id="tab-toppers-bedding" data-cat="toppers-bedding" role="tab" type="button"><span class="dot-done" aria-hidden="true"></span><span>Toppers</span><span class="tab-count" id="cnt-toppers-bedding">281</span></button>
+    <button class="cat-tab" id="tab-sizes-fit" data-cat="sizes-fit" role="tab" type="button"><span class="dot-done" aria-hidden="true"></span><span>Sizes</span><span class="tab-count" id="cnt-sizes-fit">109</span></button>
+    <button class="cat-tab" id="tab-foundations-bases" data-cat="foundations-bases" role="tab" type="button"><span class="dot-done" aria-hidden="true"></span><span>Bases</span><span class="tab-count" id="cnt-foundations-bases">81</span></button>
+    <button class="cat-tab" id="tab-trials-warranties" data-cat="trials-warranties" role="tab" type="button"><span class="dot-done" aria-hidden="true"></span><span>Trials</span><span class="tab-count" id="cnt-trials-warranties">29</span></button>
+    <button class="cat-tab" id="tab-industry-brands" data-cat="industry-brands" role="tab" type="button"><span class="dot-done" aria-hidden="true"></span><span>Industry</span><span class="tab-count" id="cnt-industry-brands">21</span></button>
+    <button class="cat-tab" id="tab-materials-specs" data-cat="materials-specs" role="tab" type="button"><span class="dot-done" aria-hidden="true"></span><span>Specs</span><span class="tab-count" id="cnt-materials-specs">23</span></button>
+    <button class="cat-tab" id="tab-specialty-rv" data-cat="specialty-rv" role="tab" type="button"><span class="dot-done" aria-hidden="true"></span><span>Specialty</span><span class="tab-count" id="cnt-specialty-rv">194</span></button>
+    <button class="cat-tab" id="tab-setup-lifespan" data-cat="setup-lifespan" role="tab" type="button"><span class="dot-done" aria-hidden="true"></span><span>Setup</span><span class="tab-count" id="cnt-setup-lifespan">50</span></button>
+    <button class="cat-tab" id="tab-care-cleaning" data-cat="care-cleaning" role="tab" type="button"><span class="dot-done" aria-hidden="true"></span><span>Care</span><span class="tab-count" id="cnt-care-cleaning">121</span></button>
+    <button class="cat-tab" id="tab-moving-disposal" data-cat="moving-disposal" role="tab" type="button"><span class="dot-done" aria-hidden="true"></span><span>Moving</span><span class="tab-count" id="cnt-moving-disposal">76</span></button>
     <button class="cat-tab" id="tab-research" data-cat="research" role="tab" type="button">
       <span>Library</span>
       <span class="tab-count" id="cnt-research">157</span>
@@ -1112,6 +1135,10 @@
     <button class="cat-tab active" id="btab-benchmarks" data-bsub="benchmarks" role="tab" type="button">
       <span>Benchmarks &amp; Averages</span>
       <span class="tab-count" id="cnt-b-benchmarks">18</span>
+    </button>
+    <button class="cat-tab" id="btab-analytics" data-bsub="analytics" role="tab" type="button">
+      <span>Analytics</span>
+      <span class="tab-count" id="cnt-b-analytics">6</span>
     </button>
     <button class="cat-tab" id="btab-directory" data-bsub="directory" role="tab" type="button">
       <span>Brand Universe</span>
@@ -1228,7 +1255,18 @@
 <script src="./data/cat_mattress_types.js"></script>
 <script src="./data/cat_buying_process.js"></script>
 <script src="./data/cat_safety_certs.js"></script>
+<script src="./data/cat_toppers_bedding.js"></script>
+<script src="./data/cat_sizes_fit.js"></script>
+<script src="./data/cat_foundations_bases.js"></script>
+<script src="./data/cat_trials_warranties.js"></script>
+<script src="./data/cat_industry_brands.js"></script>
+<script src="./data/cat_materials_specs.js"></script>
+<script src="./data/cat_specialty_rv.js"></script>
+<script src="./data/cat_setup_lifespan.js"></script>
+<script src="./data/cat_care_cleaning.js"></script>
+<script src="./data/cat_moving_disposal.js"></script>
 <script src="./data/brands_master.js"></script>
+<script src="./brands_analytics.js"></script>
 <script src="./brands_view.js"></script>
 <script>
 const META = window.NAPPEDIA_META;
@@ -1343,6 +1381,9 @@ function initFromHash() {
   if (h === "brands" || h === "brands-benchmarks") {
     state.macro = "brands";
     state.brandSub = "benchmarks";
+  } else if (h === "brands-analytics") {
+    state.macro = "brands";
+    state.brandSub = "analytics";
   } else if (h === "brands-directory" || h === "brands-universe") {
     state.macro = "brands";
     state.brandSub = "directory";
@@ -1452,7 +1493,7 @@ function renderTopbarAndTabs() {
   });
 
   document.getElementById("brandMeta").textContent = isBrands
-    ? `${bCounts.active_us_brands.toLocaleString()} active US brands · ${bCounts.primary_verified_brands} primary-verified · ${BRANDS_DATA.meta.schema_field_count} fields`
+    ? `${bCounts.active_us_brands.toLocaleString()} active US brands · ${(bCounts.primary_verified_brands + (bCounts.enriched_live_brands || 0)).toLocaleString()} live-scraped · ${BRANDS_DATA.meta.schema_field_count} fields`
     : `${META.total_kept_pages.toLocaleString()} validated pages · ${META.done_categories} of ${META.total_categories} categories mined`;
 
   document.getElementById("cnt-overview").textContent = META.total_categories;
