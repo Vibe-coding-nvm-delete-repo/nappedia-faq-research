@@ -1197,6 +1197,55 @@
   .rv-kpi-val { font-size: 22px; }
   .rv-card { padding: 14px 12px; }
 }
+
+/* --- URLs & Sitemap Cleanup View (Universal 10: zero border colors, light shadows only) --- */
+.u-table { table-layout: auto; width: 100%; }
+.u-table th, .u-table td { padding: 9px 8px; vertical-align: top; }
+.u-path-cell { width: 23%; max-width: 260px; }
+.u-path-link { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px; font-weight: 600; color: var(--accent); word-break: break-word; overflow-wrap: anywhere; }
+.u-title-sub { font-size: 11px; color: var(--sub); margin-top: 2px; line-height: 1.35; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.u-target-cell { width: 18%; max-width: 215px; }
+.u-target-link { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 11.5px; font-weight: 600; color: var(--accent); word-break: break-word; overflow-wrap: anywhere; }
+.u-sub-line { font-size: 10.5px; color: var(--sub); margin-top: 3px; word-break: break-word; overflow-wrap: anywhere; }
+.u-410-txt { font-size: 12px; font-weight: 700; color: #991b1b; white-space: nowrap; }
+.u-why-cell { width: 24%; max-width: 290px; font-size: 12px; color: var(--sub); line-height: 1.42; }
+.u-fam-pill { display: inline-block; padding: 2px 7px; border-radius: 999px; background: var(--control); color: var(--ink); font-size: 11px; font-weight: 600; white-space: nowrap; }
+.u-chip-row { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+.u-chip { display: inline-flex; align-items: center; padding: 1px 6px; border-radius: 999px; font-size: 10.5px; font-weight: 600; white-space: nowrap; }
+.u-chip-ok { background: #dcfce7; color: #15803d; }
+.u-chip-warn { background: #fef3c7; color: #b45309; }
+.u-chip-add { background: #e8f2fc; color: #0066cc; }
+.u-chip-red { background: #fee2e2; color: #991b1b; }
+.u-chip-amber { background: #fef3c7; color: #92400e; }
+.u-chip-muted { background: #eef2f6; color: #475569; }
+.u-analysis-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-bottom: 14px; }
+.u-spotlight-card, .u-bugs-card, .u-decision-card { padding: 18px 20px; }
+.u-decision-card { margin-bottom: 14px; }
+.u-eyebrow { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent); margin-bottom: 6px; }
+.u-lead { margin: 0 0 12px; font-size: 13.5px; color: var(--sub); line-height: 1.5; }
+.u-fact-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
+.u-fact-box { background: var(--tint); border-radius: var(--r-md); padding: 11px 13px; box-shadow: var(--shadow-sm); }
+.u-fact-lbl { font-size: 11.5px; font-weight: 700; color: var(--ink); margin-bottom: 3px; }
+.u-fact-val { font-size: 12.5px; color: var(--sub); line-height: 1.45; }
+.u-bug-list { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 10px; font-size: 13px; color: var(--sub); line-height: 1.5; }
+.u-bug-list li strong { color: var(--ink); }
+.u-inline-btn { border: none; background: transparent; color: var(--accent); font-weight: 600; font-size: 12.5px; padding: 0 2px; cursor: pointer; }
+.u-inline-btn:hover { text-decoration: underline; }
+.u-choice-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.u-choice-box { background: var(--tint); border-radius: var(--r-md); padding: 14px 16px; box-shadow: var(--shadow-sm); }
+.u-choice-rec { background: #f2fbf5; }
+.u-choice-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; margin-bottom: 6px; font-size: 13.5px; color: var(--ink); }
+.u-choice-box p { margin: 0; font-size: 13px; color: var(--sub); line-height: 1.5; }
+.u-phase-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 12px; }
+.u-phase-card { background: var(--tint); border-radius: var(--r-md); padding: 16px 18px; box-shadow: var(--shadow-sm); }
+.u-phase-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
+.u-phase-num { font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--sub); }
+.u-phase-title { font-family: Georgia, "Times New Roman", serif; font-size: 16px; font-weight: 700; color: var(--ink); margin: 0 0 8px; line-height: 1.3; }
+.u-phase-list { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: var(--sub); line-height: 1.5; }
+.u-phase-list li strong { color: var(--ink); }
+@media (max-width: 960px) {
+  .u-analysis-grid, .u-choice-grid, .u-phase-grid { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
@@ -1223,6 +1272,10 @@
         <button class="macro-pill" id="macro-reviews" data-macro="reviews" role="tab" type="button" aria-selected="false">
           <span>Brand Reviews</span>
           <span class="tab-count" id="cnt-macro-reviews">0</span>
+        </button>
+        <button class="macro-pill" id="macro-urls" data-macro="urls" role="tab" type="button" aria-selected="false">
+          <span>URLs &amp; Sitemap</span>
+          <span class="tab-count" id="cnt-macro-urls">3,631</span>
         </button>
       </div>
     </nav>
@@ -1384,6 +1437,25 @@
   <section id="reviewsView" style="display:none;">
     <div id="reviewsContent"></div>
   </section>
+
+  <!-- VIEW 6: MACRO PILLAR - SITEMAP & LEGACY URL CLEANUP -->
+  <section id="urlsView" style="display:none;">
+    <nav class="cat-tabs" id="urlsSubTabs" role="tablist" aria-label="Sitemap and URL Cleanup Sections" style="gap:4px;margin-bottom:12px;">
+      <button class="cat-tab active" id="utab-table" data-usub="table" role="tab" type="button" aria-selected="true">
+        <span>Full Sitemap &amp; URL Table</span>
+        <span class="tab-count" id="cnt-u-table">3,631</span>
+      </button>
+      <button class="cat-tab" id="utab-analysis" data-usub="analysis" role="tab" type="button" aria-selected="false">
+        <span>Data Analysis &amp; Findings</span>
+        <span class="tab-count" id="cnt-u-analysis">35</span>
+      </button>
+      <button class="cat-tab" id="utab-process" data-usub="process" role="tab" type="button" aria-selected="false">
+        <span>Scoped Cleanup Process</span>
+        <span class="tab-count" id="cnt-u-process">6</span>
+      </button>
+    </nav>
+    <div id="urlsContent"></div>
+  </section>
 </div>
 
 <div class="chart-tooltip" id="chartTooltip" role="tooltip"></div>
@@ -1431,6 +1503,8 @@
 <script src="./brands_analytics.js"></script>
 <script src="./brands_view.js"></script>
 <script src="./reviews_view.js?v=20261124v20"></script>
+<script src="./data/url_audit.js?v=20261124v21"></script>
+<script src="./urls_view.js?v=20261124v21"></script>
 <script>
 const META = window.NAPPEDIA_META;
 const CATS = window.NAPPEDIA_CATS;
@@ -1541,7 +1615,13 @@ function initFromHash() {
   const [hPart, qPart] = raw.split("?");
   const h = (hPart || "").toLowerCase();
   const params = new URLSearchParams(qPart || "");
-  if (h === "reviews" || h === "brand-reviews") {
+  if (h === "urls" || h === "sitemap" || h === "urls-table" || h === "urls-analysis" || h === "urls-process") {
+    state.macro = "urls";
+    if (window.setUrlsSub) {
+      const sub = h === "urls-analysis" ? "analysis" : (h === "urls-process" ? "process" : "table");
+      window.setUrlsSub(sub, false);
+    }
+  } else if (h === "reviews" || h === "brand-reviews") {
     state.macro = "reviews";
   } else if (h === "brands" || h === "brands-benchmarks") {
     state.macro = "brands";
@@ -1583,7 +1663,9 @@ function initFromHash() {
 function setMacro(macro, resetHash = true) {
   state.macro = macro;
   if (resetHash) {
-    const nextHash = macro === "reviews"
+    const nextHash = macro === "urls"
+      ? "#urls"
+      : macro === "reviews"
       ? "#reviews"
       : macro === "brands"
       ? (state.brandSub === "benchmarks" ? "#brands" : "#brands-" + state.brandSub)
@@ -1656,10 +1738,12 @@ function renderTopbarAndTabs() {
   const isBrands = state.macro === "brands";
   const isReviews = state.macro === "reviews";
   const isBrandFaqs = state.macro === "brand-faqs";
-  const isFaqs = !isBrands && !isReviews && !isBrandFaqs;
+  const isUrls = state.macro === "urls";
+  const isFaqs = !isBrands && !isReviews && !isBrandFaqs && !isUrls;
   const bfSum = (window.NAPPEDIA_BRAND_FAQS && window.NAPPEDIA_BRAND_FAQS.summary) || { kept_pages: 0, brands_covered: 0, live_sources_used: [] };
   const bCounts = BRANDS_DATA ? BRANDS_DATA.benchmarks.counts : { active_us_brands: 0, primary_verified_brands: 0 };
   const rvData = window.NAPPEDIA_BRAND_REVIEWS;
+  const urlData = window.NAPPEDIA_URL_AUDIT;
 
   document.getElementById("cnt-macro-faqs").textContent = META.total_kept_pages.toLocaleString();
   const bfMacroEl = document.getElementById("cnt-macro-brand-faqs");
@@ -1667,6 +1751,8 @@ function renderTopbarAndTabs() {
   document.getElementById("cnt-macro-brands").textContent = bCounts.active_us_brands.toLocaleString();
   const rvCntEl = document.getElementById("cnt-macro-reviews");
   if (rvCntEl && rvData) rvCntEl.textContent = rvData.summary.total.toLocaleString();
+  const urlCntEl = document.getElementById("cnt-macro-urls");
+  if (urlCntEl && urlData) urlCntEl.textContent = urlData.summary.total.toLocaleString();
 
   document.querySelectorAll(".macro-pill").forEach(btn => {
     const active = btn.dataset.macro === state.macro;
@@ -1674,7 +1760,9 @@ function renderTopbarAndTabs() {
     btn.setAttribute("aria-selected", active ? "true" : "false");
   });
 
-  document.getElementById("brandMeta").textContent = isReviews && rvData
+  document.getElementById("brandMeta").textContent = isUrls && urlData
+    ? `${urlData.summary.total.toLocaleString()} URLs · ${urlData.summary.totalRedirects.toLocaleString()} redirects · ${urlData.summary.byAction["410_GONE_DELETE"]} deletions`
+    : isReviews && rvData
     ? `${rvData.summary.live.toLocaleString()} of ${rvData.summary.total.toLocaleString()} live · Engine ${rvData.engineVersion || "v3.1"}`
     : isBrands
     ? `${bCounts.active_us_brands.toLocaleString()} active US brands · ${(bCounts.primary_verified_brands + (bCounts.enriched_live_brands || 0)).toLocaleString()} live-scraped · ${BRANDS_DATA.meta.schema_field_count} fields`
@@ -1717,6 +1805,7 @@ function renderTopbarAndTabs() {
   document.getElementById("brandFaqsView").style.display = isBrandFaqs ? "" : "none";
   document.getElementById("brandsView").style.display = isBrands ? "" : "none";
   document.getElementById("reviewsView").style.display = isReviews ? "" : "none";
+  document.getElementById("urlsView").style.display = isUrls ? "" : "none";
 }
 
 // =========================================================================
@@ -2618,7 +2707,9 @@ function renderGenericFoot(elId, shown, total, onLoad) {
 let overviewRendered = false;
 function render() {
   renderTopbarAndTabs();
-  if (state.macro === "reviews") {
+  if (state.macro === "urls") {
+    if (window.renderUrlsWorkspace) window.renderUrlsWorkspace();
+  } else if (state.macro === "reviews") {
     if (window.renderReviewsWorkspace) window.renderReviewsWorkspace();
   } else if (state.macro === "brand-faqs") {
     if (window.renderBrandFaqsView) window.renderBrandFaqsView();
@@ -2642,6 +2733,9 @@ document.querySelectorAll("#brandFaqTabs .cat-tab").forEach(btn => {
 });
 document.querySelectorAll("#brandTabs .cat-tab").forEach(btn => {
   btn.addEventListener("click", () => setBrandSub(btn.dataset.bsub));
+});
+document.querySelectorAll("#urlsSubTabs .cat-tab").forEach(btn => {
+  btn.addEventListener("click", () => { if (window.setUrlsSub) window.setUrlsSub(btn.dataset.usub); });
 });
 document.getElementById("topicFilter").addEventListener("input", e => {
   state.topicQ = e.target.value;
