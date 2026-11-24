@@ -1,5 +1,5 @@
 // Nappedia Brand Reviews & Scored Models Pipeline View (3rd Macro Tab: #reviews)
-// Fast, sortable, filterable 591-brand + 13,648-model priority workspace
+// Fast, sortable, filterable 591-brand + zero-dup scored models priority workspace
 // Grounded in data/brand_reviews_tracker.js & data/reviews_models_scored.js
 (function () {
   const rvState = {
