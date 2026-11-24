@@ -83,13 +83,13 @@
     box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06), 0 4px 16px rgba(15, 23, 42, 0.04);
   }
   .site-header-inner {
-    max-width: 1280px;
+    max-width: 1360px;
     width: 100%;
     margin: 0 auto;
     padding: 10px 20px;
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
+    display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 12px;
   }
   .topbar {
@@ -153,15 +153,7 @@
   .util-btn.link-btn { color: var(--accent); background: var(--accent-soft); }
   .util-btn.link-btn:hover { background: #d6e8fb; }
 
-  @media (max-width: 1240px) {
-    .site-header-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
-  }
-  @media (max-width: 1040px) {
+  @media (max-width: 1180px) {
     .site-header-inner {
       display: grid;
       grid-template-columns: 1fr auto;
@@ -937,7 +929,7 @@
   .macro-switch {
     display: inline-flex;
     align-items: center;
-    gap: 4px;
+    gap: 2px;
     background: #e5eaf0;
     padding: 3px;
     border-radius: 10px;
@@ -947,14 +939,14 @@
     border: none;
     background: transparent;
     color: var(--sub);
-    padding: 6px 12px;
+    padding: 6px 9px;
     border-radius: 8px;
-    font-size: 13px;
+    font-size: 12.5px;
     font-weight: 700;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 5px;
     min-height: 30px;
     white-space: nowrap;
     transition: background 0.12s ease, color 0.12s ease, box-shadow 0.12s ease;
@@ -1121,16 +1113,25 @@
   .ft-low { background: #f1f5f9; color: #475569; }
   .ft-title { font-weight: 600; color: var(--ink); line-height: 1.35; }
   .ft-note { font-size: 12px; color: var(--sub); margin-top: 3px; line-height: 1.4; }
+  .ft-est-sub { font-size: 10.5px; color: var(--sub); margin-top: 2px; line-height: 1.1; white-space: nowrap; }
   .ft-mob-cat { display: none; margin-top: 4px; white-space: normal; line-height: 1.25; max-width: 100%; }
   .ft-legend { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 10px; font-size: 12px; color: var(--sub); }
   .ft-kpi-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-bottom: 14px; }
-  @media (max-width: 900px) { .ft-kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .cmp-steps-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+  @media (max-width: 900px) {
+    .ft-kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .cmp-steps-grid { grid-template-columns: 1fr; }
+  }
   @media (max-width: 600px) {
     .ft-mob-cat { display: inline-block; }
-    #ftTable { table-layout: fixed; width: 100%; }
-    #ftTable th[data-col="vol"], #ftTable th[data-col="conv"], #ftTable th[data-col="avg"] { width: 46px; padding: 8px 4px; text-align: center; }
-    #ftTable td.num { padding: 8px 3px; text-align: center; }
-    #ftTable .ft-score-pill { min-width: 28px; padding: 2px 5px; font-size: 11px; }
+    #ftTable, #cmpTable { table-layout: fixed; width: 100%; }
+    #ftTable th[data-col="vol"], #ftTable th[data-col="conv"] { width: 40px; padding: 8px 2px; text-align: center; font-size: 10.5px; }
+    #ftTable th[data-col="scale"] { width: 48px; padding: 8px 2px; text-align: center; font-size: 10.5px; }
+    #ftTable th[data-col="avg"] { width: 44px; padding: 8px 2px; text-align: center; font-size: 10.5px; }
+    #cmpTable th.num { width: 48px; padding: 8px 2px; text-align: center; font-size: 10.5px; }
+    #ftTable td.num, #cmpTable td.num { padding: 8px 2px; text-align: center; }
+    #ftTable .ft-score-pill, #cmpTable .ft-score-pill { min-width: 26px; padding: 2px 4px; font-size: 11px; }
+    #ftTable .ft-est-sub, #cmpTable .ft-est-sub { font-size: 9.5px; }
   }
   @media (max-width: 520px) { .ft-kpi-grid { grid-template-columns: 1fr; } }
   .b-dot-live { width: 7px; height: 7px; border-radius: 999px; background: #0066cc; flex-shrink: 0; }
@@ -1284,6 +1285,10 @@
           <span>Brand FAQs</span>
           <span class="tab-count" id="cnt-macro-brand-faqs">0</span>
         </button>
+        <button class="macro-pill" id="macro-comparisons" data-macro="model-comparisons" role="tab" type="button" aria-selected="false">
+          <span>Comparisons</span>
+          <span class="tab-count" id="cnt-macro-comparisons">4</span>
+        </button>
         <button class="macro-pill" id="macro-brands" data-macro="brands" role="tab" type="button" aria-selected="false">
           <span>Brands</span>
           <span class="tab-count" id="cnt-macro-brands">0</span>
@@ -1370,7 +1375,7 @@
     </button>
     <button class="cat-tab" id="btab-faq-types" data-bsub="faq_types" role="tab" type="button">
       <span>Brand FAQ Types</span>
-      <span class="tab-count" id="cnt-b-faq-types">110</span>
+      <span class="tab-count" id="cnt-b-faq-types">106</span>
     </button>
     <button class="cat-tab" id="btab-manufacturers" data-bsub="manufacturers" role="tab" type="button">
       <span>Manufacturers</span>
@@ -1452,6 +1457,11 @@
     <div id="brandFaqsContent"></div>
   </section>
 
+  <!-- VIEW 4B: MACRO PILLAR - BRAND & MODEL COMPARISONS -->
+  <section id="comparisonsHubView" style="display:none;">
+    <div id="comparisonsHubContent"></div>
+  </section>
+
   <section id="brandsView" style="display:none;">
     <div id="brandsContent"></div>
   </section>
@@ -1524,8 +1534,9 @@
 <script src="./data/brand_reviews_tracker.js?v=20261124v23"></script>
 <script src="./data/reviews_models_scored.js?v=20261124v23"></script>
 <script src="./brands_analytics.js"></script>
-<script src="./data/brand_faq_types_110.js?v=20261124v24"></script>
-<script src="./brands_view.js?v=20261124v24"></script>
+<script src="./data/brand_faq_types_110.js?v=20261124v25"></script>
+<script src="./comparisons_view.js?v=20261124v25"></script>
+<script src="./brands_view.js?v=20261124v25"></script>
 <script src="./reviews_view.js?v=20261124v23"></script>
 <script src="./data/url_audit.js?v=20261124v22"></script>
 <script src="./urls_view.js?v=20261124v22"></script>
@@ -1672,6 +1683,8 @@ function initFromHash() {
   } else if (h === "brands-sources") {
     state.macro = "brands";
     state.brandSub = "sources";
+  } else if (h === "model-comparisons" || h === "brand-comparisons" || h === "comparisons-hub") {
+    state.macro = "model-comparisons";
   } else if (h === "brand-faqs" || h === "brand-faqs-explorer" || h === "brand-faqs-brands" || h === "brand-faqs-audit") {
     state.macro = "brand-faqs";
     if (window.setBrandFaqSub) {
@@ -1696,6 +1709,7 @@ function setMacro(macro, resetHash = true) {
       ? "#reviews"
       : macro === "brands"
       ? (state.brandSub === "benchmarks" ? "#brands" : "#brands-" + state.brandSub.replace(/_/g, "-"))
+      : macro === "model-comparisons" ? "#model-comparisons"
       : macro === "brand-faqs" ? "#brand-faqs"
       : "#" + state.cat;
     history.replaceState(null, "", nextHash);
@@ -1765,8 +1779,9 @@ function renderTopbarAndTabs() {
   const isBrands = state.macro === "brands";
   const isReviews = state.macro === "reviews";
   const isBrandFaqs = state.macro === "brand-faqs";
+  const isModelComp = state.macro === "model-comparisons";
   const isUrls = state.macro === "urls";
-  const isFaqs = !isBrands && !isReviews && !isBrandFaqs && !isUrls;
+  const isFaqs = !isBrands && !isReviews && !isBrandFaqs && !isModelComp && !isUrls;
   const bfSum = (window.NAPPEDIA_BRAND_FAQS && window.NAPPEDIA_BRAND_FAQS.summary) || { kept_pages: 0, brands_covered: 0, live_sources_used: [] };
   const bCounts = BRANDS_DATA ? BRANDS_DATA.benchmarks.counts : { active_us_brands: 0, primary_verified_brands: 0 };
   const rvData = window.NAPPEDIA_BRAND_REVIEWS;
@@ -1791,6 +1806,8 @@ function renderTopbarAndTabs() {
     ? `${urlData.summary.total.toLocaleString()} URLs · ${urlData.summary.totalRedirects.toLocaleString()} redirects · ${urlData.summary.byAction["410_GONE_DELETE"]} deletions`
     : isReviews && rvData
     ? `${rvData.summary.live.toLocaleString()} of ${rvData.summary.total.toLocaleString()} live · Engine ${rvData.engineVersion || "v3.1"}`
+    : isModelComp
+    ? `4 comparison templates · 543 live brands · 15,027 canonical models ready for permutation mining`
     : isBrands
     ? `${bCounts.active_us_brands.toLocaleString()} active US brands · ${(bCounts.primary_verified_brands + (bCounts.enriched_live_brands || 0)).toLocaleString()} live-scraped · ${BRANDS_DATA.meta.schema_field_count} fields`
     : `${META.total_kept_pages.toLocaleString()} validated pages · ${META.done_categories} of ${META.total_categories} categories mined`;
@@ -1830,6 +1847,7 @@ function renderTopbarAndTabs() {
   document.getElementById("categoryView").style.display = (isFaqs && Boolean(CATS[state.cat])) ? "" : "none";
   document.getElementById("researchView").style.display = (isFaqs && state.cat === "research") ? "" : "none";
   document.getElementById("brandFaqsView").style.display = isBrandFaqs ? "" : "none";
+  document.getElementById("comparisonsHubView").style.display = isModelComp ? "" : "none";
   document.getElementById("brandsView").style.display = isBrands ? "" : "none";
   document.getElementById("reviewsView").style.display = isReviews ? "" : "none";
   document.getElementById("urlsView").style.display = isUrls ? "" : "none";
@@ -2738,6 +2756,8 @@ function render() {
     if (window.renderUrlsWorkspace) window.renderUrlsWorkspace();
   } else if (state.macro === "reviews") {
     if (window.renderReviewsWorkspace) window.renderReviewsWorkspace();
+  } else if (state.macro === "model-comparisons") {
+    if (window.renderComparisonsHub) window.renderComparisonsHub();
   } else if (state.macro === "brand-faqs") {
     if (window.renderBrandFaqsView) window.renderBrandFaqsView();
   } else if (state.macro === "brands") {

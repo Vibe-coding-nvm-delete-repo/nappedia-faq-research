@@ -1007,47 +1007,51 @@
     };
 
     const top8Cnt = items.filter(x => x.avg >= 8).length;
+    const hiScaleCnt = items.filter(x => x.scale >= 8).length;
     const zeroHubCnt = items.filter(x => x.hub_pages === 0).length;
     const hiVolCnt = items.filter(x => x.vol >= 8).length;
     const hiConvCnt = items.filter(x => x.conv >= 8).length;
     const noOverCnt = items.filter(x => x.competes === "No").length;
+    const totalEstPages = sum.total_est_pages || items.reduce((s, x) => s + (x.est_pages || 0), 0);
 
     panel.innerHTML = `
       <div class="ft-kpi-grid">
         <div class="rv-kpi">
-          <div class="rv-kpi-lbl">Total FAQ Page Types</div>
+          <div class="rv-kpi-lbl">Brand FAQ Page Types</div>
           <div style="font-size:26px;font-weight:800;margin-top:4px;">${items.length}</div>
-          <div style="font-size:12px;color:var(--sub);margin-top:2px;">Across ${cats.length} plain-English categories</div>
+          <div style="font-size:12px;color:var(--sub);margin-top:2px;">Across ${cats.length} categories (comparisons moved out)</div>
         </div>
         <div class="rv-kpi">
-          <div class="rv-kpi-lbl">Top Priority (Avg 8.0+)</div>
+          <div class="rv-kpi-lbl">Top Priority (3-Vector 8.0+)</div>
           <div style="font-size:26px;font-weight:800;margin-top:4px;color:#15803d;">${top8Cnt}</div>
-          <div style="font-size:12px;color:var(--sub);margin-top:2px;">High search volume + ready-to-buy intent</div>
+          <div style="font-size:12px;color:var(--sub);margin-top:2px;">Needs strong Vol + Conv + 300+ Pages</div>
         </div>
         <div class="rv-kpi">
-          <div class="rv-kpi-lbl">0 Pages in Hub Today</div>
-          <div style="font-size:26px;font-weight:800;margin-top:4px;color:var(--accent);">${zeroHubCnt}</div>
-          <div style="font-size:12px;color:var(--sub);margin-top:2px;">Wide-open brand FAQ gaps to mine next</div>
+          <div class="rv-kpi-lbl">Hundreds of Pages (300+)</div>
+          <div style="font-size:26px;font-weight:800;margin-top:4px;color:var(--accent);">${hiScaleCnt}</div>
+          <div style="font-size:12px;color:var(--sub);margin-top:2px;">~${totalEstPages.toLocaleString()} est. potential pages total</div>
         </div>
         <div class="rv-kpi">
-          <div class="rv-kpi-lbl">Avg Rating (1–10 Scale)</div>
-          <div style="font-size:26px;font-weight:800;margin-top:4px;">${sum.avg_vol || "6.3"} <span style="font-size:14px;font-weight:600;color:var(--sub);">Vol</span> · ${sum.avg_conv || "5.2"} <span style="font-size:14px;font-weight:600;color:var(--sub);">Conv</span></div>
-          <div style="font-size:12px;color:var(--sub);margin-top:2px;">${hiVolCnt} High Vol (8+) · ${hiConvCnt} High Conv (8+)</div>
+          <div class="rv-kpi-lbl">Avg Rating (3 Vectors · 1–10)</div>
+          <div style="font-size:22px;font-weight:800;margin-top:6px;">${sum.avg_vol || "6.2"} <span style="font-size:12px;font-weight:600;color:var(--sub);">Vol</span> · ${sum.avg_conv || "5.1"} <span style="font-size:12px;font-weight:600;color:var(--sub);">Conv</span> · ${sum.avg_scale || "7.2"} <span style="font-size:12px;font-weight:600;color:var(--sub);">Pages</span></div>
+          <div style="font-size:12px;color:var(--sub);margin-top:4px;">${zeroHubCnt} types still have 0 pages in Hub today</div>
         </div>
       </div>
 
       <div class="card b-intro-card" style="margin-bottom:14px;">
-        <h3>All 110 Brand &amp; Model Mattress FAQ Page Types</h3>
-        <p class="b-card-desc">Every brand and model FAQ page type we could write across your 543 live brands (591 with upcoming), rated on a 1–10 scale for <strong>Potential Volume</strong> and <strong>Convertibility</strong>. Click any column header to sort.</p>
+        <h3>All ${items.length} Brand &amp; Model Mattress FAQ Page Types</h3>
+        <p class="b-card-desc">Every non-comparison brand and model FAQ page type we can write across your 543 live brands (591 with upcoming), rated on 3 vectors (1–10 each): <strong>Potential Volume</strong>, <strong>Convertibility</strong>, and <strong>Page # (Scale)</strong>. Small-scale topics can't reach Top Priority. Comparison pages now live in their own <a href="#model-comparisons" style="color:var(--accent);font-weight:600;">Comparisons</a> section.</p>
         <div class="ft-legend">
-          <span><strong>Potential Volume (1–10):</strong> <code>9–10</code> Massive demand across many brands · <code>7–8</code> High recurring searches · <code>5–6</code> Solid mid-tier · <code>1–4</code> Niche / long-tail</span>
-          <span><strong>Convertibility (1–10):</strong> <code>9–10</code> Wallet out, ready to buy (comparisons, promos, HSA/FSA, discounts) · <code>7–8</code> Strong pre-buy filter (fiberglass, weight limit, back pain) · <code>1–3</code> Post-purchase help or support</span>
+          <span><strong>Potential Volume (1–10):</strong> <code>9–10</code> Massive demand · <code>7–8</code> High recurring searches · <code>5–6</code> Solid mid-tier · <code>1–4</code> Niche</span>
+          <span><strong>Convertibility (1–10):</strong> <code>9–10</code> Wallet out, ready to buy · <code>7–8</code> Strong pre-buy filter · <code>1–3</code> Post-purchase help</span>
+          <span><strong>Page # / Scale (1–10):</strong> <code>9–10</code> 450–800+ pages · <code>8</code> 300–449 pages · <code>6–7</code> 120–299 pages · <code>1–5</code> Under 120 pages (lowers total score)</span>
         </div>
       </div>
 
       <div class="b-scope-bar" id="ftScopeBar">
         <button class="b-scope-pill active" data-ftscope="all" type="button">All Types <span>${items.length}</span></button>
-        <button class="b-scope-pill" data-ftscope="top8" type="button">Top ROI (Avg 8+) <span>${top8Cnt}</span></button>
+        <button class="b-scope-pill" data-ftscope="top8" type="button">Top Priority (8.0+) <span>${top8Cnt}</span></button>
+        <button class="b-scope-pill" data-ftscope="hi_scale" type="button">300+ Pages (Scale 8+) <span>${hiScaleCnt}</span></button>
         <button class="b-scope-pill" data-ftscope="zero_hub" type="button">0 in Hub Today <span>${zeroHubCnt}</span></button>
         <button class="b-scope-pill" data-ftscope="hi_vol" type="button">High Volume (8+) <span>${hiVolCnt}</span></button>
         <button class="b-scope-pill" data-ftscope="hi_conv" type="button">High Convertibility (8+) <span>${hiConvCnt}</span></button>
@@ -1071,12 +1075,13 @@
           <table class="b-table" id="ftTable">
             <thead id="ftThead">
               <tr>
-                <th class="sortable num b-col-hide-sm" data-col="id" style="width:46px;">#</th>
+                <th class="sortable num b-col-hide-sm" data-col="id" style="width:44px;">#</th>
                 <th class="sortable" data-col="template">FAQ Page Type</th>
                 <th class="sortable b-col-hide-sm" data-col="category">Category</th>
                 <th class="sortable b-col-hide-md" data-col="applies_to">Applies To</th>
                 <th class="sortable num" data-col="vol">Vol</th>
                 <th class="sortable num" data-col="conv">Conv</th>
+                <th class="sortable num" data-col="scale">Pages</th>
                 <th class="sortable num" data-col="avg">Score</th>
                 <th class="sortable num b-col-hide-sm" data-col="hub_pages">In Hub</th>
                 <th class="sortable b-col-hide-md" data-col="competes">Overlap</th>
@@ -1108,6 +1113,7 @@
       const q = bState.ftQ.trim().toLowerCase();
       let list = items.filter(x => {
         if (bState.ftScope === "top8" && x.avg < 8) return false;
+        if (bState.ftScope === "hi_scale" && x.scale < 8) return false;
         if (bState.ftScope === "zero_hub" && x.hub_pages !== 0) return false;
         if (bState.ftScope === "hi_vol" && x.vol < 8) return false;
         if (bState.ftScope === "hi_conv" && x.conv < 8) return false;
@@ -1126,9 +1132,10 @@
         else if (col === "template") c = cmpNullable(a.template, b.template, dir, true);
         else if (col === "category") c = cmpNullable(a.category, b.category, dir, true);
         else if (col === "applies_to") c = cmpNullable(a.applies_to, b.applies_to, dir, true);
-        else if (col === "vol") c = cmpNullable(a.vol, b.vol, dir, false) || (b.conv - a.conv);
-        else if (col === "conv") c = cmpNullable(a.conv, b.conv, dir, false) || (b.vol - a.vol);
-        else if (col === "avg") c = cmpNullable(a.avg, b.avg, dir, false) || (b.conv - a.conv) || (b.vol - a.vol);
+        else if (col === "vol") c = cmpNullable(a.vol, b.vol, dir, false) || (b.scale - a.scale) || (b.conv - a.conv);
+        else if (col === "conv") c = cmpNullable(a.conv, b.conv, dir, false) || (b.scale - a.scale) || (b.vol - a.vol);
+        else if (col === "scale") c = cmpNullable(a.est_pages, b.est_pages, dir, false) || cmpNullable(a.scale, b.scale, dir, false) || (b.avg - a.avg);
+        else if (col === "avg") c = cmpNullable(a.avg, b.avg, dir, false) || (b.scale - a.scale) || (b.conv - a.conv) || (b.vol - a.vol);
         else if (col === "hub_pages") c = cmpNullable(a.hub_pages, b.hub_pages, dir, false);
         else if (col === "competes") c = cmpNullable(a._compRank, b._compRank, dir, false);
         return c || (a.id - b.id);
@@ -1138,8 +1145,8 @@
       updateHeaders();
 
       if (!list.length) {
-        tbody.innerHTML = `<tr><td colspan="9" style="text-align:center;padding:24px;color:var(--sub);">No FAQ page types match your filters.</td></tr>`;
-        foot.textContent = "Showing 0 of 110 Brand FAQ page types";
+        tbody.innerHTML = `<tr><td colspan="10" style="text-align:center;padding:24px;color:var(--sub);">No FAQ page types match your filters.</td></tr>`;
+        foot.textContent = `Showing 0 of ${items.length} Brand FAQ page types`;
         return;
       }
 
@@ -1155,6 +1162,10 @@
           <td class="b-col-hide-md" style="white-space:nowrap;">${esc(x.applies_to)}</td>
           <td class="num">${scorePill(x.vol)}</td>
           <td class="num">${scorePill(x.conv)}</td>
+          <td class="num">
+            ${scorePill(x.scale)}
+            <div class="ft-est-sub">~${(x.est_pages || 0).toLocaleString()}</div>
+          </td>
           <td class="num"><strong>${x.avg.toFixed(1)}</strong></td>
           <td class="num b-col-hide-sm">${x.hub_pages === 0 ? `<span class="b-muted">0</span>` : `<strong>${x.hub_pages}</strong>`}</td>
           <td class="b-col-hide-md">${overlapPill(x.competes)}</td>
@@ -1163,7 +1174,9 @@
 
       const avgV = (list.reduce((s, x) => s + x.vol, 0) / list.length).toFixed(1);
       const avgC = (list.reduce((s, x) => s + x.conv, 0) / list.length).toFixed(1);
-      foot.textContent = `Showing ${list.length} of ${items.length} Brand FAQ page types · Filtered Avg Volume: ${avgV}/10 · Filtered Avg Convertibility: ${avgC}/10`;
+      const avgP = (list.reduce((s, x) => s + x.scale, 0) / list.length).toFixed(1);
+      const sumP = list.reduce((s, x) => s + (x.est_pages || 0), 0).toLocaleString();
+      foot.textContent = `Showing ${list.length} of ${items.length} Brand FAQ page types · Avg Vol: ${avgV}/10 · Avg Conv: ${avgC}/10 · Avg Page #: ${avgP}/10 (~${sumP} est. pages)`;
     }
 
     document.getElementById("ftScopeBar").addEventListener("click", e => {
@@ -1183,19 +1196,19 @@
       if (bState.ftSortCol === col) bState.ftSortDir = bState.ftSortDir === "desc" ? "asc" : "desc";
       else {
         bState.ftSortCol = col;
-        bState.ftSortDir = (col === "vol" || col === "conv" || col === "avg" || col === "hub_pages") ? "desc" : "asc";
+        bState.ftSortDir = (col === "vol" || col === "conv" || col === "scale" || col === "avg" || col === "hub_pages") ? "desc" : "asc";
       }
       renderRows();
     });
     document.getElementById("ftExportCsv").addEventListener("click", () => {
-      const headers = ["id", "template", "category", "applies_to", "volume_1_10", "convertibility_1_10", "avg_score", "in_hub_pages", "review_overlap", "note"];
+      const headers = ["id", "template", "category", "applies_to", "volume_1_10", "convertibility_1_10", "page_scale_1_10", "est_potential_pages", "combined_score", "in_hub_pages", "review_overlap", "note"];
       const csvRows = [headers.join(",")].concat(currentFiltered.map(x => [
-        x.id, x.template, x.category, x.applies_to, x.vol, x.conv, x.avg.toFixed(1), x.hub_pages, x.competes, x.note
+        x.id, x.template, x.category, x.applies_to, x.vol, x.conv, x.scale, x.est_pages, x.avg.toFixed(1), x.hub_pages, x.competes, x.note
       ].map(v => `"${String(v).replace(/"/g, '""')}"`).join(",")));
       const blob = new Blob([csvRows.join("\n")], { type: "text/csv;charset=utf-8;" });
       const a = document.createElement("a");
       a.href = URL.createObjectURL(blob);
-      a.download = "nappedia_brand_faq_types_110_scored.csv";
+      a.download = "nappedia_brand_faq_types_106_scored.csv";
       a.click();
     });
 
