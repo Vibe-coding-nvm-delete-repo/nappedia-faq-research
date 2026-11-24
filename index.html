@@ -1111,6 +1111,8 @@
   .ft-mid { background: #e0f2fe; color: #0369a1; }
   .ft-lo { background: #fef3c7; color: #92400e; }
   .ft-low { background: #f1f5f9; color: #475569; }
+  .ft-hard { background: #fee2e2; color: #991b1b; }
+  .ft-mob-comp { font-size: 11px; color: var(--sub); }
   .ft-title { font-weight: 600; color: var(--ink); line-height: 1.35; }
   .ft-note { font-size: 12px; color: var(--sub); margin-top: 3px; line-height: 1.4; }
   .ft-est-sub { font-size: 10.5px; color: var(--sub); margin-top: 2px; line-height: 1.1; white-space: nowrap; }
@@ -1175,8 +1177,12 @@
     #ftTable th[data-col="vol"], #ftTable th[data-col="conv"] { width: 38px; padding: 8px 2px; text-align: center; font-size: 10.5px; }
     #ftTable th[data-col="scale"] { width: 46px; padding: 8px 2px; text-align: center; font-size: 10.5px; }
     #ftTable th[data-col="avg"] { width: 42px; padding: 8px 2px; text-align: center; font-size: 10.5px; }
-    #cmpPairsTable th[data-col="vol"], #cmpPairsTable th[data-col="conv"] { width: 34px; padding: 8px 2px; text-align: center; font-size: 10.5px; }
-    #cmpPairsTable th[data-col="serp_cnt"] { width: 92px; padding: 8px 2px; font-size: 10.5px; }
+    #cmpPairsTable th[data-col="vol"], #cmpPairsTable th[data-col="conv"], #cmpPairsTable th[data-col="comp"] { width: 34px; padding: 8px 2px; text-align: center; font-size: 10.5px; }
+    #cmpPairsTable th[data-col="serp_cnt"] { width: 88px; padding: 8px 2px; font-size: 10.5px; }
+    #sdTable { table-layout: fixed; width: 100%; }
+    #sdTable th[data-col="comp_weight"] { width: 46px; padding: 8px 2px; text-align: center; font-size: 10.5px; }
+    #sdTable th[data-col="total_kws"] { width: 64px; padding: 8px 2px; text-align: center; font-size: 10.5px; }
+    #sdTable td.num { padding: 8px 2px; text-align: center; }
     #cmpTable th.num { width: 48px; padding: 8px 2px; text-align: center; font-size: 10.5px; }
     #ftTable td.num, #cmpTable td.num, #cmpPairsTable td.num { padding: 8px 2px; text-align: center; }
     #ftTable .ft-score-pill, #cmpTable .ft-score-pill, #cmpPairsTable .ft-score-pill { min-width: 26px; padding: 2px 4px; font-size: 11px; }
@@ -1338,7 +1344,7 @@
         </button>
         <button class="macro-pill" id="macro-comparisons" data-macro="model-comparisons" role="tab" type="button" aria-selected="false">
           <span>Comparisons</span>
-          <span class="tab-count" id="cnt-macro-comparisons">1,170</span>
+          <span class="tab-count" id="cnt-macro-comparisons">1,374</span>
         </button>
         <button class="macro-pill" id="macro-brands" data-macro="brands" role="tab" type="button" aria-selected="false">
           <span>Brands</span>
@@ -1427,6 +1433,10 @@
     <button class="cat-tab" id="btab-faq-types" data-bsub="faq_types" role="tab" type="button">
       <span>Brand FAQ Types</span>
       <span class="tab-count" id="cnt-b-faq-types">106</span>
+    </button>
+    <button class="cat-tab" id="btab-serp-domains" data-bsub="serp_domains" role="tab" type="button">
+      <span>SERP Domains</span>
+      <span class="tab-count" id="cnt-b-serp-domains">2,616</span>
     </button>
     <button class="cat-tab" id="btab-manufacturers" data-bsub="manufacturers" role="tab" type="button">
       <span>Manufacturers</span>
@@ -1654,10 +1664,11 @@
   };
 })();
 </script>
-<script src="./data/brand_faq_types_110.js?v=20261124v26"></script>
-<script src="./data/comparisons_serp_data.js?v=20261124v26"></script>
-<script src="./comparisons_view.js?v=20261124v26"></script>
-<script src="./brands_view.js?v=20261124v26"></script>
+<script src="./data/brand_faq_types_110.js?v=20261124v27"></script>
+<script src="./data/comparisons_serp_data.js?v=20261124v27"></script>
+<script src="./data/serp_domains.js?v=20261124v27"></script>
+<script src="./comparisons_view.js?v=20261124v27"></script>
+<script src="./brands_view.js?v=20261124v27"></script>
 <script src="./reviews_view.js?v=20261124v23"></script>
 <script src="./data/url_audit.js?v=20261124v22"></script>
 <script src="./urls_view.js?v=20261124v22"></script>
@@ -1795,6 +1806,9 @@ function initFromHash() {
   } else if (h === "brands-faq-types" || h === "brands-faq_types") {
     state.macro = "brands";
     state.brandSub = "faq_types";
+  } else if (h === "brands-serp-domains" || h === "brands-serp_domains" || h === "serp-domains") {
+    state.macro = "brands";
+    state.brandSub = "serp_domains";
   } else if (h === "brands-manufacturers") {
     state.macro = "brands";
     state.brandSub = "manufacturers";

@@ -20,6 +20,8 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
     "avg_vol": 6.2,
     "avg_conv": 5.1,
     "avg_scale": 7.2,
+    "avg_comp": 6.9,
+    "low_comp_5orless": 20,
     "top_priority_8plus": 21,
     "high_scale_300plus": 52,
     "zero_in_hub": 46,
@@ -51,13 +53,13 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
       "serp_examples": [
         {
           "title": "Fiberglass FAQ",
-          "url": "https://www.zinus.com/pages/fiberglass-faq?cjdata=MXxOfDB8WXww&utm_medium=affiliate&utm_source=cj&utm_campaign=Business+Insider&cjevent=d5eb029a2f7b11f08226033d0a18b8f8",
+          "url": "https://www.zinus.com/pages/fiberglass-faq?cjevent=d5eb029a2f7b11f08226033d0a18b8f8",
           "domain": "zinus.com",
           "dedicated": true
         },
         {
           "title": "Fiberglass FAQ",
-          "url": "https://www.zinus.com/pages/fiberglass-faq?srsltid=AfmBOorN28lPReJTxeOX8OH7Yq0u0fCSG5X3gbwByrGn-VSMAjfmgWMw&irclickid=0xBTtMytdxycTpt0ngTGMwWoUkp2mnWgN2seXE0&sharedid=&irpid=10451&irgwc=1&clickid=0xBTtMytdxycTpt0ngTGMwWoUkp2mnWgN2seXE0&Part",
+          "url": "https://www.zinus.com/pages/fiberglass-faq?irclickid=0xBTtMytdxycTpt0ngTGMwWoUkp2mnWgN2seXE0&irpid=10451&irgwc=1&clickid=0xBTtMytdxycTpt0ngTGMwWoUkp2mnWgN2seXE0",
           "domain": "zinus.com",
           "dedicated": true
         },
@@ -73,7 +75,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "saferproducts.gov",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 6,
+      "comp_reason": "1 Mega · 2 Major · 0 Forum/Niche · 1 Weak/Intl"
     },
     {
       "id": 2,
@@ -95,7 +99,7 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
       "serp_examples": [
         {
           "title": "Are Nectar Mattresses Safe?",
-          "url": "https://nectarsleep.elevio.help/en/articles/22-are-nectar-mattresses-safe?dg=null&mi_u=01FBVY841TQHSX4APNS57E2M23&mi_ecmp=VrhcKi&utm_source=Klaviyo&utm_medium=email&utm_campaign=Financing%201%20week%201%20%28VrhcKi%29&bxid=%7B%7Bperson.Klav",
+          "url": "https://nectarsleep.elevio.help/en/articles/22-are-nectar-mattresses-safe?dg=null&mi_u=01FBVY841TQHSX4APNS57E2M23&mi_ecmp=VrhcKi&bxid=%7B%7Bperson.Klav",
           "domain": "nectarsleep.elevio.help",
           "dedicated": true
         },
@@ -117,7 +121,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "help.avocadogreenmattress.com",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 7,
+      "comp_reason": "1 Mega · 2 Major · 1 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 3,
@@ -145,13 +151,13 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "Original Mattress",
-          "url": "https://casper.com/products/original-foam-v1?clickref=1100lDb2KFSV&utm_campaign=vox&utm_medium=affiliate&utm_source=partnerize",
+          "url": "https://casper.com/products/original-foam-v1?clickref=1100lDb2KFSV",
           "domain": "casper.com",
           "dedicated": false
         },
         {
           "title": "Casper Sleep Hybrid Twin XL Mattress - ShopSavvy TLDR Review - Verdict",
-          "url": "https://shopsavvy.com/reviews-tldr/casper-sleep-hybrid-twin-xl-mattress#main-content#1",
+          "url": "https://shopsavvy.com/reviews-tldr/casper-sleep-hybrid-twin-xl-mattress",
           "domain": "shopsavvy.com",
           "dedicated": false
         },
@@ -161,7 +167,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "us.amazon.com",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 6,
+      "comp_reason": "1 Mega · 1 Major · 1 Forum/Niche · 1 Weak/Intl"
     },
     {
       "id": 4,
@@ -205,7 +213,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "help.avocadogreenmattress.ca",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 5,
+      "comp_reason": "0 Mega · 2 Major · 1 Forum/Niche · 1 Weak/Intl"
     },
     {
       "id": 5,
@@ -227,7 +237,7 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
       "serp_examples": [
         {
           "title": "What flame retardants do Saatva mattresses use?",
-          "url": "https://saatvahelp.saatva.com/hc/en-us/articles/360041430954-What-flame-retardants-do-Saatva-mattresses-use?utm_source=b10mattress&utm_medium=affiliate&click_id=1100lDFPj959&coupon=vzxrirblvqdxaxbr",
+          "url": "https://saatvahelp.saatva.com/hc/en-us/articles/360041430954-What-flame-retardants-do-Saatva-mattresses-use?click_id=1100lDFPj959&coupon=vzxrirblvqdxaxbr",
           "domain": "saatvahelp.saatva.com",
           "dedicated": true
         },
@@ -245,11 +255,13 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "Fiberglass in Mattresses: Is It Safe? What You Need to Know | Saatva",
-          "url": "https://www.saatva.com/blog/fiberglass-in-mattresses/#is-fiberglass-in-mattresses-safe",
+          "url": "https://www.saatva.com/blog/fiberglass-in-mattresses/",
           "domain": "saatva.com",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 8,
+      "comp_reason": "0 Mega · 4 Major · 0 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 6,
@@ -289,11 +301,13 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "Druck – Avocado Green Mattress 2025 Impact Report: 48% Absolute Emissions Reduction and Six Finished-Product Certifications Set New Standard for Organic Mattres",
-          "url": "https://www.globenewswire.com/de/news-release/2026/04/09/3271018/0/en/avocado-green-mattress-2025-impact-report-48-absolute-emissions-reduction-and-six-finished-product-certifications-set-new-standard-for-organic-mattresses.html?print=1#1",
+          "url": "https://www.globenewswire.com/de/news-release/2026/04/09/3271018/0/en/avocado-green-mattress-2025-impact-report-48-absolute-emissions-reduction-and-six-finished-product-certifications-set-new-standard-for-organic-mattresses.html?print=1",
           "domain": "globenewswire.com",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 6,
+      "comp_reason": "0 Mega · 2 Major · 2 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 7,
@@ -315,19 +329,19 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
       "serp_examples": [
         {
           "title": "Mattresses",
-          "url": "https://purple.com/mattresses?irgwc=1&afsrc=1&utm_medium=af&utm_source=ir&utm_campaign=221109&mpn=Future%20PLC.&irclickid=1b%3AUwZTsWxycTH%3AQv71iyUEnUkpUfn0G-1baUU0&time=1762101510127&utm_term=pt",
+          "url": "https://purple.com/mattresses?irgwc=1&afsrc=1&mpn=Future+PLC.&irclickid=1b%3AUwZTsWxycTH%3AQv71iyUEnUkpUfn0G-1baUU0&time=1762101510127",
           "domain": "purple.com",
           "dedicated": false
         },
         {
           "title": "Mattresses",
-          "url": "https://purple.com/mattresses?irgwc=1&afsrc=1&utm_medium=af&utm_source=ir&utm_campaign=221109&mpn=Future%20Publishing%20Limited&irclickid=VJk0qpXFBxyZUf3zFJUiv1uYUkrUJYXGYRq1U80&time=1795450854948&utm_term=pt&partner_name=Future%20Publishin",
+          "url": "https://purple.com/mattresses?irgwc=1&afsrc=1&mpn=Future+Publishing+Limited&irclickid=VJk0qpXFBxyZUf3zFJUiv1uYUkrUJYXGYRq1U80&time=1795450854948&partner_name=Future+Publishin",
           "domain": "purple.com",
           "dedicated": false
         },
         {
           "title": "Purple Mattress Review: An Honest Assessment - Purple Mattress Review: An Honest Assessment",
-          "url": "https://www.nytimes.com/wirecutter/reviews/purple-mattress/?utm_source=rss&utm_medium=feed&utm_campaign=RSS%20Feed#1",
+          "url": "https://www.nytimes.com/wirecutter/reviews/purple-mattress/",
           "domain": "nytimes.com",
           "dedicated": false
         },
@@ -337,7 +351,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "shopmyexchange.com",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 7,
+      "comp_reason": "1 Mega · 2 Major · 1 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 8,
@@ -359,13 +375,13 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
       "serp_examples": [
         {
           "title": "Nectar Classic Canada Review | Mattress Miracle - Item added to your cart",
-          "url": "https://mattressmiracle.ca/blogs/mattress-miracle-blog/nectar-classic-forever-warranty-review#1",
+          "url": "https://mattressmiracle.ca/blogs/mattress-miracle-blog/nectar-classic-forever-warranty-review",
           "domain": "mattressmiracle.ca",
           "dedicated": false
         },
         {
           "title": "Nectar Original Full Mattress in a Box",
-          "url": "https://www.menards.com/main/p-177023396593292.htm?utm_source=google&utm_medium=organic-shopping&utm_content=4800544&utm_campaign=Nectar",
+          "url": "https://www.menards.com/main/p-177023396593292.htm",
           "domain": "menards.com",
           "dedicated": false
         },
@@ -381,7 +397,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "us.mattress.zone",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 7,
+      "comp_reason": "2 Mega · 1 Major · 0 Forum/Niche · 1 Weak/Intl"
     },
     {
       "id": 9,
@@ -425,7 +443,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "help.avocadogreenmattress.ca",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 4,
+      "comp_reason": "0 Mega · 2 Major · 0 Forum/Niche · 2 Weak/Intl"
     },
     {
       "id": 10,
@@ -447,7 +467,7 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
       "serp_examples": [
         {
           "title": "Latex Hybrid Mattress - Saatva Latex Hybrid - Mattresses | Saatva",
-          "url": "https://www.saatva.com/mattresses/saatva-latex-hybrid?utm_source=futurepublishing&utm_medium=affiliate&coupon=awyqqgzvxqicebab&utm_source=futurepublishing&utm_medium=affiliate&coupon=awyqqgzvxqicebab&click_id=1101lzXbkycY&coupon=awyqqgzvxqi",
+          "url": "https://www.saatva.com/mattresses/saatva-latex-hybrid?coupon=awyqqgzvxqicebab&coupon=awyqqgzvxqicebab&click_id=1101lzXbkycY&coupon=awyqqgzvxqi",
           "domain": "saatva.com",
           "dedicated": true
         },
@@ -465,11 +485,13 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "Saatva Zenhaven Natural Latex Mattress review − adjustable firmness to suit every sleeper",
-          "url": "https://www.homesandgardens.com/reviews/saatva-zenhaven-natural-latex-mattress-review#new_tab",
+          "url": "https://www.homesandgardens.com/reviews/saatva-zenhaven-natural-latex-mattress-review",
           "domain": "homesandgardens.com",
           "dedicated": true
         }
-      ]
+      ],
+      "comp": 10,
+      "comp_reason": "2 Mega · 2 Major · 0 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 11,
@@ -491,7 +513,7 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
       "serp_examples": [
         {
           "title": "Avocado Vegan Mattress",
-          "url": "https://www.avocadogreenmattress.com/products/avocado-vegan-mattress?irclickid=yfcXtAQLOxyZTzMSoSUmIyGrUkr1L02BcwygxU0&nbt=nb:impact::10135:221109:1788323&irgwc=1&afsrc=1&utm_medium=affiliate&utm_source=impact&utm_campaign=221109&ir_partner",
+          "url": "https://www.avocadogreenmattress.com/products/avocado-vegan-mattress?irclickid=yfcXtAQLOxyZTzMSoSUmIyGrUkr1L02BcwygxU0&nbt=nb%3Aimpact%3A%3A10135%3A221109%3A1788323&irgwc=1&afsrc=1",
           "domain": "avocadogreenmattress.com",
           "dedicated": true
         },
@@ -503,17 +525,19 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "I Slept on the Avocado Vegan Mattress for 8 Months—Here’s What Changed",
-          "url": "https://shopping.yahoo.com/health/sleep/articles/slept-avocado-vegan-mattress-8-103300028.html#1",
+          "url": "https://shopping.yahoo.com/health/sleep/articles/slept-avocado-vegan-mattress-8-103300028.html",
           "domain": "shopping.yahoo.com",
           "dedicated": true
         },
         {
           "title": "Avocado Vegan Mattress Review 2025: A Sustainable, Certified Organic Bed Made Without Wool - CNET - Skip to content",
-          "url": "https://www.cnet.com/health/sleep/avocado-vegan-mattress-review-2025-sustainable-certified-organic-bed-without-wool/#15b58cf1-63e1-476d-8e61-e14079f9da0f#1",
+          "url": "https://www.cnet.com/health/sleep/avocado-vegan-mattress-review-2025-sustainable-certified-organic-bed-without-wool/",
           "domain": "cnet.com",
           "dedicated": true
         }
-      ]
+      ],
+      "comp": 9,
+      "comp_reason": "2 Mega · 2 Major · 0 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 12,
@@ -535,7 +559,7 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
       "serp_examples": [
         {
           "title": "Mold on Mattress: Signs You Have It and How To Remove It",
-          "url": "https://purple.com/blog/mold-on-my-mattress?srsltid=AfmBOoqAOlsoPpOp8gZjf4n7_9xp81yJz11JEwIITPIH4L8IY4xcujOe",
+          "url": "https://purple.com/blog/mold-on-my-mattress",
           "domain": "purple.com",
           "dedicated": true
         },
@@ -547,7 +571,7 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "Coirfit Ortho Memory Foam Mattress - Purple Coirfit Ortho Memory Foam Mattress, Size/Dimension: 6 X 4feet, Thickness: 4inch",
-          "url": "https://www.indiamart.com/proddetail/coirfit-ortho-memory-foam-mattress-26565583155.html#1",
+          "url": "https://www.indiamart.com/proddetail/coirfit-ortho-memory-foam-mattress-26565583155.html",
           "domain": "indiamart.com",
           "dedicated": false
         },
@@ -557,7 +581,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "slumberland.com",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 5,
+      "comp_reason": "0 Mega · 2 Major · 2 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 13,
@@ -585,7 +611,7 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "Essential Crib Mattress | Newton Baby",
-          "url": "https://www.newtonbaby.com/products/essential-crib-mattress?cm_click_id=cx01m5975wsa1r59xqj91hz4pfvs&utm_cm_click_id=cx01m5975wsa1r59xqj91hz4pfvs&utm_source=checkmate&utm_medium=checkmate&utm_campaign=checkmate&utm_id=cx01m5975wsa1r59xqj91h",
+          "url": "https://www.newtonbaby.com/products/essential-crib-mattress?cm_click_id=cx01m5975wsa1r59xqj91hz4pfvs",
           "domain": "newtonbaby.com",
           "dedicated": true
         },
@@ -601,7 +627,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "us.amazon.com",
           "dedicated": true
         }
-      ]
+      ],
+      "comp": 9,
+      "comp_reason": "2 Mega · 2 Major · 0 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 14,
@@ -635,17 +663,19 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "Amazon.com: Purple Waterproof Mattress Protector, King, 100 Percent Waterproof | Mattress Cover, Stain-Resistant and Hypoallergenic Fitted Bed Protector, Soft a",
-          "url": "https://us.amazon.com/gp/aw/d/B0DBRPPVQX?pd_rd_plhdr=t&hsa_cr_id=0&qid=1790170104&sr=1-3-5a5562f9-fdfd-4101-9f9d-d76aa9998432&i=garden&aref=3KfitWPTlC&_encoding=UTF8&ref_=sbx__sbtcd2_asin_2_bkgd&pd_rd_w=3lmYG&content-id=amzn1.sym.90f77631-9",
+          "url": "https://us.amazon.com/gp/aw/d/B0DBRPPVQX?pd_rd_plhdr=t&hsa_cr_id=0&qid=1790170104&sr=1-3-5a5562f9-fdfd-4101-9f9d-d76aa9998432&i=garden&aref=3KfitWPTlC&_encoding=UTF8&pd_rd_w=3lmYG&content-id=amzn1.sym.90f77631-9",
           "domain": "us.amazon.com",
           "dedicated": true
         },
         {
           "title": "Purple Waterproof Mattress Protector",
-          "url": "https://purple.com/waterproof-mattress-protector?irgwc=1&afsrc=1&utm_medium=af&utm_source=ir&utm_campaign=221109&mpn=Future%20Publishing%20Limited&irclickid=0OzxxnXiIxyZU9-z9FWsWy71UkrUsS2PYRq1WE0&time=1795293739627&utm_term=pt&partner_name",
+          "url": "https://purple.com/waterproof-mattress-protector?irgwc=1&afsrc=1&mpn=Future+Publishing+Limited&irclickid=0OzxxnXiIxyZU9-z9FWsWy71UkrUsS2PYRq1WE0&time=1795293739627",
           "domain": "purple.com",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 8,
+      "comp_reason": "1 Mega · 3 Major · 0 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 15,
@@ -679,17 +709,19 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "Potential Class Action Lawsuit Says Mattress Is a Health Hazard - Harris Lowry Manton LLP",
-          "url": "https://www.hlmlawfirm.com/blog/potential-class-action-lawsuit-says-mattress-is-a-health-hazard/#fl-main-content",
+          "url": "https://www.hlmlawfirm.com/blog/potential-class-action-lawsuit-says-mattress-is-a-health-hazard/",
           "domain": "hlmlawfirm.com",
           "dedicated": false
         },
         {
           "title": "Mattress is comfortable for the price but no where does the packaging or product listing include a warning that if you remove th...",
-          "url": "https://storage.courtlistener.com/recap/gov.uscourts.caed.413263/gov.uscourts.caed.413263.1.0.pdf#2#4#2",
+          "url": "https://storage.courtlistener.com/recap/gov.uscourts.caed.413263/gov.uscourts.caed.413263.1.0.pdf",
           "domain": "storage.courtlistener.com",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 6,
+      "comp_reason": "1 Mega · 0 Major · 3 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 16,
@@ -711,7 +743,7 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
       "serp_examples": [
         {
           "title": "How to Clean a Tempur-Pedic Mattress - Tempur-Pedic mattresses are a big investment that pays off for long-term comfort and quality sleep",
-          "url": "https://www.livingspaces.com/inspiration/ideas-advice/how-tos/how-to-clean-a-tempur-pedic-mattress#1",
+          "url": "https://www.livingspaces.com/inspiration/ideas-advice/how-tos/how-to-clean-a-tempur-pedic-mattress",
           "domain": "livingspaces.com",
           "dedicated": true
         },
@@ -723,7 +755,7 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "How to Clean a Tempur-Pedic Mattress (2026 Guide)",
-          "url": "https://bannermattressonline.com/blog/how-clean-tempurpedic-mattress#cleaning-the-entire-mattress",
+          "url": "https://bannermattressonline.com/blog/how-clean-tempurpedic-mattress",
           "domain": "bannermattressonline.com",
           "dedicated": true
         },
@@ -733,7 +765,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "laundromaps.com",
           "dedicated": true
         }
-      ]
+      ],
+      "comp": 7,
+      "comp_reason": "1 Mega · 2 Major · 1 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 17,
@@ -767,17 +801,19 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "Zenhaven Mattress Review 2025: Saatva's Flippable Answer to Natural and Organic Luxury - CNET",
-          "url": "https://www.cnet.com/health/sleep/zenhaven-mattress-review/#1",
+          "url": "https://www.cnet.com/health/sleep/zenhaven-mattress-review/",
           "domain": "cnet.com",
           "dedicated": true
         },
         {
           "title": "Should You Flip or Rotate Your Mattress? - Should You Flip or Rotate Your Mattress?",
-          "url": "https://www.usnews.com/360-reviews/sleep/mattress/should-you-flip-or-rotate-mattress#1",
+          "url": "https://www.usnews.com/360-reviews/sleep/mattress/should-you-flip-or-rotate-mattress",
           "domain": "usnews.com",
           "dedicated": true
         }
-      ]
+      ],
+      "comp": 7,
+      "comp_reason": "1 Mega · 2 Major · 1 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 18,
@@ -805,7 +841,7 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "How Often Should You Rotate Your Mattress? | Saatva",
-          "url": "https://www.saatva.com/blog/how-often-should-you-rotate-your-mattress/#h-avoiding-king-s-ridge-in-a-mattress",
+          "url": "https://www.saatva.com/blog/how-often-should-you-rotate-your-mattress/",
           "domain": "saatva.com",
           "dedicated": true
         },
@@ -821,7 +857,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "cornernook.co",
           "dedicated": true
         }
-      ]
+      ],
+      "comp": 6,
+      "comp_reason": "0 Mega · 3 Major · 1 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 19,
@@ -843,13 +881,13 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
       "serp_examples": [
         {
           "title": "Nectar Warranty Policy",
-          "url": "https://m.media-amazon.com/images/I/71BG8g0cH2L.pdf#1#1#1",
+          "url": "https://m.media-amazon.com/images/I/71BG8g0cH2L.pdf",
           "domain": "m.media-amazon.com",
           "dedicated": true
         },
         {
           "title": "Nectar Forever Warranty™ | Lifetime Mattress Protection",
-          "url": "https://www.nectarsleep.com/l/nectar-mattress-warranty?CIDIMP=1asXviVtHxyZW-Jya%3AwCXRU7UkryT6UXYRq13k0&irgwc=1&afsrc=1&utm_campaign=IMPACT&utm_content=Online%20Tracking%20Link_ONLINE_TRACKING_LINK&utm_source=Skimbit%20Ltd.&utm_medium=AFF&u",
+          "url": "https://www.nectarsleep.com/l/nectar-mattress-warranty?CIDIMP=1asXviVtHxyZW-Jya%3AwCXRU7UkryT6UXYRq13k0&irgwc=1&afsrc=1",
           "domain": "nectarsleep.com",
           "dedicated": true
         },
@@ -865,7 +903,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "mattresswarehouse.com",
           "dedicated": true
         }
-      ]
+      ],
+      "comp": 7,
+      "comp_reason": "1 Mega · 2 Major · 1 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 20,
@@ -899,17 +939,19 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "TEMPUR-CANADA POLICY",
-          "url": "http://www.tempurpedic.ca/policies/usecare/mattress.pdf#1#1#1",
+          "url": "https://www.tempurpedic.ca/policies/usecare/mattress.pdf",
           "domain": "tempurpedic.ca",
           "dedicated": false
         },
         {
           "title": "It's no secret we want you to get the most out of your new mattress",
-          "url": "https://m.media-amazon.com/images/I/419k8yZmoQL.pdf#1#1#1",
+          "url": "https://m.media-amazon.com/images/I/419k8yZmoQL.pdf",
           "domain": "m.media-amazon.com",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 6,
+      "comp_reason": "1 Mega · 1 Major · 1 Forum/Niche · 1 Weak/Intl"
     },
     {
       "id": 21,
@@ -953,7 +995,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "nobroker.in",
           "dedicated": true
         }
-      ]
+      ],
+      "comp": 5,
+      "comp_reason": "0 Mega · 2 Major · 1 Forum/Niche · 1 Weak/Intl"
     },
     {
       "id": 22,
@@ -997,7 +1041,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "casper.ca",
           "dedicated": true
         }
-      ]
+      ],
+      "comp": 4,
+      "comp_reason": "0 Mega · 2 Major · 0 Forum/Niche · 2 Weak/Intl"
     },
     {
       "id": 23,
@@ -1019,19 +1065,19 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
       "serp_examples": [
         {
           "title": "Saatva Classic Mattress Review: It’s Great for Couples with Differing Firmness Preferences - Saatva Classic Mattress Review: It’s Great for Couples with Differi",
-          "url": "https://www.rd.com/article/saatva-mattress-review/#1",
+          "url": "https://www.rd.com/article/saatva-mattress-review/",
           "domain": "rd.com",
           "dedicated": true
         },
         {
           "title": "Innerspring Mattress - Saatva Classic - Mattresses | Saatva",
-          "url": "https://www.saatva.com/mattresses/saatva-classic?sku=7053-4/6&region_id=500881&gclsrc=aw.ds&gad_source=1&gad_campaignid=21099005668&gclid=Cj0KCQiAq7HIBhDoARIsAOATDxBtlIGwsUiRpy3xjjyBJ_sdn09hXhOnlJJVwF8VfrLPE8dVCBbM_68aAhQTEALw_wcB&utm_sourc",
+          "url": "https://www.saatva.com/mattresses/saatva-classic?sku=7053-4%2F6&region_id=500881&gclsrc=aw.ds&gad_source=1&gad_campaignid=21099005668",
           "domain": "saatva.com",
           "dedicated": false
         },
         {
           "title": "Saatva Classic Mattress Review - Consumer Reports - Saatva Classic Mattress Review",
-          "url": "https://www.consumerreports.org/home-garden/mattresses/saatva-classic-mattress-review-a8323585438/#1",
+          "url": "https://www.consumerreports.org/home-garden/mattresses/saatva-classic-mattress-review-a8323585438/",
           "domain": "consumerreports.org",
           "dedicated": false
         },
@@ -1041,7 +1087,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "sleepfoundation.org",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 9,
+      "comp_reason": "2 Mega · 1 Major · 1 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 24,
@@ -1063,29 +1111,31 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
       "serp_examples": [
         {
           "title": "Nectar Luxe Memory Foam Mattress | 365-Night Trial, Forever Warranty",
-          "url": "https://www.nectarsleep.com/mattresses/luxe-memory-foam-mattress?CIDIMP=wCR0%3ALXH9xyZULSXPSyHwWaUUkrUIDTnIzp8Uk0&irgwc=1&afsrc=1&utm_campaign=IMPACT&utm_content=Save%20with%20TomsGuide_TEXT_LINK&utm_source=Future%20Publishing%20Limited&utm",
+          "url": "https://www.nectarsleep.com/mattresses/luxe-memory-foam-mattress?CIDIMP=wCR0%3ALXH9xyZULSXPSyHwWaUUkrUIDTnIzp8Uk0&irgwc=1&afsrc=1",
           "domain": "nectarsleep.com",
           "dedicated": false
         },
         {
           "title": "Nectar Luxe Memory Foam Mattress | 365-Night Trial, Forever Warranty",
-          "url": "https://www.nectarsleep.com/mattresses/luxe-memory-foam-mattress/twin?CIDIMP=2pbxkq0X1xyZUT3Wv7xYrytDUku0c8wN4SXMXs0&irgwc=1&afsrc=1&utm_campaign=IMPACT&utm_content=nectar%20catalog%20from%20URL%20Ad_PRODUCT_CATALOG&utm_source=Future%20PLC.",
+          "url": "https://www.nectarsleep.com/mattresses/luxe-memory-foam-mattress/twin?CIDIMP=2pbxkq0X1xyZUT3Wv7xYrytDUku0c8wN4SXMXs0&irgwc=1&afsrc=1",
           "domain": "nectarsleep.com",
           "dedicated": false
         },
         {
           "title": "The $699 Nectar Classic Mattress is one of the best values out there - After testing 100 mattresses, here's why the $699 Nectar Classic Mattress remains one of ",
-          "url": "https://www.businessinsider.com/guides/home/nectar-mattress-review?op=1#1",
+          "url": "https://www.businessinsider.com/guides/home/nectar-mattress-review?op=1",
           "domain": "businessinsider.com",
           "dedicated": false
         },
         {
           "title": "Nectar Premier Copper Mattress Review 2024: A Step Above the Brand’s Flagship Bed - CNET - Skip to content",
-          "url": "https://www.cnet.com/health/sleep/nectar-premier-copper-mattress-review/#1",
+          "url": "https://www.cnet.com/health/sleep/nectar-premier-copper-mattress-review/",
           "domain": "cnet.com",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 9,
+      "comp_reason": "2 Mega · 2 Major · 0 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 25,
@@ -1107,7 +1157,7 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
       "serp_examples": [
         {
           "title": "Saatva HD Mattress Review 2024: A Heavy-Duty Luxurious Bed - CNET - Skip to content",
-          "url": "https://www.cnet.com/health/sleep/saatva-hd-mattress-review/#1",
+          "url": "https://www.cnet.com/health/sleep/saatva-hd-mattress-review/",
           "domain": "cnet.com",
           "dedicated": true
         },
@@ -1125,11 +1175,13 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "'I haven't slept this good since I was a teen': My Saatva Classic review - Welcome to Tom's Guide Club",
-          "url": "https://www.tomsguide.com/reviews/saatva-classic-mattress#1",
+          "url": "https://www.tomsguide.com/reviews/saatva-classic-mattress",
           "domain": "tomsguide.com",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 10,
+      "comp_reason": "3 Mega · 1 Major · 0 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 26,
@@ -1157,7 +1209,7 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "Saatva Help Page: Get help & support from our expert sleep guides, day or night",
-          "url": "https://www.saatva.com/help?cordial_id=5fa16eab7093444cd407d8df&utm_source=cordial&utm_medium=email&utm_campaign=20251107_newsletter&id=5fa16eab7093444cd407d8df",
+          "url": "https://www.saatva.com/help?cordial_id=5fa16eab7093444cd407d8df&id=5fa16eab7093444cd407d8df",
           "domain": "saatva.com",
           "dedicated": false
         },
@@ -1173,7 +1225,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "bannermattressonline.com",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 7,
+      "comp_reason": "0 Mega · 4 Major · 0 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 27,
@@ -1195,19 +1249,19 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
       "serp_examples": [
         {
           "title": "8 Ways You Can Make Your Mattress Feel Firmer | Saatva",
-          "url": "https://www.saatva.com/blog/how-to-make-mattress-firmer/#h-8-best-ways-to-make-your-mattress-firmer",
+          "url": "https://www.saatva.com/blog/how-to-make-mattress-firmer/",
           "domain": "saatva.com",
           "dedicated": true
         },
         {
           "title": "Top 6 Ways You Can Soften Up Your Mattress | Saatva",
-          "url": "https://www.saatva.com/blog/how-to-make-mattress-feel-softer/#main",
+          "url": "https://www.saatva.com/blog/how-to-make-mattress-feel-softer/",
           "domain": "saatva.com",
           "dedicated": true
         },
         {
           "title": "How to Make a Tempurpedic Pillow or Mattress Softer - Step by Step Guide",
-          "url": "https://www.mattressnut.com/make-tempurpedic-pillow-mattress-softer/#how-do-i-know-if-my-tempurpedic-pillow-or-mattress",
+          "url": "https://www.mattressnut.com/make-tempurpedic-pillow-mattress-softer/",
           "domain": "mattressnut.com",
           "dedicated": true
         },
@@ -1217,7 +1271,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "mattresshelp.org",
           "dedicated": true
         }
-      ]
+      ],
+      "comp": 7,
+      "comp_reason": "0 Mega · 4 Major · 0 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 28,
@@ -1251,8 +1307,8 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "Amazon.sg:Customer reviews: Sleep Innovations Cradling Cloud Mattress Pad Topper Cover, King Size, Quilted Pillow Top Protector, Plush Comfort Fiber - Skip to m",
-          "url": "https://www.amazon.sg:443/product-reviews/B0CJ3TD2BG/ref=zg_bs_g_6538001051_d_sccl_7_cr/357-4136876-6559544#1",
-          "domain": "amazon.sg:443",
+          "url": "https://www.amazon.sg:443/product-reviews/B0CJ3TD2BG/ref=zg_bs_g_6538001051_d_sccl_7_cr/357-4136876-6559544",
+          "domain": "amazon.sg",
           "dedicated": true
         },
         {
@@ -1261,7 +1317,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "amazon.ca",
           "dedicated": true
         }
-      ]
+      ],
+      "comp": 6,
+      "comp_reason": "2 Mega · 0 Major · 0 Forum/Niche · 2 Weak/Intl"
     },
     {
       "id": 29,
@@ -1295,7 +1353,7 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "Helix Mattress Review (2026): Which Is Best For You? - Helix Mattress Review (2026): Which Is Best For You?",
-          "url": "https://www.usnews.com/360-reviews/sleep/mattress/helix#1",
+          "url": "https://www.usnews.com/360-reviews/sleep/mattress/helix",
           "domain": "usnews.com",
           "dedicated": false
         },
@@ -1305,7 +1363,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "perigold.com",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 8,
+      "comp_reason": "2 Mega · 1 Major · 1 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 30,
@@ -1327,19 +1387,19 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
       "serp_examples": [
         {
           "title": "We Spent Two Years Testing Mattresses—These Are the Best for Back Pain - Advertisement",
-          "url": "https://shopping.yahoo.com/health/sleep/articles/spent-two-years-testing-mattresses-213600459.html#1",
+          "url": "https://shopping.yahoo.com/health/sleep/articles/spent-two-years-testing-mattresses-213600459.html",
           "domain": "shopping.yahoo.com",
           "dedicated": true
         },
         {
           "title": "I Slept on the Saatva Rx Mattress for 8 Months to See If It Helped My Back Pain",
-          "url": "https://www.prevention.com/health/sleep-energy/a69120619/saatva-rx-mattress-review/#1",
+          "url": "https://www.prevention.com/health/sleep-energy/a69120619/saatva-rx-mattress-review/",
           "domain": "prevention.com",
           "dedicated": true
         },
         {
           "title": "After Years of Back Pain, These Mattresses Finally Cured Me",
-          "url": "https://www.wired.com/gallery/best-mattresses-for-back-pain-1/#1",
+          "url": "https://www.wired.com/gallery/best-mattresses-for-back-pain-1/",
           "domain": "wired.com",
           "dedicated": true
         },
@@ -1349,7 +1409,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "saatva.com",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 10,
+      "comp_reason": "3 Mega · 1 Major · 0 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 31,
@@ -1371,13 +1433,13 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
       "serp_examples": [
         {
           "title": "PurplePlus® Mattress",
-          "url": "https://purple.com/mattresses/plus?irgwc=1&afsrc=1&utm_medium=af&utm_source=ir&utm_campaign=221109&mpn=Future+PLC.&irclickid=VfGwRLToMxycUr1RKUVCaVU8UkpU9fTWCUO2Ss0&time=1762224562027&utm_term=pt&pr_rd_page=2",
+          "url": "https://purple.com/mattresses/plus?irgwc=1&afsrc=1&mpn=Future+PLC.&irclickid=VfGwRLToMxycUr1RKUVCaVU8UkpU9fTWCUO2Ss0&time=1762224562027&pr_rd_page=2",
           "domain": "purple.com",
           "dedicated": false
         },
         {
           "title": "PurplePlus® Mattress",
-          "url": "https://purple.com/mattresses/plus?irgwc=1&afsrc=1&utm_medium=af&utm_source=ir&utm_campaign=221109&mpn=Future%20PLC.&irclickid=RGqTzIQk8xycTBoXim0eRweIUkpWU1UvuU2C1c0&time=1763440777674&utm_term=pt",
+          "url": "https://purple.com/mattresses/plus?irgwc=1&afsrc=1&mpn=Future+PLC.&irclickid=RGqTzIQk8xycTBoXim0eRweIUkpWU1UvuU2C1c0&time=1763440777674",
           "domain": "purple.com",
           "dedicated": false
         },
@@ -1389,11 +1451,13 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "Purple RestorePlus Hybrid Mattress review: This plush mattress eased my back pain and kept me cool all night",
-          "url": "https://www.businessinsider.com/guides/home/purple-restore-plus-mattress-review#1",
+          "url": "https://www.businessinsider.com/guides/home/purple-restore-plus-mattress-review",
           "domain": "businessinsider.com",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 9,
+      "comp_reason": "2 Mega · 2 Major · 0 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 32,
@@ -1433,11 +1497,13 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "Helix Mattress Review (2026): Which Is Best For You? - Helix Mattress Review (2026): Which Is Best For You?",
-          "url": "https://www.usnews.com/360-reviews/sleep/mattress/helix#1",
+          "url": "https://www.usnews.com/360-reviews/sleep/mattress/helix",
           "domain": "usnews.com",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 7,
+      "comp_reason": "1 Mega · 2 Major · 1 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 33,
@@ -1465,23 +1531,25 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "Shop the Helix Kids Mattress | Mattress for Kids",
-          "url": "https://helixsleep.com/products/kids?utm_source=bing&utm_medium=cpc&utm_campaign=&&b_adgroup=General&b_adgroupid=1242449513273600&b_adid=77653229990206&b_campaign=US%7CHelix%7CG%7CNB%7CPHR%7CTopper&b_campaignid=710991569&b_isproduct=&b_prod",
+          "url": "https://helixsleep.com/products/kids?b_adgroup=General&b_adgroupid=1242449513273600&b_adid=77653229990206&b_campaign=US%7CHelix%7CG%7CNB%7CPHR%7CTopper&b_campaignid=710991569",
           "domain": "helixsleep.com",
           "dedicated": true
         },
         {
           "title": "How to buy a mattress for your baby or big kid - Today's Parent - Best Kids' Mattress Options For Every Stage 2026",
-          "url": "https://www.todaysparent.com/baby/baby-sleep/best-kids-mattress-options-for-every-stage-2025/#1",
+          "url": "https://www.todaysparent.com/baby/baby-sleep/best-kids-mattress-options-for-every-stage-2025/",
           "domain": "todaysparent.com",
           "dedicated": true
         },
         {
           "title": "Best Mattress for Kids in 2026",
-          "url": "https://www.sleepfoundation.org/best-mattress/best-mattress-for-kids?link=button&variation=A&utm_source=Klaviyo&utm_medium=email&utm_campaign=09-11-25%20%7C%20C%20%7C%20Best%20Mattress%20for%20Kids%20%2B%20How%20Much%20Sleep%20Do%20Kids%20N",
+          "url": "https://www.sleepfoundation.org/best-mattress/best-mattress-for-kids?link=button&variation=A",
           "domain": "sleepfoundation.org",
           "dedicated": true
         }
-      ]
+      ],
+      "comp": 7,
+      "comp_reason": "1 Mega · 2 Major · 1 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 34,
@@ -1503,29 +1571,31 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
       "serp_examples": [
         {
           "title": "Saatva Classic and the Saatva Solaire — we’ve tried both mattresses and this is the one we recommend to seniors shopping the Black Friday sales - Advertisement",
-          "url": "https://shopping.yahoo.com/health/sleep/articles/saatva-classic-saatva-solaire-ve-000000326.html#1",
+          "url": "https://shopping.yahoo.com/health/sleep/articles/saatva-classic-saatva-solaire-ve-000000326.html",
           "domain": "shopping.yahoo.com",
           "dedicated": true
         },
         {
           "title": "Stop Waking Up in Pain: Best Mattresses for Seniors After 60 | Ubie Doctor's Note - Published on: 12/29/2025",
-          "url": "https://UbieHealth.com/doctors-note/best-mattresses-seniors-relief-after60-backpain-91124e3#1",
+          "url": "https://UbieHealth.com/doctors-note/best-mattresses-seniors-relief-after60-backpain-91124e3",
           "domain": "ubiehealth.com",
           "dedicated": true
         },
         {
           "title": "Are Saatva mattresses worth the hype? We tested 6 of the brand's most popular beds - Saatva mattress review 2026: Comparing the brand's lineup",
-          "url": "https://www.businessinsider.com/guides/home/saatva-mattress-review#1",
+          "url": "https://www.businessinsider.com/guides/home/saatva-mattress-review",
           "domain": "businessinsider.com",
           "dedicated": false
         },
         {
           "title": "3 Saatva Mattresses That Support Your Body as You Age - Skip to Content",
-          "url": "https://www.goodhousekeeping.com/what-to-buy/mattresses-sleep-products/a71203004/3-saatva-mattresses-that-support-your-body-as-you-age/?itm_source=parsely-api#1",
+          "url": "https://www.goodhousekeeping.com/what-to-buy/mattresses-sleep-products/a71203004/3-saatva-mattresses-that-support-your-body-as-you-age/?itm_source=parsely-api",
           "domain": "goodhousekeeping.com",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 10,
+      "comp_reason": "3 Mega · 0 Major · 1 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 35,
@@ -1547,13 +1617,13 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
       "serp_examples": [
         {
           "title": "Mattresses",
-          "url": "https://www.saatva.com/mattresses?utm_medium=affiliate&coupon=awyqqgzvxqicebab&coupon=vzxrirblvqdxaxbr&utm_source=futurepublishing&utm_medium=affiliate&click_id=1110lAox2TS",
+          "url": "https://www.saatva.com/mattresses?coupon=awyqqgzvxqicebab&coupon=vzxrirblvqdxaxbr&click_id=1110lAox2TS",
           "domain": "saatva.com",
           "dedicated": false
         },
         {
           "title": "Mattresses",
-          "url": "https://www.saatva.com/mattresses?utm_source=futurepublishing&utm_medium=affiliate&coupon=awyqqgzvxqicebab&coupon=vzxrirblvqdxaxbr&utm_source=futurepublishing&utm_medium=affiliate&click_id=1110ltraDfV",
+          "url": "https://www.saatva.com/mattresses?coupon=awyqqgzvxqicebab&coupon=vzxrirblvqdxaxbr&click_id=1110ltraDfV",
           "domain": "saatva.com",
           "dedicated": false
         },
@@ -1565,11 +1635,13 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "Why Saatva's Classic Mattress Is the Best One Money Can Buy - Skip to Content",
-          "url": "https://www.esquire.com/lifestyle/a41615885/saatva-mattress-review/?source=nl&utm_source=nl_esq&utm_medium=email&date=021524&utm_campaign=nl34364470&GID=8bc99dbadd86bf25c87ded264f88219b2fa330058ea01d0db24666490bc33ccb&utm_term=TEST-%20NEW%2",
+          "url": "https://www.esquire.com/lifestyle/a41615885/saatva-mattress-review/?source=nl&date=021524&GID=8bc99dbadd86bf25c87ded264f88219b2fa330058ea01d0db24666490bc33ccb",
           "domain": "esquire.com",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 9,
+      "comp_reason": "2 Mega · 2 Major · 0 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 36,
@@ -1591,19 +1663,19 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
       "serp_examples": [
         {
           "title": "Mattress Depth Guide 2026: How Thick Should Your Mattress Be?",
-          "url": "https://www.mattressnut.com/mattress-depth-guide/#content",
+          "url": "https://www.mattressnut.com/mattress-depth-guide/",
           "domain": "mattressnut.com",
           "dedicated": true
         },
         {
           "title": "Queen Sheet Size — What Dimensions You Actually Need",
-          "url": "https://www.mattressnut.com/queen-sheet-size/#frequently-asked-questions-about-sheets",
+          "url": "https://www.mattressnut.com/queen-sheet-size/",
           "domain": "mattressnut.com",
           "dedicated": true
         },
         {
           "title": "Innerspring Mattress - Saatva Classic - Mattresses | Saatva",
-          "url": "https://www.saatva.com/mattresses/saatva-classic?utm_source=futurepublishing&utm_medium=affiliate&coupon=awyqqgzvxqicebab&coupon=awyqqgzvxqicebab&utm_source=futurepublishing&utm_medium=affiliate&click_id=1110l4FeHCmy",
+          "url": "https://www.saatva.com/mattresses/saatva-classic?coupon=awyqqgzvxqicebab&coupon=awyqqgzvxqicebab&click_id=1110l4FeHCmy",
           "domain": "saatva.com",
           "dedicated": false
         },
@@ -1613,7 +1685,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "homesandgardens.com",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 9,
+      "comp_reason": "1 Mega · 3 Major · 0 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 37,
@@ -1647,7 +1721,7 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "Purple California King Mattress® | Ashley",
-          "url": "https://development.ashleyfurniture.com/p/purple_california_king_mattress/M60000668.html?cgid=mattresses-california-king#product-reviews",
+          "url": "https://development.ashleyfurniture.com/p/purple_california_king_mattress/M60000668.html?cgid=mattresses-california-king",
           "domain": "development.ashleyfurniture.com",
           "dedicated": false
         },
@@ -1657,7 +1731,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "mathishome.com",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 7,
+      "comp_reason": "1 Mega · 2 Major · 1 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 38,
@@ -1679,29 +1755,31 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
       "serp_examples": [
         {
           "title": "The Best Mattress Setup for Couples Who Can't Agree on Firmness - Skip to Content",
-          "url": "https://www.goodhousekeeping.com/what-to-buy/g71627839/best-split-king-mattress/?itm_source=parsely-api#1",
+          "url": "https://www.goodhousekeeping.com/what-to-buy/g71627839/best-split-king-mattress/?itm_source=parsely-api",
           "domain": "goodhousekeeping.com",
           "dedicated": true
         },
         {
           "title": "Best Split King Adjustable Beds of 2024",
-          "url": "https://www.usnews.com/360-reviews/sleep/best-king-adjustable-beds#1",
+          "url": "https://www.usnews.com/360-reviews/sleep/best-king-adjustable-beds",
           "domain": "usnews.com",
           "dedicated": true
         },
         {
           "title": "Mattresses",
-          "url": "https://www.saatva.com/mattresses?click_id=1100lwujk8Fv&coupon=ktznlumbzxwrfktr&utm_medium=affiliate&utm_source=trendupdeal3",
+          "url": "https://www.saatva.com/mattresses?click_id=1100lwujk8Fv&coupon=ktznlumbzxwrfktr",
           "domain": "saatva.com",
           "dedicated": false
         },
         {
           "title": "Everyone Loves Saatva's Classic Mattress, So We Put It to the Test - Skip to Content",
-          "url": "https://www.esquire.com/lifestyle/a64759283/saatva-classic-mattress-review/?source=nl&utm_campaign=nl29427421&utm_medium=email&utm_source=nl_esq&utm_term=AAA+--+High+Minus+Dormant+and+90+Day+Non+Openers&date=101922&user_email=8bc99dbadd86bf",
+          "url": "https://www.esquire.com/lifestyle/a64759283/saatva-classic-mattress-review/?source=nl&date=101922&user_email=8bc99dbadd86bf",
           "domain": "esquire.com",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 9,
+      "comp_reason": "2 Mega · 1 Major · 1 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 39,
@@ -1735,17 +1813,19 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "Brooklyn Bedding Aurora Luxe RV Mattress | Overstock.com Shopping - The Best Deals on Mattresses | 44137748",
-          "url": "https://www.bedbathandbeyond.com/Home-Garden/Brooklyn-Bedding-Aurora-Luxe-RV-Mattress/40703495/product.html?refccid=L4L4XRNS34BKIZCJCPQGJOHCYU&searchidx=1",
+          "url": "https://www.bedbathandbeyond.com/Home-Garden/Brooklyn-Bedding-Aurora-Luxe-RV-Mattress/40703495/product.html?searchidx=1",
           "domain": "bedbathandbeyond.com",
           "dedicated": true
         },
         {
           "title": "5 Organic RV Mattresses That Are Sized Just Right",
-          "url": "https://rvmattress.com/blogs/main/5-organic-rv-mattresses-that-are-sized-just-right-the-good-trade?srsltid=AfmBOopgpQtA58SyHEIuYwh28UEuXat9elkD0BOxSjEnXnEig8qiNuR2",
+          "url": "https://rvmattress.com/blogs/main/5-organic-rv-mattresses-that-are-sized-just-right-the-good-trade",
           "domain": "rvmattress.com",
           "dedicated": true
         }
-      ]
+      ],
+      "comp": 8,
+      "comp_reason": "1 Mega · 3 Major · 0 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 40,
@@ -1773,7 +1853,7 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "The 9 Best Mattresses For Murphy Beds To Avoid The Dreaded Slump - Close Banner",
-          "url": "https://www.mindbodygreen.com/articles/best-mattress-for-murphy-bed#1",
+          "url": "https://www.mindbodygreen.com/articles/best-mattress-for-murphy-bed",
           "domain": "mindbodygreen.com",
           "dedicated": true
         },
@@ -1789,7 +1869,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "mattressvetted.com",
           "dedicated": true
         }
-      ]
+      ],
+      "comp": 7,
+      "comp_reason": "0 Mega · 3 Major · 1 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 41,
@@ -1823,17 +1905,19 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "Saatva Box Spring Review 2026: Foundation Tested + Verdict",
-          "url": "https://www.mattressnut.com/saatva-box-spring-review-2026/#foundation-vs-box-spring",
+          "url": "https://www.mattressnut.com/saatva-box-spring-review-2026/",
           "domain": "mattressnut.com",
           "dedicated": true
         },
         {
           "title": "Innerspring Mattress - Saatva Classic - Mattresses | Saatva",
-          "url": "https://www.saatva.com/mattresses/saatva-classic?sku=7053-5%2F0&coupon=hpswpajpuojnilgd&cq_src=google_ads&cq_cmp=20298782328&cq_net=g&gad_source=1&ds_rl=1273833&gclid=EAIaIQobChMI3pTM25HGiAMV5tDCBB0lMhAIEAQYBSABEgIK4PD_BwE",
+          "url": "https://www.saatva.com/mattresses/saatva-classic?sku=7053-5%2F0&coupon=hpswpajpuojnilgd&cq_src=google_ads&cq_cmp=20298782328&cq_net=g&gad_source=1&ds_rl=1273833",
           "domain": "saatva.com",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 6,
+      "comp_reason": "0 Mega · 3 Major · 1 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 42,
@@ -1855,7 +1939,7 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
       "serp_examples": [
         {
           "title": "Adjustable Mattress - Solaire by Saatva - Mattresses | Saatva",
-          "url": "https://www.saatva.com/mattresses/solaire/?utm_source=pmpro&utm_medium=affiliate&click_id=1101lzKHUiPd&coupon=vzxrirblvqdxaxbr",
+          "url": "https://www.saatva.com/mattresses/solaire/?click_id=1101lzKHUiPd&coupon=vzxrirblvqdxaxbr",
           "domain": "saatva.com",
           "dedicated": true
         },
@@ -1877,7 +1961,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "embed.businessinsider.com",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 8,
+      "comp_reason": "1 Mega · 3 Major · 0 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 43,
@@ -1911,17 +1997,19 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "Does a Slatted Bed Frame Void Your Mattress Warranty?",
-          "url": "https://goldenhomeessentials.com/blogs/news/slatted-bed-frame-mattress-warranty#reviews",
+          "url": "https://goldenhomeessentials.com/blogs/news/slatted-bed-frame-mattress-warranty",
           "domain": "goldenhomeessentials.com",
           "dedicated": true
         },
         {
           "title": "Tell me more about the Nectar Premier Memory Foam Mattress",
-          "url": "https://nectarsleep.elevio.help/en/articles/217-tell-me-more-about-the-nectar-premier-memory-foam-mattress?_kx=KRcnbsS5Sa8z5vfhTH2a_tvAdWtx99zYOjQ0VuDjQ8A%3d.HWmcQV&bxid=%7b%7bperson.KlaviyoID%7d%7d&dg=null&mi_ecmp=WAG3Da&mi_u=01FBVY841TQHS",
+          "url": "https://nectarsleep.elevio.help/en/articles/217-tell-me-more-about-the-nectar-premier-memory-foam-mattress?_kx=KRcnbsS5Sa8z5vfhTH2a_tvAdWtx99zYOjQ0VuDjQ8A%3D.HWmcQV&bxid=%7B%7Bperson.KlaviyoID%7D%7D&dg=null&mi_ecmp=WAG3Da&mi_u=01FBVY841TQHS",
           "domain": "nectarsleep.elevio.help",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 4,
+      "comp_reason": "0 Mega · 0 Major · 4 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 44,
@@ -1943,7 +2031,7 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
       "serp_examples": [
         {
           "title": "Can You Put Your Mattress on the Floor?",
-          "url": "https://casper.com/blogs/article/mattress-on-the-floor/#!",
+          "url": "https://casper.com/blogs/article/mattress-on-the-floor/",
           "domain": "casper.com",
           "dedicated": true
         },
@@ -1955,7 +2043,7 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "The Casper Foundation - Full",
-          "url": "https://www.target.com/p/the-casper-foundation-full/-/A-52375288?ref=tgt_adv_xsf&AFID=google&CPNG=Home%2BDecor&adgroup=10-2",
+          "url": "https://www.target.com/p/the-casper-foundation-full/-/A-52375288?AFID=google&CPNG=Home%2BDecor&adgroup=10-2",
           "domain": "target.com",
           "dedicated": false
         },
@@ -1965,7 +2053,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "shopconnecticutpostmall.com",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 7,
+      "comp_reason": "1 Mega · 2 Major · 1 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 45,
@@ -1999,7 +2089,7 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "Saatva Bunkie Board 2026: Specs + Compatibility Guide",
-          "url": "https://www.mattressnut.com/saatva-bunkie-board/#comparison",
+          "url": "https://www.mattressnut.com/saatva-bunkie-board/",
           "domain": "mattressnut.com",
           "dedicated": true
         },
@@ -2009,7 +2099,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "saatvahelp.saatva.com",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 7,
+      "comp_reason": "0 Mega · 4 Major · 0 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 46,
@@ -2031,7 +2123,7 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
       "serp_examples": [
         {
           "title": "Amazon.com: Zinus Omkaram Upholstered Platform Bed Frame, Mattress Foundation, Wood Slat Support, No Box Spring Needed, Easy Assembly, Queen : Home & Kitchen - ",
-          "url": "https://us.amazon.com/dp/B074QVXRG6#2",
+          "url": "https://us.amazon.com/dp/B074QVXRG6",
           "domain": "us.amazon.com",
           "dedicated": true
         },
@@ -2053,7 +2145,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "lodgvia.com",
           "dedicated": true
         }
-      ]
+      ],
+      "comp": 8,
+      "comp_reason": "2 Mega · 1 Major · 1 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 47,
@@ -2075,7 +2169,7 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
       "serp_examples": [
         {
           "title": "Unboxing your Nectar Mattress",
-          "url": "https://nectarsleep.elevio.help/en/articles/269-unboxing-your-nectar-mattress?dg=null&mi_u=01FBVY841TQHSX4APNS57E2M23&mi_ecmp=RKNbnW&utm_source=Klaviyo&utm_medium=email&utm_campaign=Financing%202%20week%202%20%28RKNbnW%29&bxid=%7B%7Bperson.",
+          "url": "https://nectarsleep.elevio.help/en/articles/269-unboxing-your-nectar-mattress?dg=null&mi_u=01FBVY841TQHSX4APNS57E2M23&mi_ecmp=RKNbnW&bxid=%7B%7Bperson.",
           "domain": "nectarsleep.elevio.help",
           "dedicated": true
         },
@@ -2087,17 +2181,19 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "Nectar Hybrid Full Mattress 12 Inch",
-          "url": "https://home.woot.com/offers/nectar-hybrid-full-mattress-12-inch-4?ref=w_cnt_wp_0_14",
+          "url": "https://home.woot.com/offers/nectar-hybrid-full-mattress-12-inch-4",
           "domain": "home.woot.com",
           "dedicated": false
         },
         {
           "title": "Nectar Premier King Mattress - Medium Firm Gel Memory Foam, Cooling, 365-Night Trial - Verdict",
-          "url": "https://shopsavvy.com/reviews-tldr/nectar-premier-king-mattress-medium-firm-gel-memory-foam-cooling-365-night-trial#1",
+          "url": "https://shopsavvy.com/reviews-tldr/nectar-premier-king-mattress-medium-firm-gel-memory-foam-cooling-365-night-trial",
           "domain": "shopsavvy.com",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 5,
+      "comp_reason": "0 Mega · 1 Major · 3 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 48,
@@ -2131,7 +2227,7 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "Zinus Spring Mattress Euro Top Pocketed Spring 30cm",
-          "url": "https://www.zinus.com.sg/products/zinus-30cm-euro-top-icoil%C2%AE-mattress-12?variant=46268052275414&country=SG&currency=SGD&utm_medium=product_sync&utm_source=google&utm_content=sag_organic&utm_campaign=sag_organic&srsltid=AfmBOoq9c5Yxq43A",
+          "url": "https://www.zinus.com.sg/products/zinus-30cm-euro-top-icoil%C2%AE-mattress-12?variant=46268052275414&country=SG&currency=SGD",
           "domain": "zinus.com.sg",
           "dedicated": false
         },
@@ -2141,7 +2237,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "zinus.com",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 3,
+      "comp_reason": "0 Mega · 1 Major · 1 Forum/Niche · 2 Weak/Intl"
     },
     {
       "id": 49,
@@ -2181,11 +2279,13 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "Unboxing your Nectar Mattress",
-          "url": "https://nectarsleep.elevio.help/en/articles/269-unboxing-your-nectar-mattress?dg=null&mi_u=01FBVY841TQHSX4APNS57E2M23&mi_ecmp=RKNbnW&utm_source=Klaviyo&utm_medium=email&utm_campaign=Financing%202%20week%202%20%28RKNbnW%29&bxid=%7B%7Bperson.",
+          "url": "https://nectarsleep.elevio.help/en/articles/269-unboxing-your-nectar-mattress?dg=null&mi_u=01FBVY841TQHSX4APNS57E2M23&mi_ecmp=RKNbnW&bxid=%7B%7Bperson.",
           "domain": "nectarsleep.elevio.help",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 4,
+      "comp_reason": "0 Mega · 1 Major · 2 Forum/Niche · 1 Weak/Intl"
     },
     {
       "id": 50,
@@ -2207,13 +2307,13 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
       "serp_examples": [
         {
           "title": "How Long Do Saatva Mattresses Last? | Saatva",
-          "url": "https://www.saatva.com/blog/how-long-do-saatva-mattresses-last/?utm_source=b10mattress&utm_medium=affiliate&click_id=1011lDIZ8z8d&coupon=vzxrirblvqdxaxbr",
+          "url": "https://www.saatva.com/blog/how-long-do-saatva-mattresses-last/?click_id=1011lDIZ8z8d&coupon=vzxrirblvqdxaxbr",
           "domain": "saatva.com",
           "dedicated": true
         },
         {
           "title": "How Long Do Saatva Mattresses Last? | Saatva",
-          "url": "https://www.saatva.com/blog/how-long-do-saatva-mattresses-last/?utm_source=b10mattress&utm_medium=affiliate&click_id=1100lDFPE7aH&coupon=vzxrirblvqdxaxbr",
+          "url": "https://www.saatva.com/blog/how-long-do-saatva-mattresses-last/?click_id=1100lDFPE7aH&coupon=vzxrirblvqdxaxbr",
           "domain": "saatva.com",
           "dedicated": true
         },
@@ -2225,11 +2325,13 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "We've Been Testing This Saatva Mattress for 10 Years, and It's Still Our Favorite",
-          "url": "https://www.goodhousekeeping.com/what-to-buy/mattresses-sleep-products/a71773186/saatva-classic-mattress-review/?itm_source=parsely-api#1",
+          "url": "https://www.goodhousekeeping.com/what-to-buy/mattresses-sleep-products/a71773186/saatva-classic-mattress-review/?itm_source=parsely-api",
           "domain": "goodhousekeeping.com",
           "dedicated": true
         }
-      ]
+      ],
+      "comp": 8,
+      "comp_reason": "1 Mega · 3 Major · 0 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 51,
@@ -2251,29 +2353,31 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
       "serp_examples": [
         {
           "title": "Mattress Durability: Fix and Prevent Mattress Sagging",
-          "url": "https://www.nectarsleep.com/posts/mattress-durability-sagging-prevention#open-affirm",
+          "url": "https://www.nectarsleep.com/posts/mattress-durability-sagging-prevention",
           "domain": "nectarsleep.com",
           "dedicated": true
         },
         {
           "title": "How to Fix a Sagging Mattress: 5 Important Tips",
-          "url": "https://www.nectarsleep.com/posts/how-to-fix-a-sagging-mattress?CIDIMP=Tp0QxY281xyKTSxSXaVCJ3BDUkHSuUUB4SXW2U0&gclid=Cj0KCQjw0Mb3BRCaARIsAPSNGpUG5W0Sn5rcuQoXb26xd_9K_YoZyD1Ex11i7auSgkBGWHAYEqU8pA8aAu82EALw_wcB&irgwc=1&utm_account=8338&utm_c",
+          "url": "https://www.nectarsleep.com/posts/how-to-fix-a-sagging-mattress?CIDIMP=Tp0QxY281xyKTSxSXaVCJ3BDUkHSuUUB4SXW2U0&irgwc=1",
           "domain": "nectarsleep.com",
           "dedicated": true
         },
         {
           "title": "How is edge support on Nectar Mattresses?",
-          "url": "https://nectarsleep.elevio.help/en/articles/24-how-is-edge-support-on-nectar-mattresses?_kx=KRcnbsS5Sa8z5vfhTH2a_tvAdWtx99zYOjQ0VuDjQ8A%3d.HWmcQV&bxid=%7b%7bperson.KlaviyoID%7d%7d&dg=null&mi_ecmp=X2KRzy&mi_u=01FBVY841TQHSX4APNS57E2M23&pk_ca",
+          "url": "https://nectarsleep.elevio.help/en/articles/24-how-is-edge-support-on-nectar-mattresses?_kx=KRcnbsS5Sa8z5vfhTH2a_tvAdWtx99zYOjQ0VuDjQ8A%3D.HWmcQV&bxid=%7B%7Bperson.KlaviyoID%7D%7D&dg=null&mi_ecmp=X2KRzy&mi_u=01FBVY841TQHSX4APNS57E2M23",
           "domain": "nectarsleep.elevio.help",
           "dedicated": false
         },
         {
           "title": "Customer reviews for Nectar Premier 13” Cal King Mattress (New Version) - Medium Firm - Contouring Memory Foam - Cooling Upgrade - 2” Pressure Relief Layer - Mi",
-          "url": "https://www.walmart.com/reviews/product/16772371945?page=1000#1",
+          "url": "https://www.walmart.com/reviews/product/16772371945?page=1000",
           "domain": "walmart.com",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 7,
+      "comp_reason": "1 Mega · 2 Major · 1 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 52,
@@ -2301,13 +2405,13 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "Complaint – #1 in Levin v. Whitestone Home Furnishings, LLC (E.D.N.Y, 1:25-cv-05812) – CourtListener.com - Levin v. Whitestone Home Furnishings, LLC",
-          "url": "https://www.courtlistener.com:443/docket/71668524/1/levin-v-whitestone-home-furnishings-llc/#1",
-          "domain": "courtlistener.com:443",
+          "url": "https://www.courtlistener.com:443/docket/71668524/1/levin-v-whitestone-home-furnishings-llc/",
+          "domain": "courtlistener.com",
           "dedicated": true
         },
         {
           "title": "Complaint – #1 in Howitt v. Whitestone Home Furnishings, LLC (E.D.N.Y, 1:25-cv-02874) – CourtListener.com - Howitt v. Whitestone Home Furnishings, LLC",
-          "url": "https://www.courtlistener.com/docket/70343378/1/howitt-v-whitestone-home-furnishings-llc/#1",
+          "url": "https://www.courtlistener.com/docket/70343378/1/howitt-v-whitestone-home-furnishings-llc/",
           "domain": "courtlistener.com",
           "dedicated": true
         },
@@ -2317,7 +2421,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "forum.mattressunderground.com",
           "dedicated": true
         }
-      ]
+      ],
+      "comp": 4,
+      "comp_reason": "0 Mega · 1 Major · 3 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 53,
@@ -2339,29 +2445,31 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
       "serp_examples": [
         {
           "title": "Is Saatva Worth the Price? | Saatva",
-          "url": "https://www.saatva.com/blog/is-saatva-worth-the-price/#how-saatva-compares-to-other-brands",
+          "url": "https://www.saatva.com/blog/is-saatva-worth-the-price/",
           "domain": "saatva.com",
           "dedicated": false
         },
         {
           "title": "We've Been Testing This Saatva Mattress for 10 Years, and It's Still Our Favorite",
-          "url": "https://www.goodhousekeeping.com/what-to-buy/mattresses-sleep-products/a71773186/saatva-classic-mattress-review/?itm_source=parsely-api#1",
+          "url": "https://www.goodhousekeeping.com/what-to-buy/mattresses-sleep-products/a71773186/saatva-classic-mattress-review/?itm_source=parsely-api",
           "domain": "goodhousekeeping.com",
           "dedicated": false
         },
         {
           "title": "I Tested One of Saatva's \"Eco-Friendly\" Mattresses—and I Have Mixed Feelings About It",
-          "url": "https://shopping.yahoo.com/articles/tested-one-saatvas-eco-friendly-193000688.html#1",
+          "url": "https://shopping.yahoo.com/articles/tested-one-saatvas-eco-friendly-193000688.html",
           "domain": "shopping.yahoo.com",
           "dedicated": false
         },
         {
           "title": "Saatva Classic Mattress Review 2026: Top Scores From Our Six Months of Testing - Saatva Classic Mattress Review 2026: Top Scores From Our Six Months of Testing",
-          "url": "https://www.usnews.com/360-reviews/sleep/mattress/saatva?int=top_nav_Saatva#1",
+          "url": "https://www.usnews.com/360-reviews/sleep/mattress/saatva?int=top_nav_Saatva",
           "domain": "usnews.com",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 9,
+      "comp_reason": "2 Mega · 1 Major · 1 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 54,
@@ -2383,7 +2491,7 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
       "serp_examples": [
         {
           "title": "Top Tips on How to Fix a Squeaky Mattress & Bed Frame | Saatva",
-          "url": "https://www.saatva.com/blog/how-to-fix-a-squeaky-bed/#h-what-causes-a-bed-to-squeak",
+          "url": "https://www.saatva.com/blog/how-to-fix-a-squeaky-bed/",
           "domain": "saatva.com",
           "dedicated": true
         },
@@ -2395,7 +2503,7 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "Squeaky Mattress — Causes and How to Fix It",
-          "url": "https://www.mattressnut.com/squeaky-mattress/#content",
+          "url": "https://www.mattressnut.com/squeaky-mattress/",
           "domain": "mattressnut.com",
           "dedicated": true
         },
@@ -2405,7 +2513,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "mattresshelp.org",
           "dedicated": true
         }
-      ]
+      ],
+      "comp": 6,
+      "comp_reason": "0 Mega · 3 Major · 1 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 55,
@@ -2439,7 +2549,7 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "More Than 55,000 Avocado Mattress Pads Recalled Due to Fire Risk - Consumer Reports - More Than 55,000 Avocado Mattress Pads Recalled Due to Fire Risk",
-          "url": "https://www.consumerreports.org/home-garden/home-product-recalls/avocado-mattress-pad-recall-violate-flammability-standards-a5399985520/?itm_source=parsely-api#1",
+          "url": "https://www.consumerreports.org/home-garden/home-product-recalls/avocado-mattress-pad-recall-violate-flammability-standards-a5399985520/?itm_source=parsely-api",
           "domain": "consumerreports.org",
           "dedicated": true
         },
@@ -2449,7 +2559,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "vitallaw.com",
           "dedicated": true
         }
-      ]
+      ],
+      "comp": 9,
+      "comp_reason": "3 Mega · 0 Major · 1 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 56,
@@ -2471,7 +2583,7 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
       "serp_examples": [
         {
           "title": "Zinus Mattress Lawsuit: Fiberglass Suits Settled, No Claim Form – Settlement Insight",
-          "url": "https://settlementinsight.com/zinus-mattress-lawsuit#review",
+          "url": "https://settlementinsight.com/zinus-mattress-lawsuit",
           "domain": "settlementinsight.com",
           "dedicated": true
         },
@@ -2483,17 +2595,19 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "Zinus Lawsuit 2026: No Verified Settlement Exists",
-          "url": "https://lawcompensate.com/zinus-lawsuit-2026/#main",
+          "url": "https://lawcompensate.com/zinus-lawsuit-2026/",
           "domain": "lawcompensate.com",
           "dedicated": true
         },
         {
           "title": "Alternatively, in the event the Court does not certify any of above five classes, Plaintiffs bring this action on behalf of the ...",
-          "url": "https://storage.courtlistener.com/recap/gov.uscourts.ilsd.84179/gov.uscourts.ilsd.84179.30.0.pdf#2#4#2",
+          "url": "https://storage.courtlistener.com/recap/gov.uscourts.ilsd.84179/gov.uscourts.ilsd.84179.30.0.pdf",
           "domain": "storage.courtlistener.com",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 5,
+      "comp_reason": "0 Mega · 1 Major · 3 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 57,
@@ -2521,23 +2635,25 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "What is the Saatva Friends for Life Warranty?",
-          "url": "https://saatvahelp.saatva.com/hc/en-us/articles/5530948823319-What-is-the-Saatva-Friends-for-Life-Warranty?utm_source=b10mattress&utm_medium=affiliate&click_id=1101lE4Ai6Tn&coupon=vzxrirblvqdxaxbr",
+          "url": "https://saatvahelp.saatva.com/hc/en-us/articles/5530948823319-What-is-the-Saatva-Friends-for-Life-Warranty?click_id=1101lE4Ai6Tn&coupon=vzxrirblvqdxaxbr",
           "domain": "saatvahelp.saatva.com",
           "dedicated": true
         },
         {
           "title": "Saatva Mattress Reviews: An Honest Assessment - Saatva Mattress Reviews: An Honest Assessment",
-          "url": "https://www.nytimes.com/wirecutter/reviews/saatva-mattress/#1",
+          "url": "https://www.nytimes.com/wirecutter/reviews/saatva-mattress/",
           "domain": "nytimes.com",
           "dedicated": false
         },
         {
           "title": "Saatva Mattress Coupon (2026) - Up to $300 Off",
           "url": "https://sleepopolis.com:443/coupons/saatva-mattress-coupon-code/",
-          "domain": "sleepopolis.com:443",
+          "domain": "sleepopolis.com",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 8,
+      "comp_reason": "1 Mega · 3 Major · 0 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 58,
@@ -2581,7 +2697,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "mattresshelp.org",
           "dedicated": true
         }
-      ]
+      ],
+      "comp": 8,
+      "comp_reason": "0 Mega · 4 Major · 0 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 59,
@@ -2603,13 +2721,13 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
       "serp_examples": [
         {
           "title": "10-Year Full Replacement Limited Warranty",
-          "url": "https://warranty.tempurpedic.com/warranties/mattresses-and-flat-foundations-10-year-warranty/#main-content",
+          "url": "https://warranty.tempurpedic.com/warranties/mattresses-and-flat-foundations-10-year-warranty/",
           "domain": "warranty.tempurpedic.com",
           "dedicated": true
         },
         {
           "title": "LIMITED WARRANTY FOR TEMPUR ERGOTM ADJUSTABLE BASE",
-          "url": "https://www.tempurpedic.ca/documents/207/Tempur_Ergo_Warranty_V002.pdf#1#2#1",
+          "url": "https://www.tempurpedic.ca/documents/207/Tempur_Ergo_Warranty_V002.pdf",
           "domain": "tempurpedic.ca",
           "dedicated": true
         },
@@ -2621,11 +2739,13 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "REGISTRATION (CONT.)",
-          "url": "http://www.sleepys.com/wcsstore/Sleepys/upload/Warranty/Tempurpedic_Warranty.pdf#1#1#1",
+          "url": "https://www.sleepys.com/wcsstore/Sleepys/upload/Warranty/Tempurpedic_Warranty.pdf",
           "domain": "sleepys.com",
           "dedicated": true
         }
-      ]
+      ],
+      "comp": 6,
+      "comp_reason": "0 Mega · 3 Major · 0 Forum/Niche · 1 Weak/Intl"
     },
     {
       "id": 60,
@@ -2647,19 +2767,19 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
       "serp_examples": [
         {
           "title": "Nectar Warranty Policies | Nectar Sleep",
-          "url": "https://www.nectarsleep.com/l/warranty-policy?CIDIMP=2VP1aG2cOxyZR8NT1twcdUoSUku1xMSELUUCQg0&afsrc=1&irgwc=1&utm_account=8338&utm_campaign=IMPACT",
+          "url": "https://www.nectarsleep.com/l/warranty-policy?CIDIMP=2VP1aG2cOxyZR8NT1twcdUoSUku1xMSELUUCQg0&afsrc=1&irgwc=1",
           "domain": "nectarsleep.com",
           "dedicated": true
         },
         {
           "title": "Nectar Warranty Policy",
-          "url": "https://m.media-amazon.com/images/I/71BG8g0cH2L.pdf#1#1#1",
+          "url": "https://m.media-amazon.com/images/I/71BG8g0cH2L.pdf",
           "domain": "m.media-amazon.com",
           "dedicated": true
         },
         {
           "title": "3 Simple Steps to claim Nectar Warranty - Warranty Valet - 3 Simple Steps for Nectar Warranty Claim",
-          "url": "https://warrantyvalet.com/how-to-claim-nectar-warranty#1",
+          "url": "https://warrantyvalet.com/how-to-claim-nectar-warranty",
           "domain": "warrantyvalet.com",
           "dedicated": true
         },
@@ -2669,7 +2789,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "yawnder.com",
           "dedicated": true
         }
-      ]
+      ],
+      "comp": 6,
+      "comp_reason": "0 Mega · 2 Major · 2 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 61,
@@ -2703,17 +2825,19 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "LIMITED WARRANTY FOR TEMPUR ERGOTM ADJUSTABLE BASE",
-          "url": "https://www.tempurpedic.ca/documents/207/Tempur_Ergo_Warranty_V002.pdf#1#2#1",
+          "url": "https://www.tempurpedic.ca/documents/207/Tempur_Ergo_Warranty_V002.pdf",
           "domain": "tempurpedic.ca",
           "dedicated": true
         },
         {
           "title": "10-Year Tempur-Pedic® Mattress and Flat Foundation Limited Warranty",
-          "url": "https://www.tempurpedic.com/customer-service/warranties/10-year-tempur-pedic-mattress-and-flat-foundation-limited-warranty/?Affsrc=1&Utm_campaign=ignite&Utm_content=1070808&Utm_medium=impact&Utm_source=Business%20Insider.&irclickid=ynxQW-Vo",
+          "url": "https://www.tempurpedic.com/customer-service/warranties/10-year-tempur-pedic-mattress-and-flat-foundation-limited-warranty/?Affsrc=1&irclickid=ynxQW-Vo",
           "domain": "tempurpedic.com",
           "dedicated": true
         }
-      ]
+      ],
+      "comp": 6,
+      "comp_reason": "0 Mega · 3 Major · 0 Forum/Niche · 1 Weak/Intl"
     },
     {
       "id": 62,
@@ -2735,13 +2859,13 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
       "serp_examples": [
         {
           "title": "Casper Sleep 5 Year Limited Foundation Warranty",
-          "url": "https://www.qvc.com/footers/fth/pdf/CasperFoundationWarranty.pdf#1#1#1",
+          "url": "https://www.qvc.com/footers/fth/pdf/CasperFoundationWarranty.pdf",
           "domain": "qvc.com",
           "dedicated": true
         },
         {
           "title": "Warranty | Casper",
-          "url": "https://casper.com/pages/warranty#mattresses",
+          "url": "https://casper.com/pages/warranty",
           "domain": "casper.com",
           "dedicated": true
         },
@@ -2753,11 +2877,13 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "Costco Mattress Warranty Canada | Mattress Miracle - Item added to your cart",
-          "url": "https://mattressmiracle.ca/blogs/mattress-miracle-blog/costco-mattress-warranty-guide#1",
+          "url": "https://mattressmiracle.ca/blogs/mattress-miracle-blog/costco-mattress-warranty-guide",
           "domain": "mattressmiracle.ca",
           "dedicated": true
         }
-      ]
+      ],
+      "comp": 6,
+      "comp_reason": "1 Mega · 1 Major · 1 Forum/Niche · 1 Weak/Intl"
     },
     {
       "id": 63,
@@ -2779,7 +2905,7 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
       "serp_examples": [
         {
           "title": "Il est facile de déterminer la durée de votre garantie ainsi que les termes et conditions qui s'y rattachent",
-          "url": "https://sealy.ca/static/docs/warranty/Warranty_SealyCDNSchedule_FR-2012-2017.pdf#1#1#1",
+          "url": "https://sealy.ca/static/docs/warranty/Warranty_SealyCDNSchedule_FR-2012-2017.pdf",
           "domain": "sealy.ca",
           "dedicated": false
         },
@@ -2791,17 +2917,19 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "Congratulations, you've purchased one of the finest sleep systems available",
-          "url": "http://www.afw.com/Images/uploaded/Warranty/Sealy_Warranty_Card%20-%20resized%202017.pdf#1#1#1",
+          "url": "https://www.afw.com/Images/uploaded/Warranty/Sealy_Warranty_Card%20-%20resized%202017.pdf",
           "domain": "afw.com",
           "dedicated": false
         },
         {
           "title": "Safety Testing | Crib Mattresses | Crib Pads | Sealy Baby",
-          "url": "https://sealybaby.com/safety-quality/safety-testing/?srsltid=AfmBOorv2Wzy8uk_nZWRxTcTMYX-luD5Ntq5gOshBzxlZkFjSZ1Xdghk",
+          "url": "https://sealybaby.com/safety-quality/safety-testing/",
           "domain": "sealybaby.com",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 7,
+      "comp_reason": "1 Mega · 2 Major · 0 Forum/Niche · 1 Weak/Intl"
     },
     {
       "id": 64,
@@ -2845,7 +2973,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "americanfreight.com",
           "dedicated": true
         }
-      ]
+      ],
+      "comp": 6,
+      "comp_reason": "0 Mega · 2 Major · 2 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 65,
@@ -2867,7 +2997,7 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
       "serp_examples": [
         {
           "title": "What Is a Mattress Trial Period? | Saatva",
-          "url": "https://www.saatva.com/blog/mattress-trial-period/?utm_source=cordial&utm_medium=email&id=65c7ee050f3990622a0a24ca&utm_campaign=Reactivation120Engaged3&utm_content=reactivation120",
+          "url": "https://www.saatva.com/blog/mattress-trial-period/?id=65c7ee050f3990622a0a24ca",
           "domain": "saatva.com",
           "dedicated": true
         },
@@ -2879,17 +3009,19 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "What it's really like to sleep on the Saatva Classic Mattress - The Saatva Classic Mattress delivers a hotel-style sleep at home",
-          "url": "https://www.businessinsider.com/guides/home/saatva-classic-mattress-review#1",
+          "url": "https://www.businessinsider.com/guides/home/saatva-classic-mattress-review",
           "domain": "businessinsider.com",
           "dedicated": false
         },
         {
           "title": "Everyone Loves Saatva's Classic Mattress, So We Put It to the Test - Skip to Content",
-          "url": "https://www.esquire.com/lifestyle/a64759283/saatva-classic-mattress-review/?source=nl&utm_campaign=nl29427421&utm_medium=email&utm_source=nl_esq&utm_term=AAA+--+High+Minus+Dormant+and+90+Day+Non+Openers&date=101922&user_email=8bc99dbadd86bf",
+          "url": "https://www.esquire.com/lifestyle/a64759283/saatva-classic-mattress-review/?source=nl&date=101922&user_email=8bc99dbadd86bf",
           "domain": "esquire.com",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 9,
+      "comp_reason": "2 Mega · 2 Major · 0 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 66,
@@ -2917,23 +3049,25 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "Returns -Try Nectar For 365 Nights, Risk Free And Happiness Guaranteed | Nectar Sleep",
-          "url": "https://www.nectarsleep.com/p/returns?CIDIMP=SFw0DFVbhxyPRFQTX00Zkwr1UkHyxQx9t2b%3a2E0&irgwc=1&utm_account=8338&utm_campaign=IMPACT",
+          "url": "https://www.nectarsleep.com/p/returns?CIDIMP=SFw0DFVbhxyPRFQTX00Zkwr1UkHyxQx9t2b%3A2E0&irgwc=1",
           "domain": "nectarsleep.com",
           "dedicated": true
         },
         {
           "title": "Returns",
-          "url": "https://www.nectarsleep.co.uk/pages/returns#gbaid216162",
+          "url": "https://www.nectarsleep.co.uk/pages/returns",
           "domain": "nectarsleep.co.uk",
           "dedicated": true
         },
         {
           "title": "Nectar Mattress Return Policy: 365-Night Trial (2026)",
-          "url": "https://bannermattressonline.com/blog/nectar-mattress-return-policy?utm_source=chatgpt.com",
+          "url": "https://bannermattressonline.com/blog/nectar-mattress-return-policy",
           "domain": "bannermattressonline.com",
           "dedicated": true
         }
-      ]
+      ],
+      "comp": 5,
+      "comp_reason": "0 Mega · 3 Major · 0 Forum/Niche · 1 Weak/Intl"
     },
     {
       "id": 67,
@@ -2955,29 +3089,31 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
       "serp_examples": [
         {
           "title": "Saatva Return Policy: Mattresses, Pillows, & More | Saatva",
-          "url": "https://www.saatva.com/blog/saatva-return-policy/#main",
+          "url": "https://www.saatva.com/blog/saatva-return-policy/",
           "domain": "saatva.com",
           "dedicated": true
         },
         {
           "title": "What is your return policy?",
-          "url": "https://saatvahelp.saatva.com/hc/en-us/articles/360041402554-What-is-your-return-policy?utm_source=b10mattress&utm_medium=affiliate&click_id=1101lE5Hmw3L&coupon=vzxrirblvqdxaxbr",
+          "url": "https://saatvahelp.saatva.com/hc/en-us/articles/360041402554-What-is-your-return-policy?click_id=1101lE5Hmw3L&coupon=vzxrirblvqdxaxbr",
           "domain": "saatvahelp.saatva.com",
           "dedicated": true
         },
         {
           "title": "What Is Saatva's Return Policy? - Sleep Enlightened",
-          "url": "https://blog-staging.saatva.com/saatva-return-policy/#main",
+          "url": "https://blog-staging.saatva.com/saatva-return-policy/",
           "domain": "blog-staging.saatva.com",
           "dedicated": true
         },
         {
           "title": "Furniture & Mattress Return Policy - Furniture & Mattress Return Policy",
-          "url": "https://www.macys.com/customer-service/articles/furniture-mattress-return-policy#1",
+          "url": "https://www.macys.com/customer-service/articles/furniture-mattress-return-policy",
           "domain": "macys.com",
           "dedicated": true
         }
-      ]
+      ],
+      "comp": 8,
+      "comp_reason": "1 Mega · 3 Major · 0 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 68,
@@ -3005,23 +3141,25 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "What Is Saatva's Return Policy? - Sleep Enlightened",
-          "url": "https://blog-staging.saatva.com/saatva-return-policy/#main",
+          "url": "https://blog-staging.saatva.com/saatva-return-policy/",
           "domain": "blog-staging.saatva.com",
           "dedicated": false
         },
         {
           "title": "What is your return policy?",
-          "url": "https://saatvahelp.saatva.com/hc/en-us/articles/360041402554-What-is-your-return-policy?utm_source=b10mattress&utm_medium=affiliate&click_id=1101lE5Hmw3L&coupon=vzxrirblvqdxaxbr",
+          "url": "https://saatvahelp.saatva.com/hc/en-us/articles/360041402554-What-is-your-return-policy?click_id=1101lE5Hmw3L&coupon=vzxrirblvqdxaxbr",
           "domain": "saatvahelp.saatva.com",
           "dedicated": false
         },
         {
           "title": "Saatva Return Policy: Mattresses, Pillows, & More | Saatva",
-          "url": "https://www.saatva.com/blog/saatva-return-policy/#main",
+          "url": "https://www.saatva.com/blog/saatva-return-policy/",
           "domain": "saatva.com",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 7,
+      "comp_reason": "0 Mega · 4 Major · 0 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 69,
@@ -3043,7 +3181,7 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
       "serp_examples": [
         {
           "title": "Casper Return Center",
-          "url": "https://casper.com/pages/returns?clickid=xx-0IpVjcxyKUSxUfK1S%3aVstUksx2m2k00000w0&irgwc=1&utm_campaign=ap_ir&utm_term=%22Content%2020%25%22%2c%22ContentPartners%22",
+          "url": "https://casper.com/pages/returns?clickid=xx-0IpVjcxyKUSxUfK1S%3AVstUksx2m2k00000w0&irgwc=1",
           "domain": "casper.com",
           "dedicated": true
         },
@@ -3065,7 +3203,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "bannermattressonline.com",
           "dedicated": true
         }
-      ]
+      ],
+      "comp": 7,
+      "comp_reason": "0 Mega · 4 Major · 0 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 70,
@@ -3087,13 +3227,13 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
       "serp_examples": [
         {
           "title": "Returns -Try Nectar For 365 Nights, Risk Free And Happiness Guaranteed | Nectar Sleep",
-          "url": "https://www.nectarsleep.com/p/returns?CIDIMP=SFw0DFVbhxyPRFQTX00Zkwr1UkHyxQx9t2b%3a2E0&irgwc=1&utm_account=8338&utm_campaign=IMPACT",
+          "url": "https://www.nectarsleep.com/p/returns?CIDIMP=SFw0DFVbhxyPRFQTX00Zkwr1UkHyxQx9t2b%3A2E0&irgwc=1",
           "domain": "nectarsleep.com",
           "dedicated": true
         },
         {
           "title": "Nectar Mattress Return Policy: 365-Night Trial (2026)",
-          "url": "https://bannermattressonline.com/blog/nectar-mattress-return-policy?utm_source=chatgpt.com",
+          "url": "https://bannermattressonline.com/blog/nectar-mattress-return-policy",
           "domain": "bannermattressonline.com",
           "dedicated": true
         },
@@ -3109,7 +3249,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "sleepsage.com",
           "dedicated": true
         }
-      ]
+      ],
+      "comp": 7,
+      "comp_reason": "0 Mega · 4 Major · 0 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 71,
@@ -3131,13 +3273,13 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
       "serp_examples": [
         {
           "title": "What is your return policy?",
-          "url": "https://saatvahelp.saatva.com/hc/en-us/articles/360041402554-What-is-your-return-policy?utm_source=b10mattress&utm_medium=affiliate&click_id=1101lE5Hmw3L&coupon=vzxrirblvqdxaxbr",
+          "url": "https://saatvahelp.saatva.com/hc/en-us/articles/360041402554-What-is-your-return-policy?click_id=1101lE5Hmw3L&coupon=vzxrirblvqdxaxbr",
           "domain": "saatvahelp.saatva.com",
           "dedicated": true
         },
         {
           "title": "Saatva Return Policy: Mattresses, Pillows, & More | Saatva",
-          "url": "https://www.saatva.com/blog/saatva-return-policy/#main",
+          "url": "https://www.saatva.com/blog/saatva-return-policy/",
           "domain": "saatva.com",
           "dedicated": true
         },
@@ -3153,7 +3295,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "purchy.ai",
           "dedicated": true
         }
-      ]
+      ],
+      "comp": 6,
+      "comp_reason": "0 Mega · 3 Major · 1 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 72,
@@ -3175,13 +3319,13 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
       "serp_examples": [
         {
           "title": "Home trial, returns & exchanges",
-          "url": "https://www.saatva.com/trial?coupon=frifvwdywrnmluog&utm_source=hearstmagazines&utm_medium=affiliate&click_id=1101lBUFfi86",
+          "url": "https://www.saatva.com/trial?coupon=frifvwdywrnmluog&click_id=1101lBUFfi86",
           "domain": "saatva.com",
           "dedicated": true
         },
         {
           "title": "What is your return policy?",
-          "url": "https://saatvahelp.saatva.com/hc/en-us/articles/360041402554-What-is-your-return-policy?utm_source=b10mattress&utm_medium=affiliate&click_id=1101lE5Hmw3L&coupon=vzxrirblvqdxaxbr",
+          "url": "https://saatvahelp.saatva.com/hc/en-us/articles/360041402554-What-is-your-return-policy?click_id=1101lE5Hmw3L&coupon=vzxrirblvqdxaxbr",
           "domain": "saatvahelp.saatva.com",
           "dedicated": false
         },
@@ -3197,7 +3341,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "bannermattressonline.com",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 7,
+      "comp_reason": "0 Mega · 4 Major · 0 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 73,
@@ -3241,7 +3387,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "mattresshelp.org",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 7,
+      "comp_reason": "0 Mega · 4 Major · 0 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 74,
@@ -3263,13 +3411,13 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
       "serp_examples": [
         {
           "title": "Saatva Mattress 365-Night Home Trial, Exchange & Return Policies | Saatva",
-          "url": "https://www.saatva.com/trial?utm_source=b10mattress&utm_medium=affiliate&click_id=1100lDCzgmB3&coupon=vzxrirblvqdxaxbr",
+          "url": "https://www.saatva.com/trial?click_id=1100lDCzgmB3&coupon=vzxrirblvqdxaxbr",
           "domain": "saatva.com",
           "dedicated": false
         },
         {
           "title": "Saatva Return Policy: Mattresses, Pillows, & More | Saatva",
-          "url": "https://www.saatva.com/blog/saatva-return-policy/#main",
+          "url": "https://www.saatva.com/blog/saatva-return-policy/",
           "domain": "saatva.com",
           "dedicated": false
         },
@@ -3285,7 +3433,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "bannermattressonline.com",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 7,
+      "comp_reason": "0 Mega · 4 Major · 0 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 75,
@@ -3307,7 +3457,7 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
       "serp_examples": [
         {
           "title": "Saatva Customer Service 2026: How to Contact + Verdict",
-          "url": "https://www.mattressnut.com/saatva-customer-service-2026/#faq",
+          "url": "https://www.mattressnut.com/saatva-customer-service-2026/",
           "domain": "mattressnut.com",
           "dedicated": true
         },
@@ -3329,7 +3479,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "maps.apple.com",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 6,
+      "comp_reason": "0 Mega · 2 Major · 2 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 76,
@@ -3351,29 +3503,31 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
       "serp_examples": [
         {
           "title": "Do Saatva mattresses come in a box? - Club Benefits",
-          "url": "https://www.tomsguide.com/wellness/mattresses/do-saatva-mattresses-come-in-a-box#1",
+          "url": "https://www.tomsguide.com/wellness/mattresses/do-saatva-mattresses-come-in-a-box",
           "domain": "tomsguide.com",
           "dedicated": true
         },
         {
           "title": "Saatva - Wikipedia",
-          "url": "https://en.wikipedia.org/wiki/?curid=47998117#1",
+          "url": "https://en.wikipedia.org/wiki/?curid=47998117",
           "domain": "en.wikipedia.org",
           "dedicated": false
         },
         {
           "title": "We're still in love with this Saatva hybrid mattress",
-          "url": "https://www.reviewed.com/sleep/content/saatva-mattress-review-good-we-remembered?utm_source=usat&utm_medium=referral&utm_campaign=collab#1",
+          "url": "https://www.reviewed.com/sleep/content/saatva-mattress-review-good-we-remembered",
           "domain": "reviewed.com",
           "dedicated": false
         },
         {
           "title": "Saatva - Saatva",
-          "url": "https://browse.library.kiwix.org/content/wikipedia_en_all_maxi/Saatva#1",
+          "url": "https://browse.library.kiwix.org/content/wikipedia_en_all_maxi/Saatva",
           "domain": "browse.library.kiwix.org",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 10,
+      "comp_reason": "3 Mega · 0 Major · 1 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 77,
@@ -3401,23 +3555,25 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "Saatva Free White Glove Mattress Delivery",
-          "url": "https://www.saatva.com/delivery?coupon=frifvwdywrnmluog&coupon=frifvwdywrnmluog&utm_source=hearstmagazines&utm_medium=affiliate&click_id=1011lDCSHcPZ",
+          "url": "https://www.saatva.com/delivery?coupon=frifvwdywrnmluog&coupon=frifvwdywrnmluog&click_id=1011lDCSHcPZ",
           "domain": "saatva.com",
           "dedicated": true
         },
         {
           "title": "Saatva Mattress Shipping 2026: Free Delivery + Setup",
-          "url": "https://www.mattressnut.com/saatva-mattress-shipping-delivery-guide-2026/#flat-vs-compressed",
+          "url": "https://www.mattressnut.com/saatva-mattress-shipping-delivery-guide-2026/",
           "domain": "mattressnut.com",
           "dedicated": true
         },
         {
           "title": "I've Genuinely Never Slept Better Since Buying This Saatva Mattress—and It's 20% Off Right Now - Skip to Content",
-          "url": "https://www.housebeautiful.com/shopping/furniture/a70142263/saatva-memory-foam-hybrid-mattress-review/?itm_source=parsely-api#1",
+          "url": "https://www.housebeautiful.com/shopping/furniture/a70142263/saatva-memory-foam-hybrid-mattress-review/?itm_source=parsely-api",
           "domain": "housebeautiful.com",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 8,
+      "comp_reason": "1 Mega · 3 Major · 0 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 78,
@@ -3439,7 +3595,7 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
       "serp_examples": [
         {
           "title": "Do you ship outside of the United States?",
-          "url": "https://saatvahelp.saatva.com/hc/en-us/articles/13693177348631-Do-you-ship-outside-of-the-United-States#article-container",
+          "url": "https://saatvahelp.saatva.com/hc/en-us/articles/13693177348631-Do-you-ship-outside-of-the-United-States",
           "domain": "saatvahelp.saatva.com",
           "dedicated": true
         },
@@ -3451,7 +3607,7 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "Saatva Mattress Discount Code Canada | Mattress Miracle - Item added to your cart",
-          "url": "https://mattressmiracle.ca/blogs/mattress-miracle-blog/saatva-mattress-discount-code-canada#1",
+          "url": "https://mattressmiracle.ca/blogs/mattress-miracle-blog/saatva-mattress-discount-code-canada",
           "domain": "mattressmiracle.ca",
           "dedicated": true
         },
@@ -3461,7 +3617,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "floydhome.gorgias.help",
           "dedicated": true
         }
-      ]
+      ],
+      "comp": 5,
+      "comp_reason": "0 Mega · 2 Major · 1 Forum/Niche · 1 Weak/Intl"
     },
     {
       "id": 79,
@@ -3483,19 +3641,19 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
       "serp_examples": [
         {
           "title": "What is Saatva's free White Glove Delivery service? A guide to what is and isn't included - Advertisement",
-          "url": "https://shopping.yahoo.com/health/sleep/articles/saatvas-free-white-glove-delivery-102423114.html#1",
+          "url": "https://shopping.yahoo.com/health/sleep/articles/saatvas-free-white-glove-delivery-102423114.html",
           "domain": "shopping.yahoo.com",
           "dedicated": true
         },
         {
           "title": "Saatva Free White Glove Mattress Delivery",
-          "url": "https://www.saatva.com/delivery?utm_source=b10mattress&utm_medium=affiliate&click_id=1101lE3hUgFn&coupon=vzxrirblvqdxaxbr",
+          "url": "https://www.saatva.com/delivery?click_id=1101lE3hUgFn&coupon=vzxrirblvqdxaxbr",
           "domain": "saatva.com",
           "dedicated": true
         },
         {
           "title": "Mattress Delivery Guide | Saatva",
-          "url": "https://blog.saatva.com/mattress-delivery/#main",
+          "url": "https://blog.saatva.com/mattress-delivery/",
           "domain": "blog.saatva.com",
           "dedicated": true
         },
@@ -3505,7 +3663,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "bannermattressonline.com",
           "dedicated": true
         }
-      ]
+      ],
+      "comp": 8,
+      "comp_reason": "1 Mega · 3 Major · 0 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 80,
@@ -3533,23 +3693,25 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "Saatva Free White Glove Mattress Delivery",
-          "url": "https://www.saatva.com/delivery?utm_source=b10mattress&utm_medium=affiliate&click_id=1101lE3hUgFn&coupon=vzxrirblvqdxaxbr",
+          "url": "https://www.saatva.com/delivery?click_id=1101lE3hUgFn&coupon=vzxrirblvqdxaxbr",
           "domain": "saatva.com",
           "dedicated": false
         },
         {
           "title": "I Tested One of Saatva's \"Eco-Friendly\" Mattresses—and I Have Mixed Feelings About It",
-          "url": "https://shopping.yahoo.com/articles/tested-one-saatvas-eco-friendly-193000688.html#1",
+          "url": "https://shopping.yahoo.com/articles/tested-one-saatvas-eco-friendly-193000688.html",
           "domain": "shopping.yahoo.com",
           "dedicated": false
         },
         {
           "title": "I Tested One of Saatva's \"Eco-Friendly\" Mattresses—and I Have Mixed Feelings About It - Skip to Content",
-          "url": "https://www.housebeautiful.com/shopping/furniture/a70518541/saatva-latex-hybrid-mattress-review/?itm_source=parsely-api#1",
+          "url": "https://www.housebeautiful.com/shopping/furniture/a70518541/saatva-latex-hybrid-mattress-review/?itm_source=parsely-api",
           "domain": "housebeautiful.com",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 9,
+      "comp_reason": "2 Mega · 2 Major · 0 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 81,
@@ -3577,13 +3739,13 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "Saatva Free White Glove Mattress Delivery",
-          "url": "https://www.saatva.com/delivery?coupon=frifvwdywrnmluog&coupon=frifvwdywrnmluog&utm_source=hearstmagazines&utm_medium=affiliate&click_id=1011lDCSHcPZ",
+          "url": "https://www.saatva.com/delivery?coupon=frifvwdywrnmluog&coupon=frifvwdywrnmluog&click_id=1011lDCSHcPZ",
           "domain": "saatva.com",
           "dedicated": true
         },
         {
           "title": "Saatva Mattress Shipping 2026: Free Delivery + Setup",
-          "url": "https://www.mattressnut.com/saatva-mattress-shipping-delivery-guide-2026/#flat-vs-compressed",
+          "url": "https://www.mattressnut.com/saatva-mattress-shipping-delivery-guide-2026/",
           "domain": "mattressnut.com",
           "dedicated": true
         },
@@ -3593,7 +3755,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "sleepsage.com",
           "dedicated": true
         }
-      ]
+      ],
+      "comp": 7,
+      "comp_reason": "0 Mega · 4 Major · 0 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 82,
@@ -3637,7 +3801,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "bigskybox.com",
           "dedicated": true
         }
-      ]
+      ],
+      "comp": 5,
+      "comp_reason": "0 Mega · 1 Major · 3 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 83,
@@ -3665,7 +3831,7 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "Mattress Recycling Near Me: How to Find Free and Paid Options",
-          "url": "https://www.mattressnut.com/mattress-recycling/#nonprofit-and-donation-based-recycling",
+          "url": "https://www.mattressnut.com/mattress-recycling/",
           "domain": "mattressnut.com",
           "dedicated": true
         },
@@ -3681,7 +3847,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "mattresshelp.org",
           "dedicated": true
         }
-      ]
+      ],
+      "comp": 7,
+      "comp_reason": "0 Mega · 3 Major · 1 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 84,
@@ -3725,7 +3893,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "support.helixsleep.com",
           "dedicated": true
         }
-      ]
+      ],
+      "comp": 7,
+      "comp_reason": "1 Mega · 2 Major · 1 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 85,
@@ -3747,29 +3917,31 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
       "serp_examples": [
         {
           "title": "Innerspring Mattress - Saatva Classic - Mattresses | Saatva",
-          "url": "https://www.saatva.com/mattresses/saatva-classic?utm_source=futurepublishing&utm_medium=affiliate&coupon=awyqqgzvxqicebab&coupon=vzxrirblvqdxaxbr&utm_source=futurepublishing&utm_medium=affiliate&click_id=1101lBHE8zVA&coupon=vzxrirblvqdxaxbr",
+          "url": "https://www.saatva.com/mattresses/saatva-classic?coupon=awyqqgzvxqicebab&coupon=vzxrirblvqdxaxbr&click_id=1101lBHE8zVA&coupon=vzxrirblvqdxaxbr",
           "domain": "saatva.com",
           "dedicated": false
         },
         {
           "title": "Innerspring Mattress - Saatva Classic - Mattresses | Saatva",
-          "url": "https://www.saatva.com/mattresses/saatva-classic?app_clickref=1101lC87VEk7&coupon=vzxrirblvqdxaxbr&utm_source=hearstmagazines&utm_medium=affiliate&click_id=1101lC87VEk7",
+          "url": "https://www.saatva.com/mattresses/saatva-classic?app_clickref=1101lC87VEk7&coupon=vzxrirblvqdxaxbr&click_id=1101lC87VEk7",
           "domain": "saatva.com",
           "dedicated": false
         },
         {
           "title": "We've Been Testing This Saatva Mattress for 10 Years, and It's Still Our Favorite",
-          "url": "https://www.goodhousekeeping.com/what-to-buy/mattresses-sleep-products/a71773186/saatva-classic-mattress-review/?itm_source=parsely-api#1",
+          "url": "https://www.goodhousekeeping.com/what-to-buy/mattresses-sleep-products/a71773186/saatva-classic-mattress-review/?itm_source=parsely-api",
           "domain": "goodhousekeeping.com",
           "dedicated": false
         },
         {
           "title": "We've Been Testing This Saatva Mattress for 10 Years, and It's Still Our Favorite - Advertisement",
-          "url": "https://shopping.yahoo.com/health/sleep/articles/weve-testing-saatva-mattress-10-141800618.html#1",
+          "url": "https://shopping.yahoo.com/health/sleep/articles/weve-testing-saatva-mattress-10-141800618.html",
           "domain": "shopping.yahoo.com",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 9,
+      "comp_reason": "2 Mega · 2 Major · 0 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 86,
@@ -3791,19 +3963,19 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
       "serp_examples": [
         {
           "title": "$1,400 Off: Our Experts Favorite Saatva Mattress - Skip to Content",
-          "url": "https://www.goodhousekeeping.com/what-to-buy/sales-shopping-news/g74033579/saatva-mattress-sale-october-2026/?source=nl&GID=8a0f11062901a7cd0fb72ee55bdad957e94830deb6ff21db128073ab587be455&date=041724#1",
+          "url": "https://www.goodhousekeeping.com/what-to-buy/sales-shopping-news/g74033579/saatva-mattress-sale-october-2026/?source=nl&GID=8a0f11062901a7cd0fb72ee55bdad957e94830deb6ff21db128073ab587be455&date=041724",
           "domain": "goodhousekeeping.com",
           "dedicated": true
         },
         {
           "title": "Need Better Sleep This Summer? These Are the Only 4th of July Mattress Deals I'd Recommend - Skip to Content",
-          "url": "https://www.goodhousekeeping.com/life/money/a71797628/best-4th-of-july-mattress-sales-2026/#1",
+          "url": "https://www.goodhousekeeping.com/life/money/a71797628/best-4th-of-july-mattress-sales-2026/",
           "domain": "goodhousekeeping.com",
           "dedicated": true
         },
         {
           "title": "The Best Early Black Friday Mattress Deals - Every product is independently selected by (obsessive) editors",
-          "url": "https://nymag.com/strategist/article/best-early-black-friday-mattress-deals-2026.html#1",
+          "url": "https://nymag.com/strategist/article/best-early-black-friday-mattress-deals-2026.html",
           "domain": "nymag.com",
           "dedicated": true
         },
@@ -3813,7 +3985,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "embed.businessinsider.com",
           "dedicated": true
         }
-      ]
+      ],
+      "comp": 10,
+      "comp_reason": "3 Mega · 0 Major · 1 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 87,
@@ -3841,23 +4015,25 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "Saatva Sales, Discounts and Promos",
-          "url": "https://www.saatva.com/sale?utm_source=cnetcommerce&utm_medium=affiliate&utm_campaign=https%3A%2F%2Fsaatva.prf.hn%2Fclick%2Fcamref%3A1011l7xH5%2Fpubref%3Acs-__COM_CLICK_ID__-dtp%2Fdestination%3Ahttps%253A%252F%252Fwww.saatva.com%252Fsale&cl",
+          "url": "https://www.saatva.com/sale",
           "domain": "saatva.com",
           "dedicated": true
         },
         {
           "title": "Saatva Promo Codes - Saatva Promo Codes",
-          "url": "https://www.groupon.com/coupons/saatva?srsltid=AfmBOootNA96c4DzBhdR6jN0gp2lqlRbfPkeTq2-ftmlyMoZ41PNoEXD#1",
+          "url": "https://www.groupon.com/coupons/saatva",
           "domain": "groupon.com",
           "dedicated": true
         },
         {
           "title": "Need Better Sleep This Summer? These Are the Only 4th of July Mattress Deals I'd Recommend - Skip to Content",
-          "url": "https://www.goodhousekeeping.com/life/money/a71797628/best-4th-of-july-mattress-sales-2026/#1",
+          "url": "https://www.goodhousekeeping.com/life/money/a71797628/best-4th-of-july-mattress-sales-2026/",
           "domain": "goodhousekeeping.com",
           "dedicated": true
         }
-      ]
+      ],
+      "comp": 7,
+      "comp_reason": "1 Mega · 2 Major · 1 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 88,
@@ -3885,23 +4061,25 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "Saatva Mattress With HSA or FSA? The Honest 2026 Answer",
-          "url": "https://www.mattressnut.com/saatva-hsa-fsa-mattress/#content",
+          "url": "https://www.mattressnut.com/saatva-hsa-fsa-mattress/",
           "domain": "mattressnut.com",
           "dedicated": true
         },
         {
           "title": "Is a Mattress HSA Eligible? Plus the Sleep Trackers That Are (2026)",
-          "url": "https://www.getcaeli.com/learn/hsa-fsa-eligible-mattress-sleep-trackers-lmn/#the-30-second-cheat-sheet",
+          "url": "https://www.getcaeli.com/learn/hsa-fsa-eligible-mattress-sleep-trackers-lmn/",
           "domain": "getcaeli.com",
           "dedicated": true
         },
         {
           "title": "How Truemed Works | Truemed Customer Help Center",
-          "url": "https://help.truemed.com/about-truemed/how-truemed-works#what-qualifies",
+          "url": "https://help.truemed.com/about-truemed/how-truemed-works",
           "domain": "help.truemed.com",
           "dedicated": true
         }
-      ]
+      ],
+      "comp": 6,
+      "comp_reason": "0 Mega · 2 Major · 2 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 89,
@@ -3929,7 +4107,7 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "Saatva Sales, Discounts and Promos",
-          "url": "https://www.saatva.com/sale?utm_source=markcomediamvc12&utm_medium=affiliate&click_id=1100lAAbfUDn&coupon=vzxrirblvqdxaxbr",
+          "url": "https://www.saatva.com/sale?click_id=1100lAAbfUDn&coupon=vzxrirblvqdxaxbr",
           "domain": "saatva.com",
           "dedicated": true
         },
@@ -3941,11 +4119,13 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "Saatva Voucher 2026: Current Discounts + $225 Military",
-          "url": "https://www.mattressnut.com/saatva-voucher/#content",
+          "url": "https://www.mattressnut.com/saatva-voucher/",
           "domain": "mattressnut.com",
           "dedicated": true
         }
-      ]
+      ],
+      "comp": 8,
+      "comp_reason": "1 Mega · 3 Major · 0 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 90,
@@ -3967,7 +4147,7 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
       "serp_examples": [
         {
           "title": "Saatva Mattress Financing Options Review: The Fine Print Matters",
-          "url": "https://www.mattressnut.com/saatva-mattress-financing-options/#content",
+          "url": "https://www.mattressnut.com/saatva-mattress-financing-options/",
           "domain": "mattressnut.com",
           "dedicated": true
         },
@@ -3989,7 +4169,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "mattressreview.net",
           "dedicated": true
         }
-      ]
+      ],
+      "comp": 8,
+      "comp_reason": "0 Mega · 4 Major · 0 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 91,
@@ -4033,7 +4215,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "bednestly.com",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 6,
+      "comp_reason": "0 Mega · 2 Major · 2 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 92,
@@ -4073,11 +4257,13 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "Tempurpedic floor model 세일 많이 합니다 - 마일모아 게시판 - 아래 질문 했던글에 대한 업데이트 인데요~",
-          "url": "https://www.milemoa.com/bbs/board/10865529?m=1&category=440692#1",
+          "url": "https://www.milemoa.com/bbs/board/10865529?m=1&category=440692",
           "domain": "milemoa.com",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 7,
+      "comp_reason": "0 Mega · 3 Major · 1 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 93,
@@ -4105,13 +4291,13 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "Saatva Atlanta Viewing Room | Saatva Mattress Store Near Me",
-          "url": "https://www.saatva.com/locations/atlanta/westside?utm_source=b10mattress&utm_medium=affiliate&click_id=1100lDCBp2k2&coupon=vzxrirblvqdxaxbr",
+          "url": "https://www.saatva.com/locations/atlanta/westside?click_id=1100lDCBp2k2&coupon=vzxrirblvqdxaxbr",
           "domain": "saatva.com",
           "dedicated": true
         },
         {
           "title": "Where Can I Try a Saatva Mattress? 2026 Full Guide",
-          "url": "https://www.mattressnut.com/where-can-i-try-saatva-mattress/#ambassador-program",
+          "url": "https://www.mattressnut.com/where-can-i-try-saatva-mattress/",
           "domain": "mattressnut.com",
           "dedicated": true
         },
@@ -4121,7 +4307,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "sleepline.com",
           "dedicated": true
         }
-      ]
+      ],
+      "comp": 8,
+      "comp_reason": "0 Mega · 4 Major · 0 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 94,
@@ -4143,29 +4331,31 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
       "serp_examples": [
         {
           "title": "Casper Select Mattress Review (2026) | Sleepopolis",
-          "url": "https://sleepopolis.com/mattress-reviews/casper-select-mattress-review/#summary",
+          "url": "https://sleepopolis.com/mattress-reviews/casper-select-mattress-review/",
           "domain": "sleepopolis.com",
           "dedicated": true
         },
         {
           "title": "Casper Select vs Casper Original - Casper Select vs Casper Original",
-          "url": "https://www.reviewed.com/sleep/vs/casper-select-vs-casper-original-ab#1",
+          "url": "https://www.reviewed.com/sleep/vs/casper-select-vs-casper-original-ab",
           "domain": "reviewed.com",
           "dedicated": true
         },
         {
           "title": "Casper Select Mattress Review | Mattress Nerd",
-          "url": "https://www.mattressnerd.com/casper-select-mattress-review/#casper-select-mattress-construction-what%e2%80%99s-it-made-of",
+          "url": "https://www.mattressnerd.com/casper-select-mattress-review/",
           "domain": "mattressnerd.com",
           "dedicated": true
         },
         {
           "title": "Casper Select Mattress Review (2026 Update) - Personally Tested",
-          "url": "https://www.mattressclarity.com/reviews/casper-select-mattress-review/#wp--skip-link--target",
+          "url": "https://www.mattressclarity.com/reviews/casper-select-mattress-review/",
           "domain": "mattressclarity.com",
           "dedicated": true
         }
-      ]
+      ],
+      "comp": 9,
+      "comp_reason": "1 Mega · 3 Major · 0 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 95,
@@ -4209,7 +4399,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "sleepcity.com",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 7,
+      "comp_reason": "1 Mega · 2 Major · 1 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 96,
@@ -4237,7 +4429,7 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "Customers evaluate the quality of Saatva's products using the following success metrics. - Compare Saatva vs WinkBeds",
-          "url": "https://www.cbinsights.com/compare/saatva-vs-winkbeds#1",
+          "url": "https://www.cbinsights.com/compare/saatva-vs-winkbeds",
           "domain": "cbinsights.com",
           "dedicated": false
         },
@@ -4253,7 +4445,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "bedtimesmagazine.com",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 4,
+      "comp_reason": "0 Mega · 0 Major · 4 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 97,
@@ -4275,7 +4469,7 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
       "serp_examples": [
         {
           "title": "Saatva Loom & Leaf Organic Cotton USA Made Mattress (Luxury Memoryfoam) | eBay - SAVE UP TO 15% WHEN YOU BUY MORE",
-          "url": "https://www.ebay.com/itm/187444360096?itmmeta=01KFFBHMSGGVBNGW58XWB764JG&hash=item2ba48df3a0:g:wG0AAeSwdVFohrWs&itmprp=enc%3AAQALAAAAwNj3NPLDar04SUwbC%2B%2By9Ts3sjEAe18%2BgPRbnOdR8XltqpguHSpw8MGOkMTU4s%2FgFDHAw5yZxGbRfjthWG%2F3nX4Nr%2Fgq6Hj",
+          "url": "https://www.ebay.com/itm/187444360096?itmmeta=01KFFBHMSGGVBNGW58XWB764JG&hash=item2ba48df3a0%3Ag%3AwG0AAeSwdVFohrWs&itmprp=enc%3AAQALAAAAwNj3NPLDar04SUwbC%2B%2By9Ts3sjEAe18%2BgPRbnOdR8XltqpguHSpw8MGOkMTU4s%2FgFDHAw5yZxGbRfjthWG%2F3nX4Nr%2Fgq6Hj",
           "domain": "ebay.com",
           "dedicated": true
         },
@@ -4293,11 +4487,13 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "Welcome to Saatva.",
-          "url": "https://press-room.saatva.com/wp-content/uploads/2025/07/Saatva-PR-Brochure.pdf#1#1#1",
+          "url": "https://press-room.saatva.com/wp-content/uploads/2025/07/Saatva-PR-Brochure.pdf",
           "domain": "press-room.saatva.com",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 8,
+      "comp_reason": "1 Mega · 3 Major · 0 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 98,
@@ -4331,7 +4527,7 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "DreamCloud Sleep Enthusiasts Reviews and Complaints | ComplaintsBoard - F",
-          "url": "https://www.complaintsboard.com/dreamcloud-b133360#c1465456#2",
+          "url": "https://www.complaintsboard.com/dreamcloud-b133360",
           "domain": "complaintsboard.com",
           "dedicated": true
         },
@@ -4341,7 +4537,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "mattresshelp.org",
           "dedicated": true
         }
-      ]
+      ],
+      "comp": 6,
+      "comp_reason": "0 Mega · 3 Major · 1 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 99,
@@ -4375,7 +4573,7 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "“睡眠经济”领军企业Casper的经营逻辑正在经受考验-新睡眠-数字睡眠生态创新平台",
-          "url": "http://www.keesleep.com/news/info/3849.html",
+          "url": "https://www.keesleep.com/news/info/3849.html",
           "domain": "keesleep.com",
           "dedicated": false
         },
@@ -4385,7 +4583,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "settervc.com",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 5,
+      "comp_reason": "0 Mega · 1 Major · 3 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 100,
@@ -4407,19 +4607,19 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
       "serp_examples": [
         {
           "title": "hotel beds - hotel beds",
-          "url": "https://www.fodors.com/community/united-states/hotel-beds-371785/#1",
+          "url": "https://www.fodors.com/community/united-states/hotel-beds-371785/",
           "domain": "fodors.com",
           "dedicated": true
         },
         {
           "title": "Fodor's Travel Talk Forums - Fodor's Travel Talk Forums (https://www",
-          "url": "https://www.fodors.com/community/united-states/hotel-beds-371785-printthread/#1",
+          "url": "https://www.fodors.com/community/united-states/hotel-beds-371785-printthread/",
           "domain": "fodors.com",
           "dedicated": true
         },
         {
           "title": "The Westin Beijing Financial Street profile-Four Seasons Hotel Guangzhou",
-          "url": "http://m.en.fourseasonshotel-guangzhou.com/newsdetail-774464.html",
+          "url": "https://m.en.fourseasonshotel-guangzhou.com/newsdetail-774464.html",
           "domain": "m.en.fourseasonshotel-guangzhou.com",
           "dedicated": true
         },
@@ -4429,7 +4629,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "destinasian.co.id",
           "dedicated": true
         }
-      ]
+      ],
+      "comp": 4,
+      "comp_reason": "0 Mega · 0 Major · 4 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 101,
@@ -4451,7 +4653,7 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
       "serp_examples": [
         {
           "title": "TEMPUR-Cloud Supreme Mattress: Discontinued, TEMPUR-Cloud Queen $1,999",
-          "url": "https://bednestly.com/mattresses/tempur-pedic-cloud-supreme/#how-it-compares-with-other-mattresses",
+          "url": "https://bednestly.com/mattresses/tempur-pedic-cloud-supreme/",
           "domain": "bednestly.com",
           "dedicated": true
         },
@@ -4473,7 +4675,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "mattressclarity.com",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 6,
+      "comp_reason": "1 Mega · 1 Major · 2 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 102,
@@ -4507,17 +4711,19 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "I've Tested Almost Every Helix Mattress, But I Keep Coming Back to This One - Advertisement",
-          "url": "https://shopping.yahoo.com/health/sleep/articles/ive-tested-almost-every-helix-225140474.html#1",
+          "url": "https://shopping.yahoo.com/health/sleep/articles/ive-tested-almost-every-helix-225140474.html",
           "domain": "shopping.yahoo.com",
           "dedicated": false
         },
         {
           "title": "I've Tested Almost Every Helix Mattress, But I Keep Coming Back to This One - Skip to Content",
-          "url": "https://www.goodhousekeeping.com/what-to-buy/mattresses-sleep-products/a73653852/helix-dusk-luxe-mattress-review/?itm_source=parsely-api#1",
+          "url": "https://www.goodhousekeeping.com/what-to-buy/mattresses-sleep-products/a73653852/helix-dusk-luxe-mattress-review/?itm_source=parsely-api",
           "domain": "goodhousekeeping.com",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 9,
+      "comp_reason": "2 Mega · 2 Major · 0 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 103,
@@ -4557,11 +4763,13 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "Sleeping With AI: Everything You Should Know About the New Eight Sleep Pod 5",
-          "url": "https://tech.yahoo.com/home/articles/eight-sleep-pod-5-arrived-130300469.html#1#1",
+          "url": "https://tech.yahoo.com/home/articles/eight-sleep-pod-5-arrived-130300469.html",
           "domain": "tech.yahoo.com",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 6,
+      "comp_reason": "1 Mega · 0 Major · 3 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 104,
@@ -4601,11 +4809,13 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "Smart mattress cover temperature regulation and pump noise - smartlivinglogic",
-          "url": "https://smartlivinglogic.com/smart-mattress-cover-temperature-regulation-and-pump-noise/#respond",
+          "url": "https://smartlivinglogic.com/smart-mattress-cover-temperature-regulation-and-pump-noise/",
           "domain": "smartlivinglogic.com",
           "dedicated": true
         }
-      ]
+      ],
+      "comp": 5,
+      "comp_reason": "0 Mega · 1 Major · 3 Forum/Niche · 0 Weak/Intl"
     },
     {
       "id": 105,
@@ -4639,17 +4849,19 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "re- programmed to any position chosen by the user",
-          "url": "http://tempur.com.mx/wp-content/uploads/2020/12/Manual-Ergo.pdf#2#8#2",
+          "url": "https://tempur.com.mx/wp-content/uploads/2020/12/Manual-Ergo.pdf",
           "domain": "tempur.com.mx",
           "dedicated": false
         },
         {
           "title": "PASO 10",
-          "url": "https://tempurpedic.ca/documents/6/Tempur_Ease_4.0_Manual_V05.pdf#6#6#6",
+          "url": "https://tempurpedic.ca/documents/6/Tempur_Ease_4.0_Manual_V05.pdf",
           "domain": "tempurpedic.ca",
           "dedicated": false
         }
-      ]
+      ],
+      "comp": 4,
+      "comp_reason": "0 Mega · 2 Major · 0 Forum/Niche · 2 Weak/Intl"
     },
     {
       "id": 106,
@@ -4677,7 +4889,7 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
         },
         {
           "title": "Fiberglass FAQ",
-          "url": "https://www.zinus.com/pages/fiberglass-faq?srsltid=AfmBOorN28lPReJTxeOX8OH7Yq0u0fCSG5X3gbwByrGn-VSMAjfmgWMw&irclickid=0xBTtMytdxycTpt0ngTGMwWoUkp2mnWgN2seXE0&sharedid=&irpid=10451&irgwc=1&clickid=0xBTtMytdxycTpt0ngTGMwWoUkp2mnWgN2seXE0&Part",
+          "url": "https://www.zinus.com/pages/fiberglass-faq?irclickid=0xBTtMytdxycTpt0ngTGMwWoUkp2mnWgN2seXE0&irpid=10451&irgwc=1&clickid=0xBTtMytdxycTpt0ngTGMwWoUkp2mnWgN2seXE0",
           "domain": "zinus.com",
           "dedicated": true
         },
@@ -4693,7 +4905,9 @@ window.NAPPEDIA_BRAND_FAQ_TYPES = {
           "domain": "amazon.es",
           "dedicated": true
         }
-      ]
+      ],
+      "comp": 4,
+      "comp_reason": "0 Mega · 2 Major · 0 Forum/Niche · 2 Weak/Intl"
     }
   ]
 };

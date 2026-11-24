@@ -161,6 +161,7 @@
       <div id="bpanel-directory" style="display:none;"></div>
       <div id="bpanel-models" style="display:none;"></div>
       <div id="bpanel-faq_types" style="display:none;"></div>
+      <div id="bpanel-serp_domains" style="display:none;"></div>
       <div id="bpanel-manufacturers" style="display:none;"></div>
       <div id="bpanel-schema" style="display:none;"></div>
       <div id="bpanel-sources" style="display:none;"></div>
@@ -999,6 +1000,10 @@
       const cls = v >= 8 ? "ft-hi" : (v >= 6 ? "ft-mid" : (v >= 4 ? "ft-lo" : "ft-low"));
       return `<span class="ft-score-pill ${cls}">${v}</span>`;
     };
+    const compPill = (v, reason) => {
+      const cls = v <= 4 ? "ft-hi" : (v <= 6 ? "ft-mid" : (v <= 8 ? "ft-lo" : "ft-hard"));
+      return `<span class="ft-score-pill ${cls}" title="${esc(reason || "1=Easy, 10=Heavy Mega-Authority")}">${v}</span>`;
+    };
     const overlapPill = c => {
       if (c === "No") return `<span class="b-fg-pill fg-no">No</span>`;
       if (c === "Low") return `<span class="b-fg-pill st-nonus">Low</span>`;
@@ -1009,6 +1014,7 @@
     const top8Cnt = items.filter(x => x.avg >= 8).length;
     const hiScaleCnt = items.filter(x => x.scale >= 8).length;
     const serpVerCnt = items.filter(x => x.serp_verdict === "Verified").length;
+    const lowCompCnt = items.filter(x => (x.comp || 6) <= 5).length;
     const zeroHubCnt = items.filter(x => x.hub_pages === 0).length;
     const hiVolCnt = items.filter(x => x.vol >= 8).length;
     const hiConvCnt = items.filter(x => x.conv >= 8).length;
@@ -1078,6 +1084,7 @@
         <button class="b-scope-pill active" data-ftscope="all" type="button">All Types <span>${items.length}</span></button>
         <button class="b-scope-pill" data-ftscope="top8" type="button">Top Priority (8.0+) <span>${top8Cnt}</span></button>
         <button class="b-scope-pill" data-ftscope="serp_ver" type="button">SERP Verified <span>${serpVerCnt}</span></button>
+        <button class="b-scope-pill" data-ftscope="low_comp" type="button">Low Comp (1–5) <span>${lowCompCnt}</span></button>
         <button class="b-scope-pill" data-ftscope="hi_scale" type="button">300+ Pages (Scale 8+) <span>${hiScaleCnt}</span></button>
         <button class="b-scope-pill" data-ftscope="zero_hub" type="button">0 in Hub Today <span>${zeroHubCnt}</span></button>
         <button class="b-scope-pill" data-ftscope="hi_vol" type="button">High Volume (8+) <span>${hiVolCnt}</span></button>
@@ -1109,6 +1116,7 @@
                 <th class="sortable num" data-col="vol">Vol</th>
                 <th class="sortable num" data-col="conv">Conv</th>
                 <th class="sortable num" data-col="scale">Pages</th>
+                <th class="sortable num b-col-hide-sm" data-col="comp" title="1=Easy/Winnable, 10=Heavy Mega-Authorities">Comp</th>
                 <th class="sortable num" data-col="avg">Score</th>
                 <th class="sortable b-col-hide-sm" data-col="serp">SERP Proof</th>
                 <th class="sortable num b-col-hide-sm" data-col="hub_pages">In Hub</th>
@@ -1142,6 +1150,7 @@
       let list = items.filter(x => {
         if (bState.ftScope === "top8" && x.avg < 8) return false;
         if (bState.ftScope === "serp_ver" && x.serp_verdict !== "Verified") return false;
+        if (bState.ftScope === "low_comp" && (x.comp || 6) > 5) return false;
         if (bState.ftScope === "hi_scale" && x.scale < 8) return false;
         if (bState.ftScope === "zero_hub" && x.hub_pages !== 0) return false;
         if (bState.ftScope === "hi_vol" && x.vol < 8) return false;
@@ -1164,6 +1173,7 @@
         else if (col === "vol") c = cmpNullable(a.vol, b.vol, dir, false) || (b.scale - a.scale) || (b.conv - a.conv);
         else if (col === "conv") c = cmpNullable(a.conv, b.conv, dir, false) || (b.scale - a.scale) || (b.vol - a.vol);
         else if (col === "scale") c = cmpNullable(a.est_pages, b.est_pages, dir, false) || cmpNullable(a.scale, b.scale, dir, false) || (b.avg - a.avg);
+        else if (col === "comp") c = cmpNullable(a.comp, b.comp, dir, false) || (b.avg - a.avg);
         else if (col === "avg") c = cmpNullable(a.avg, b.avg, dir, false) || (b.scale - a.scale) || (b.conv - a.conv) || (b.vol - a.vol);
         else if (col === "serp") c = cmpNullable(serpRank(a.serp_verdict), serpRank(b.serp_verdict), dir, false) || cmpNullable(a.serp_ded, b.serp_ded, dir, false);
         else if (col === "hub_pages") c = cmpNullable(a.hub_pages, b.hub_pages, dir, false);
@@ -1175,7 +1185,7 @@
       updateHeaders();
 
       if (!list.length) {
-        tbody.innerHTML = `<tr><td colspan="11" style="text-align:center;padding:24px;color:var(--sub);">No FAQ page types match your filters.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="12" style="text-align:center;padding:24px;color:var(--sub);">No FAQ page types match your filters.</td></tr>`;
         foot.textContent = `Showing 0 of ${items.length} Brand FAQ page types`;
         return;
       }
@@ -1192,6 +1202,7 @@
                 <span>${esc(x.serp_verdict || "Check")}${x.serp_ded ? ` (${x.serp_ded})` : ""}</span>
                 <span class="sp-ico" aria-hidden="true">&#9432;</span>
               </button>
+              <span class="ft-mob-comp">Comp: <strong>${x.comp || 6}/10</strong></span>
             </div>
           </td>
           <td class="b-col-hide-sm"><span class="b-type-pill ${catClassMap[x.category] || "t-default"}">${esc(x.category)}</span></td>
@@ -1202,6 +1213,7 @@
             ${scorePill(x.scale)}
             <div class="ft-est-sub">~${(x.est_pages || 0).toLocaleString()}</div>
           </td>
+          <td class="num b-col-hide-sm">${compPill(x.comp || 6, x.comp_reason)}</td>
           <td class="num"><strong>${x.avg.toFixed(1)}</strong></td>
           <td class="b-col-hide-sm">
             <button class="serp-proof-btn ${serpBadgeClass(x.serp_verdict)}" type="button" data-faqid="${x.id}" aria-label="View live SERP examples for ${esc(x.template)}">
@@ -1250,9 +1262,9 @@
       renderRows();
     });
     document.getElementById("ftExportCsv").addEventListener("click", () => {
-      const headers = ["id", "template", "category", "applies_to", "volume_1_10", "convertibility_1_10", "page_scale_1_10", "est_potential_pages", "combined_score", "serp_verdict", "serp_dedicated_count", "serp_query", "serp_top_url", "in_hub_pages", "review_overlap", "note"];
+      const headers = ["id", "template", "category", "applies_to", "volume_1_10", "convertibility_1_10", "page_scale_1_10", "est_potential_pages", "competitiveness_1_10", "comp_domain_mix", "combined_score", "serp_verdict", "serp_dedicated_count", "serp_query", "serp_top_url", "in_hub_pages", "review_overlap", "note"];
       const csvRows = [headers.join(",")].concat(currentFiltered.map(x => [
-        x.id, x.template, x.category, x.applies_to, x.vol, x.conv, x.scale, x.est_pages, x.avg.toFixed(1),
+        x.id, x.template, x.category, x.applies_to, x.vol, x.conv, x.scale, x.est_pages, x.comp || 6, x.comp_reason || "", x.avg.toFixed(1),
         x.serp_verdict, x.serp_ded, x.serp_query, (x.serp_examples && x.serp_examples[0] && x.serp_examples[0].url) || "",
         x.hub_pages, x.competes, x.note
       ].map(v => `"${String(v).replace(/"/g, '""')}"`).join(",")));
@@ -1260,6 +1272,273 @@
       const a = document.createElement("a");
       a.href = URL.createObjectURL(blob);
       a.download = "nappedia_brand_faq_types_106_serp_verified.csv";
+      a.click();
+    });
+
+    renderRows();
+  }
+
+  function mountSerpDomains(panel) {
+    const payload = window.NAPPEDIA_SERP_DOMAINS;
+    if (!payload || !Array.isArray(payload.domains)) {
+      panel.innerHTML = `<div class="card b-intro-card"><h3>SERP Domains</h3><p class="b-card-desc">SERP domains dataset failed to load.</p></div>`;
+      return;
+    }
+    const domains = payload.domains;
+    const byType = payload.by_type || {};
+    const byTier = payload.by_tier || {};
+    const types = Object.keys(byType).sort();
+    const tiers = Object.keys(byTier).sort();
+    const domById = new Map(domains.map(d => [String(d.id), d]));
+
+    domains.forEach(d => {
+      d._q = `${d.domain} ${d.site_type} ${d.tier}`.toLowerCase();
+    });
+
+    const sdState = { scope: "all", type: "", tier: "", q: "", sortCol: "total_kws", sortDir: "desc", limit: 150 };
+    const affCnt = byType["Mattress Review / Affiliate"] || 0;
+    const mediaCnt = byType["Major Media / News"] || 0;
+    const brandCnt = byType["Mattress Brand (Official)"] || 0;
+    const retailCnt = byType["Big-Box / Retail Store"] || 0;
+    const forumCnt = byType["Community / Forum"] || 0;
+    const t1Cnt = byTier["Tier 1: Mega Authority"] || 0;
+    const smCnt = domains.filter(d => (d.sitemap_vs || 0) > 0).length;
+
+    const TYPE_PILL = {
+      "Mattress Review / Affiliate": "t-smart",
+      "Major Media / News": "t-spring",
+      "Mattress Brand (Official)": "t-hybrid",
+      "Big-Box / Retail Store": "t-foam",
+      "Community / Forum": "t-organic",
+      "Gov / Safety / Cert": "t-latex",
+      "Specialty / Niche Blog": "t-grid",
+      "Mattress Brand (Intl)": "t-rv",
+      "Regional / Intl Site": "t-crib",
+    };
+
+    const compPill = v => {
+      const cls = v <= 4 ? "ft-hi" : (v <= 6 ? "ft-mid" : (v <= 8 ? "ft-lo" : "ft-hard"));
+      return `<span class="ft-score-pill ${cls}">${v}</span>`;
+    };
+
+    panel.innerHTML = `
+      <div class="ft-kpi-grid">
+        <div class="rv-kpi">
+          <div class="rv-kpi-lbl">Unique SERP Domains</div>
+          <div style="font-size:26px;font-weight:800;margin-top:4px;">${domains.length.toLocaleString()}</div>
+          <div style="font-size:12px;color:var(--sub);margin-top:2px;">Found across ${(payload.total_serp_queries_analyzed || 3953).toLocaleString()} live searched keywords</div>
+        </div>
+        <div class="rv-kpi">
+          <div class="rv-kpi-lbl">Mattress Affiliates</div>
+          <div style="font-size:26px;font-weight:800;margin-top:4px;color:var(--accent);">${affCnt}</div>
+          <div style="font-size:12px;color:var(--sub);margin-top:2px;">${smCnt} with mined comparison sitemaps</div>
+        </div>
+        <div class="rv-kpi">
+          <div class="rv-kpi-lbl">Tier 1 Mega Authorities</div>
+          <div style="font-size:26px;font-weight:800;margin-top:4px;color:#991b1b;">${t1Cnt}</div>
+          <div style="font-size:12px;color:var(--sub);margin-top:2px;">${mediaCnt} Major Media · ${retailCnt} Big-Box Retail</div>
+        </div>
+        <div class="rv-kpi">
+          <div class="rv-kpi-lbl">Official Brands &amp; Forums</div>
+          <div style="font-size:26px;font-weight:800;margin-top:4px;color:#15803d;">${(brandCnt + forumCnt).toLocaleString()}</div>
+          <div style="font-size:12px;color:var(--sub);margin-top:2px;">${brandCnt} Official Brands · ${forumCnt} Community/Forums</div>
+        </div>
+      </div>
+
+      <div class="card b-intro-card" style="margin-bottom:14px;">
+        <h3>All ${domains.length.toLocaleString()} Unique Domains Ranking Across Our SERP Research</h3>
+        <p class="b-card-desc">Every unique domain found across all <strong>${(payload.total_serp_queries_analyzed || 3953).toLocaleString()} live keywords we searched</strong> (${(payload.breakdown_queries && payload.breakdown_queries.brand_faq) || 106} Brand FAQ types, ${(payload.breakdown_queries && payload.breakdown_queries.comparisons) || 60} Comparison SERPs, and ${((payload.breakdown_queries && payload.breakdown_queries.fiberglass_models) || 3787).toLocaleString()} Fiberglass Model SERPs). Use this to see who we actually compete with and spot winnable SERPs.</p>
+      </div>
+
+      <div class="b-scope-bar" id="sdScopeBar">
+        <button class="b-scope-pill active" data-sdscope="all" type="button">All Domains <span>${domains.length.toLocaleString()}</span></button>
+        <button class="b-scope-pill" data-sdscope="aff" type="button">Mattress Affiliates <span>${affCnt}</span></button>
+        <button class="b-scope-pill" data-sdscope="media" type="button">Major Media <span>${mediaCnt}</span></button>
+        <button class="b-scope-pill" data-sdscope="brand" type="button">Official Brands <span>${brandCnt}</span></button>
+        <button class="b-scope-pill" data-sdscope="retail" type="button">Big-Box Retail <span>${retailCnt}</span></button>
+        <button class="b-scope-pill" data-sdscope="forum" type="button">Forums &amp; Community <span>${forumCnt}</span></button>
+        <button class="b-scope-pill" data-sdscope="sitemaps" type="button">Has -vs- Sitemap <span>${smCnt}</span></button>
+      </div>
+
+      <div class="card">
+        <div class="b-controls">
+          <input id="sdSearch" class="b-input" type="search" placeholder="Search domain (e.g. naplab, sleepopolis, amazon, reddit, saatva, fiberglassfree)...">
+          <select id="sdTypeSel" class="b-select" aria-label="Filter by Site Type">
+            <option value="">All Site Types (${types.length})</option>
+            ${types.map(t => `<option value="${esc(t)}">${esc(t)} (${byType[t]})</option>`).join("")}
+          </select>
+          <select id="sdTierSel" class="b-select" aria-label="Filter by Authority Tier">
+            <option value="">All Authority Tiers</option>
+            ${tiers.map(t => `<option value="${esc(t)}">${esc(t)} (${byTier[t]})</option>`).join("")}
+          </select>
+          <button id="sdExportCsv" class="util-btn" type="button">Export CSV</button>
+        </div>
+        <div class="b-table-wrap">
+          <table class="b-table" id="sdTable">
+            <thead id="sdThead">
+              <tr>
+                <th class="sortable num b-col-hide-sm" data-col="id" style="width:46px;">#</th>
+                <th class="sortable" data-col="domain">Domain</th>
+                <th class="sortable b-col-hide-sm" data-col="site_type">Site Type</th>
+                <th class="sortable b-col-hide-md" data-col="tier">Authority Tier</th>
+                <th class="sortable num" data-col="comp_weight" title="1=Weak/Easy, 10=Mega Authority">Power</th>
+                <th class="sortable num" data-col="total_kws">Total KWs</th>
+                <th class="sortable num b-col-hide-sm" data-col="faq_kws">FAQ KWs</th>
+                <th class="sortable num b-col-hide-sm" data-col="cmp_kws">Cmp KWs</th>
+                <th class="sortable num b-col-hide-md" data-col="fg_kws">FG KWs</th>
+                <th class="sortable num b-col-hide-md" data-col="avg_pos">Avg Pos</th>
+                <th class="b-col-hide-sm">Sample URLs</th>
+              </tr>
+            </thead>
+            <tbody id="sdTbody"></tbody>
+          </table>
+        </div>
+        <div class="b-foot" id="sdFoot"></div>
+      </div>
+    `;
+
+    const thead = document.getElementById("sdThead");
+    const tbody = document.getElementById("sdTbody");
+    const foot = document.getElementById("sdFoot");
+    let currentFiltered = [];
+
+    function updateHeaders() {
+      thead.querySelectorAll("th.sortable").forEach(th => {
+        const active = th.dataset.col === sdState.sortCol;
+        th.classList.toggle("sorted", active);
+        const base = th.dataset.label || th.textContent.replace(/ [▲▼]$/, "");
+        th.dataset.label = base;
+        th.textContent = active ? `${base} ${sdState.sortDir === "asc" ? "▲" : "▼"}` : base;
+      });
+    }
+
+    function renderRows() {
+      const q = sdState.q.trim().toLowerCase();
+      let list = domains.filter(d => {
+        if (sdState.scope === "aff" && d.site_type !== "Mattress Review / Affiliate") return false;
+        if (sdState.scope === "media" && d.site_type !== "Major Media / News") return false;
+        if (sdState.scope === "brand" && d.site_type !== "Mattress Brand (Official)") return false;
+        if (sdState.scope === "retail" && d.site_type !== "Big-Box / Retail Store") return false;
+        if (sdState.scope === "forum" && d.site_type !== "Community / Forum") return false;
+        if (sdState.scope === "sitemaps" && !(d.sitemap_vs > 0)) return false;
+        if (sdState.type && d.site_type !== sdState.type) return false;
+        if (sdState.tier && d.tier !== sdState.tier) return false;
+        if (q && !d._q.includes(q)) return false;
+        return true;
+      });
+
+      const col = sdState.sortCol;
+      const dir = sdState.sortDir;
+      list.sort((a, b) => {
+        let c = 0;
+        if (col === "id") c = cmpNullable(a.id, b.id, dir, false);
+        else if (col === "domain") c = cmpNullable(a.domain, b.domain, dir, true);
+        else if (col === "site_type") c = cmpNullable(a.site_type, b.site_type, dir, true);
+        else if (col === "tier") c = cmpNullable(a.tier, b.tier, dir, true);
+        else if (col === "comp_weight") c = cmpNullable(a.comp_weight, b.comp_weight, dir, false);
+        else if (col === "total_kws") c = cmpNullable(a.total_kws, b.total_kws, dir, false);
+        else if (col === "faq_kws") c = cmpNullable(a.faq_kws, b.faq_kws, dir, false);
+        else if (col === "cmp_kws") c = cmpNullable(a.cmp_kws, b.cmp_kws, dir, false);
+        else if (col === "fg_kws") c = cmpNullable(a.fg_kws, b.fg_kws, dir, false);
+        else if (col === "avg_pos") c = cmpNullable(a.avg_pos, b.avg_pos, dir, false);
+        return c || (a.id - b.id);
+      });
+
+      currentFiltered = list;
+      updateHeaders();
+
+      if (!list.length) {
+        tbody.innerHTML = `<tr><td colspan="11" style="text-align:center;padding:24px;color:var(--sub);">No domains match your filters.</td></tr>`;
+        foot.innerHTML = `<span>Showing 0 of ${domains.length.toLocaleString()} domains</span>`;
+        return;
+      }
+
+      const shown = list.slice(0, sdState.limit);
+      tbody.innerHTML = shown.map(d => `
+        <tr>
+          <td class="num b-muted b-col-hide-sm">${d.id}</td>
+          <td>
+            <div class="ft-title"><a href="https://${esc(d.domain)}" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;">${esc(d.domain)} &#8599;</a></div>
+            ${d.sitemap_vs > 0 ? `<div class="ft-note">${d.sitemap_vs.toLocaleString()} comparison pages in sitemap</div>` : ""}
+            <span class="b-type-pill ft-mob-cat ${TYPE_PILL[d.site_type] || "t-default"}">${esc(d.site_type)}</span>
+          </td>
+          <td class="b-col-hide-sm"><span class="b-type-pill ${TYPE_PILL[d.site_type] || "t-default"}">${esc(d.site_type)}</span></td>
+          <td class="b-col-hide-md" style="white-space:nowrap;font-size:12px;color:var(--sub);">${esc(d.tier)}</td>
+          <td class="num">${compPill(d.comp_weight)}</td>
+          <td class="num"><strong>${d.total_kws.toLocaleString()}</strong></td>
+          <td class="num b-col-hide-sm">${d.faq_kws ? `<strong>${d.faq_kws}</strong>` : `<span class="b-muted">0</span>`}</td>
+          <td class="num b-col-hide-sm">${d.cmp_kws ? `<strong>${d.cmp_kws}</strong>` : `<span class="b-muted">0</span>`}</td>
+          <td class="num b-col-hide-md">${d.fg_kws ? d.fg_kws.toLocaleString() : `<span class="b-muted">0</span>`}</td>
+          <td class="num b-col-hide-md">${d.avg_pos != null ? `#${d.avg_pos.toFixed(1)}` : `<span class="b-muted">—</span>`}</td>
+          <td class="b-col-hide-sm">
+            ${(d.samples && d.samples.length) ? `
+              <button class="serp-proof-btn ft-mid" type="button" data-domid="${d.id}">
+                <span>${d.samples.length} URL${d.samples.length === 1 ? "" : "s"}</span>
+                <span class="sp-ico" aria-hidden="true">&#9432;</span>
+              </button>
+            ` : `<span class="b-muted">—</span>`}
+          </td>
+        </tr>
+      `).join("");
+
+      const moreBtn = shown.length < list.length
+        ? `<button id="sdLoadMore" class="load-btn" type="button" style="margin-left:10px;">Show +250 more (${(list.length - shown.length).toLocaleString()} left)</button>`
+        : "";
+      foot.innerHTML = `<span>Showing ${shown.length.toLocaleString()} of ${list.length.toLocaleString()} matching domains (${domains.length.toLocaleString()} total unique)</span>${moreBtn}`;
+      const lm = document.getElementById("sdLoadMore");
+      if (lm) lm.addEventListener("click", () => { sdState.limit += 250; renderRows(); });
+    }
+
+    if (window.bindSerpPopover) {
+      window.bindSerpPopover(tbody, ".serp-proof-btn", btn => {
+        const d = domById.get(btn.dataset.domid);
+        if (!d) return "";
+        const itemsHtml = (d.samples || []).map(s => `
+          <div class="sp-item">
+            <a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a>
+            <div class="sp-dom">Query: ${esc(s.q)}</div>
+          </div>
+        `).join("");
+        return `
+          <div class="sp-head"><strong>${esc(d.domain)}</strong><span class="ft-score-pill ft-mid">${d.total_kws.toLocaleString()} KWs</span></div>
+          <div class="sp-meta">${esc(d.site_type)} · ${esc(d.tier)}${d.avg_pos != null ? ` · Avg Pos #${d.avg_pos}` : ""}</div>
+          <div class="sp-sec-lbl">Sample Ranking Pages Found</div>
+          <div class="sp-list">${itemsHtml}</div>
+        `;
+      });
+    }
+
+    document.getElementById("sdScopeBar").addEventListener("click", e => {
+      const btn = e.target.closest(".b-scope-pill");
+      if (!btn) return;
+      sdState.scope = btn.dataset.sdscope || "all";
+      sdState.limit = 150;
+      document.querySelectorAll("#sdScopeBar .b-scope-pill").forEach(b => b.classList.toggle("active", b === btn));
+      renderRows();
+    });
+    document.getElementById("sdSearch").addEventListener("input", debounce(e => { sdState.q = e.target.value; sdState.limit = 150; renderRows(); }, 120));
+    document.getElementById("sdTypeSel").addEventListener("change", e => { sdState.type = e.target.value; sdState.limit = 150; renderRows(); });
+    document.getElementById("sdTierSel").addEventListener("change", e => { sdState.tier = e.target.value; sdState.limit = 150; renderRows(); });
+    thead.addEventListener("click", e => {
+      const th = e.target.closest("th.sortable");
+      if (!th) return;
+      const col = th.dataset.col;
+      if (sdState.sortCol === col) sdState.sortDir = sdState.sortDir === "desc" ? "asc" : "desc";
+      else {
+        sdState.sortCol = col;
+        sdState.sortDir = (col === "domain" || col === "site_type" || col === "tier" || col === "avg_pos") ? "asc" : "desc";
+      }
+      renderRows();
+    });
+    document.getElementById("sdExportCsv").addEventListener("click", () => {
+      const headers = ["id", "domain", "site_type", "authority_tier", "comp_power_1_10", "total_kws_ranked", "brand_faq_kws", "comparison_kws", "fiberglass_model_kws", "sitemap_vs_pages", "avg_serp_pos", "sample_url"];
+      const csvRows = [headers.join(",")].concat(currentFiltered.map(d => [
+        d.id, d.domain, d.site_type, d.tier, d.comp_weight, d.total_kws, d.faq_kws, d.cmp_kws, d.fg_kws, d.sitemap_vs, d.avg_pos == null ? "" : d.avg_pos, (d.samples && d.samples[0] && d.samples[0].url) || ""
+      ].map(v => `"${String(v).replace(/"/g, '""')}"`).join(",")));
+      const blob = new Blob([csvRows.join("\n")], { type: "text/csv;charset=utf-8;" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = `nappedia_serp_domains_${currentFiltered.length}.csv`;
       a.click();
     });
 
@@ -1281,7 +1560,7 @@
       btn.setAttribute("aria-selected", act ? "true" : "false");
     });
 
-    const subKeys = ["benchmarks", "analytics", "directory", "models", "faq_types", "manufacturers", "schema", "sources"];
+    const subKeys = ["benchmarks", "analytics", "directory", "models", "faq_types", "serp_domains", "manufacturers", "schema", "sources"];
     for (let i = 0; i < subKeys.length; i++) {
       const k = subKeys[i];
       const p = document.getElementById("bpanel-" + k);
@@ -1296,6 +1575,7 @@
       else if (bState.sub === "directory") mountDirectory(activePanel, data);
       else if (bState.sub === "models") mountModels(activePanel, data);
       else if (bState.sub === "faq_types") mountFaqTypes(activePanel);
+      else if (bState.sub === "serp_domains") mountSerpDomains(activePanel);
       else if (bState.sub === "manufacturers") mountManufacturers(activePanel, data);
       else if (bState.sub === "schema") mountSchema(activePanel, data);
       else if (bState.sub === "sources") mountSources(activePanel, data);

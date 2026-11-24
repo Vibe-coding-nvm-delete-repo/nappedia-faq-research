@@ -13,6 +13,10 @@
     const cls = v >= 8 ? "ft-hi" : (v >= 6 ? "ft-mid" : (v >= 4 ? "ft-lo" : "ft-low"));
     return `<span class="ft-score-pill ${cls}">${v}</span>`;
   };
+  const compPill = v => {
+    const cls = v <= 4 ? "ft-hi" : (v <= 6 ? "ft-mid" : (v <= 8 ? "ft-lo" : "ft-hard"));
+    return `<span class="ft-score-pill ${cls}">${v}</span>`;
+  };
 
   const TYPE_BADGE = {
     "Brand vs Brand": "t-hybrid",
@@ -70,6 +74,7 @@
     const modelTotalCnt = sameMCnt + crossMCnt;
     const bothEvCnt = byTier["SERP + Autocomplete"] || pairs.filter(p => p.ev_tier === "SERP + Autocomplete").length;
     const multiSerpCnt = pairs.filter(p => p.serp_cnt >= 2).length;
+    const lowCompCnt = pairs.filter(p => (p.comp || 5) <= 4).length;
     const notInHubCnt = pairs.filter(p => !p.in_hub).length;
 
     const macroCnt = document.getElementById("cnt-macro-comparisons");
@@ -112,6 +117,7 @@
       <div class="b-scope-bar" id="cmpScopeBar">
         <button class="b-scope-pill active" data-cscope="all" type="button">All Pairs <span>${pairs.length.toLocaleString()}</span></button>
         <button class="b-scope-pill" data-cscope="both" type="button">SERP + Autocomplete <span>${bothEvCnt.toLocaleString()}</span></button>
+        <button class="b-scope-pill" data-cscope="low_comp" type="button">Low Competition (1–4) <span>${lowCompCnt.toLocaleString()}</span></button>
         <button class="b-scope-pill" data-cscope="multi_serp" type="button">2+ Competitor SERPs <span>${multiSerpCnt.toLocaleString()}</span></button>
         <button class="b-scope-pill" data-cscope="bvb" type="button">Brand vs Brand <span>${bvbCnt.toLocaleString()}</span></button>
         <button class="b-scope-pill" data-cscope="same_m" type="button">Same-Brand Models <span>${sameMCnt.toLocaleString()}</span></button>
@@ -146,6 +152,7 @@
                 <th class="sortable b-col-hide-sm" data-col="type">Type</th>
                 <th class="sortable num" data-col="vol">Vol</th>
                 <th class="sortable num" data-col="conv">Conv</th>
+                <th class="sortable num" data-col="comp" title="1=Easy / Blue Ocean, 10=Heavy Competition">Comp</th>
                 <th class="sortable" data-col="serp_cnt">SERP Proof (Hover)</th>
                 <th class="sortable num b-col-hide-sm" data-col="in_hub">In Hub</th>
               </tr>
@@ -229,6 +236,7 @@
       const q = cState.q.trim().toLowerCase();
       let list = pairs.filter(p => {
         if (cState.scope === "both" && p.ev_tier !== "SERP + Autocomplete") return false;
+        if (cState.scope === "low_comp" && (p.comp || 5) > 4) return false;
         if (cState.scope === "multi_serp" && p.serp_cnt < 2) return false;
         if (cState.scope === "bvb" && p.type !== "Brand vs Brand") return false;
         if (cState.scope === "same_m" && p.type !== "Same-Brand Model vs Model") return false;
@@ -249,6 +257,7 @@
         else if (col === "type") c = dir === "asc" ? a.type.localeCompare(b.type) : b.type.localeCompare(a.type);
         else if (col === "vol") c = dir === "asc" ? (a.vol - b.vol) : (b.vol - a.vol);
         else if (col === "conv") c = dir === "asc" ? (a.conv - b.conv) : (b.conv - a.conv);
+        else if (col === "comp") c = dir === "asc" ? ((a.comp || 5) - (b.comp || 5)) : ((b.comp || 5) - (a.comp || 5));
         else if (col === "serp_cnt") c = dir === "asc" ? (a.serp_cnt - b.serp_cnt) : (b.serp_cnt - a.serp_cnt);
         else if (col === "in_hub") c = dir === "asc" ? ((a.in_hub ? 1 : 0) - (b.in_hub ? 1 : 0)) : ((b.in_hub ? 1 : 0) - (a.in_hub ? 1 : 0));
         return c || (a.id - b.id);
@@ -258,7 +267,7 @@
       updateHeaders();
 
       if (!list.length) {
-        tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;padding:24px;color:var(--sub);">No comparison pairs match your filters.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;padding:24px;color:var(--sub);">No comparison pairs match your filters.</td></tr>`;
         foot.innerHTML = `<span>Showing 0 of ${pairs.length.toLocaleString()} verified comparison pairs</span>`;
         return;
       }
@@ -279,6 +288,7 @@
             <td class="b-col-hide-sm"><span class="b-type-pill ${TYPE_BADGE[p.type] || "t-default"}">${esc(p.type)}</span></td>
             <td class="num">${scorePill(p.vol)}</td>
             <td class="num">${scorePill(p.conv)}</td>
+            <td class="num">${compPill(p.comp || 5)}</td>
             <td>
               <button class="serp-proof-btn ${EV_BADGE[p.ev_tier] || "ft-mid"}" type="button" data-cmpid="${p.id}" aria-label="View SERP proof for ${esc(p.pair)}">
                 <span>${esc(badgeLbl)}</span>
@@ -329,9 +339,9 @@
       renderRows();
     });
     document.getElementById("cmpExportCsv").addEventListener("click", () => {
-      const headers = ["id", "pair", "type", "brand_a", "brand_b", "vol_1_10", "conv_1_10", "evidence_tier", "serp_pages_count", "autocomplete_count", "in_hub", "top_serp_url", "top_autocomplete_query"];
+      const headers = ["id", "pair", "type", "brand_a", "brand_b", "vol_1_10", "conv_1_10", "comp_1_10", "evidence_tier", "serp_pages_count", "autocomplete_count", "in_hub", "top_serp_url", "top_autocomplete_query"];
       const csvRows = [headers.join(",")].concat(currentFiltered.map(p => [
-        p.id, p.pair, p.type, p.brand_a, p.brand_b, p.vol, p.conv, p.ev_tier, p.serp_cnt, p.ac_cnt,
+        p.id, p.pair, p.type, p.brand_a, p.brand_b, p.vol, p.conv, p.comp || 5, p.ev_tier, p.serp_cnt, p.ac_cnt,
         p.in_hub ? "Yes" : "No", (p.urls[0] && p.urls[0].url) || "", p.ac[0] || ""
       ].map(v => `"${String(v).replace(/"/g, '""')}"`).join(",")));
       const blob = new Blob([csvRows.join("\n")], { type: "text/csv;charset=utf-8;" });
