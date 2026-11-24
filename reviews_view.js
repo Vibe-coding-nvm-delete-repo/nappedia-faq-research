@@ -263,7 +263,7 @@
         const fkColor = r.fk !== null && r.fk <= 8.0 ? "#15803d" : (r.fk > 8.0 ? "#b45309" : "var(--sub)");
         const modCell = r.models > 0
           ? `<button class="rv-mod-jump" data-brand="${esc(r.brand)}" type="button" style="background:#eff6ff;color:#0066cc;border:none;border-radius:999px;padding:3px 9px;font-weight:600;font-size:12px;cursor:pointer;white-space:nowrap;">${r.models} &#8594;</button>`
-          : `<span style="color:var(--sub);">0</span>`;
+          : `<span title="Bespoke / custom-built maker with no standard named retail model SKUs" style="background:#f1f5f9;color:#64748b;border-radius:999px;padding:2px 8px;font-size:11px;font-weight:600;">Custom</span>`;
         const volTxt = r.avgModelVol !== null && r.avgModelVol !== undefined ? r.avgModelVol.toFixed(2) : "—";
         const compTxt = r.avgModelComp !== null && r.avgModelComp !== undefined ? r.avgModelComp.toFixed(2) : "—";
         const avgTxt = r.avgModelScore !== null && r.avgModelScore !== undefined ? r.avgModelScore.toFixed(2) : "—";
