@@ -375,19 +375,19 @@
       </div>
 
       <section class="card u-decision-card">
-        <div class="u-eyebrow" style="color:#0369a1;">Strategic Decision Call · Two Choices Needed Before Implementation</div>
+        <div class="u-eyebrow" style="color:#0369a1;">Strategic Decision Call · Tracked in GitLab #319 (Cross-Linked to #289, #227, #231)</div>
         <h2 class="card-title" style="margin-bottom:10px;">Decision 1: The 345 Non-Overlapping <code>/research/&lt;model&gt;</code> Dossiers (Avg 3,667 Words)</h2>
         <div class="u-choice-grid">
           <div class="u-choice-box u-choice-rec">
             <div class="u-choice-head"><strong>Option A: Hold at 200 Until D9 Model Page Ships</strong> <span class="rv-badge" style="background:#dcfce7;color:#15803d;">Recommended</span></div>
-            <p>Matches <code>lib/redirect-policy.mjs</code> ("hold-until-successor-live"). Unlike <code>/catalog/*</code> boilerplate, these 345 pages are deep 3,200–3,700 word source-led dossiers. Redirect only the 16 that already have a live D9 model review now; 308 the rest 1:1 as each D9 model review publishes.</p>
+            <p>Matches <code>lib/redirect-policy.mjs</code> ("hold-until-successor-live"). Unlike <code>/catalog/*</code> boilerplate, these 345 pages are deep 3,200–3,700 word source-led dossiers. Redirect only the 16 that already have a live D9 model review now; 308 the rest 1:1 as each D9 model review publishes. <em>Caveat:</em> if holding, run a quick template strip on <code>app/research/[slug]</code> to remove the #231 <code>$1,800</code> demo calculator and #227 unsourced <code>16 CFR 1633 Verified Free</code> stamp.</p>
           </div>
           <div class="u-choice-box">
             <div class="u-choice-head"><strong>Option B: Immediate 308 to Parent D9 Brand Review</strong> <span class="rv-badge" style="background:#fef3c7;color:#b45309;">Aggressive</span></div>
-            <p>Immediately 308 all 345 to their parent brand's <code>/reviews/&lt;brand&gt;-mattress-review</code> and delete <code>app/research/[slug]</code>, reserving <code>/research/*</code> exclusively for the 26 clinical studies. Cleaner URL tree, but surrenders 345 dedicated model-level pages until D9 replacements ship.</p>
+            <p>Immediately 308 all 345 to their parent brand's <code>/reviews/&lt;brand&gt;-mattress-review</code> and delete <code>app/research/[slug]</code>, reserving <code>/research/*</code> exclusively for the 26 clinical studies. Closes #227 and #231 research-template defects in one move, at the cost of surrendering 345 dedicated model-level pages until D9 replacements ship.</p>
           </div>
         </div>
-        <p style="margin:12px 0 0;font-size:13px;color:var(--sub);"><strong>Decision 2:</strong> Confirm <code>410 Gone</code> + delete for the <strong>205 unmatched <code>/catalog/&lt;brand&gt;</code> stubs</strong> (109 <code>hotel_or_cruise_stub</code> + 96 <code>oem_or_minor_brand</code>, including <code>american-national-manufacturing</code>). Note: 260 <code>/questions/*/*</code> (avg 1,412w) and 202 <code>/guides/*/*</code> (avg 1,750w) are <strong>KEEP</strong> because all 462 have 0 overlap with <code>/answers/*</code> and are actively linked from <code>/answers</code>.</p>
+        <p style="margin:12px 0 0;font-size:13px;color:var(--sub);"><strong>Decision 2:</strong> Confirm <code>410 Gone</code> + delete for the <strong>205 unmatched <code>/catalog/&lt;brand&gt;</code> stubs</strong> (109 <code>hotel_or_cruise_stub</code> + 96 <code>oem_or_minor_brand</code>, including <code>american-national-manufacturing</code>). Eliminates #227 unsourced fiberglass legal-risk verdicts immediately; <strong>13 of the 96</strong> are queued in Waves C/D (#317/#318) and will automatically flip <code>410 &rarr; 308</code> when their D9 review ships. Note: 260 <code>/questions/*/*</code> and 202 <code>/guides/*/*</code> are <strong>KEEP</strong> (0 overlap with <code>/answers/*</code>, 100% linked from <code>/answers</code>).</p>
       </section>
 
       <section class="card rv-card">
@@ -504,9 +504,12 @@
         <div class="rv-pipe-head">
           <div>
             <h2 class="card-title">Fully Scoped 6-Phase URL Cleanup &amp; Migration Process</h2>
-            <div class="stat-line">Compliant with <code>standardcommand/lib/redirect-policy.mjs</code> (single-hop 308, zero soft-404 hub dumps, 365-day retention, $0 pre-deploy gates).</div>
+            <div class="stat-line">Tracked in <a href="https://gitlab.com/standard-digi-group/nappedia/-/work_items/319" target="_blank" rel="noopener">GitLab #319 &#8599;</a> · Compliant with <code>standardcommand/lib/redirect-policy.mjs</code> (single-hop 308, zero soft-404 hub dumps, 365-day retention, $0 pre-deploy gates).</div>
           </div>
-          <button class="mini-btn" id="uProcJumpTable" type="button">Open 3,631-URL Ledger &rarr;</button>
+          <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+            <a class="mini-btn" href="https://gitlab.com/standard-digi-group/nappedia/-/work_items/319" target="_blank" rel="noopener">GitLab #319 &#8599;</a>
+            <button class="mini-btn" id="uProcJumpTable" type="button">Open 3,631-URL Ledger &rarr;</button>
+          </div>
         </div>
         <div class="u-phase-grid">
           ${steps.map((st) => `
@@ -519,6 +522,61 @@
               <ul class="u-phase-list">${st.items.map((it) => `<li>${it}</li>`).join("")}</ul>
             </article>
           `).join("")}
+        </div>
+      </section>
+
+      <section class="card rv-card">
+        <div class="rv-pipe-head">
+          <div>
+            <h2 class="card-title">Ongoing Next-Steps Hygiene Triggers (For Remaining &amp; Future URLs)</h2>
+            <div class="stat-line">Exact playbook for when future brand waves or model reviews ship — so legacy URLs never drift again.</div>
+          </div>
+        </div>
+        <div class="u-phase-grid">
+          <article class="u-phase-card">
+            <div class="u-phase-top">
+              <span class="u-phase-num">Trigger 1 · Wave C (#317) &amp; Wave D (#318)</span>
+              <span class="rv-badge" style="background:#e8f2fc;color:#0066cc;">13 Queued OEMs</span>
+            </div>
+            <h3 class="u-phase-title">Flip 410 &rarr; 308 When New D9 Brand Reviews Ship</h3>
+            <ul class="u-phase-list">
+              <li>13 of the 96 <code>oem_or_minor_brand</code> 410 stubs are already queued in Waves C/D: <code>level-sleep</code>, <code>lytton-sleep-defunct</code>, <code>martha-stewart-bedding</code>, <code>martha-stewart-collection-by-serta-macys</code>, <code>night-therapy-sams-club</code>, <code>pure-latexbliss</code>, <code>signature-design-by-ashley-sierra-sleep</code>, <code>sleep-studio-raymour-and-flanigan</code>, <code>stryker-medical-support-surfaces</code>, <code>stryker-medical-surfaces</code>, <code>target-private-label</code>, <code>technogel</code>, <code>tomorrow-sleep</code>.</li>
+              <li>On launch MR: add <code>"/catalog/&lt;slug&gt;": "/reviews/&lt;slug&gt;-mattress-review"</code> to <code>worker/legacy-redirects.generated.ts</code> so old links flow to the new D9 review.</li>
+            </ul>
+          </article>
+          <article class="u-phase-card">
+            <div class="u-phase-top">
+              <span class="u-phase-num">Trigger 2 · Future D9 Model Reviews</span>
+              <span class="rv-badge" style="background:#e0f2fe;color:#0369a1;">345 Held Dossiers</span>
+            </div>
+            <h3 class="u-phase-title">Retire Held <code>/research/&lt;model&gt;</code> Dossiers 1:1</h3>
+            <ul class="u-phase-list">
+              <li>Whenever a new D9 model review ships at <code>/reviews/&lt;brand&gt;-mattress-review/&lt;model&gt;</code>, add a 1:1 <code>308</code> from <code>/research/&lt;model&gt;</code> and remove it from <code>app/sitemap.xml/route.ts</code>.</li>
+              <li>Zero cannibalization: the <code>$0</code> pre-deploy gate fails if both URLs ever appear in <code>sitemap.xml</code> simultaneously.</li>
+            </ul>
+          </article>
+          <article class="u-phase-card">
+            <div class="u-phase-top">
+              <span class="u-phase-num">Trigger 3 · Annual 365-Day Retention Audit</span>
+              <span class="rv-badge" style="background:#ede9fe;color:#5b21b6;">redirect-policy.mjs</span>
+            </div>
+            <h3 class="u-phase-title">Verify Retention Before Pruning Any Old 308</h3>
+            <ul class="u-phase-list">
+              <li>Run <code>standardcommand/scripts/redirect-policy-cli.mjs</code> and <code>sync_nappedia_redirects.mjs</code> after every cutover to record the 365-day minimum retention window.</li>
+              <li>Never delete a <code>308</code> rule before its 365-day retention date and zero GSC/Worker hit verification.</li>
+            </ul>
+          </article>
+          <article class="u-phase-card">
+            <div class="u-phase-top">
+              <span class="u-phase-num">Trigger 4 · Post-Deploy Monitoring</span>
+              <span class="rv-badge" style="background:#dcfce7;color:#15803d;">GSC + Bing</span>
+            </div>
+            <h3 class="u-phase-title">Confirm Clean De-Indexing &amp; Zero Crawl Waste</h3>
+            <ul class="u-phase-list">
+              <li>Check GSC Page Indexing 14 and 30 days after Phase 6 deploy: confirm the 205 <code>410</code> stubs drop out of the index and the 1,359 <code>308</code> URLs consolidate onto D9 canonicals with 0 Soft 404s.</li>
+              <li>Close GitLab #319 and update #227, #231, and #289 once live parity passes.</li>
+            </ul>
+          </article>
         </div>
       </section>
     `;
@@ -574,7 +632,7 @@
       const presetPills = [
         { k: "all", label: "All URLs", count: s.total },
         { k: "live_sitemap", label: "In Live Sitemap", count: s.liveSitemap, color: "#0066cc" },
-        { k: "action_needed", label: "Action Needed (Redirect + Delete)", count: s.actionRequired, color: "#dc2626" },
+        { k: "action_needed", label: "Action Needed (New/Fix 308 + 410)", count: s.actionRequired, color: "#dc2626" },
         { k: "308_REDIRECT_NEW", label: "308 New", count: a["308_REDIRECT_NEW"], color: ACTION_META["308_REDIRECT_NEW"].color },
         { k: "308_REDIRECT_UPDATE_TARGET", label: "308 Fix Stale", count: a["308_REDIRECT_UPDATE_TARGET"], color: ACTION_META["308_REDIRECT_UPDATE_TARGET"].color },
         { k: "410_GONE_DELETE", label: "410 Delete", count: a["410_GONE_DELETE"], color: ACTION_META["410_GONE_DELETE"].color },
