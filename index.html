@@ -87,22 +87,10 @@
     width: 100%;
     margin: 0 auto;
     padding: 10px 20px;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
     align-items: center;
-    justify-content: space-between;
     gap: 12px;
-    flex-wrap: nowrap;
-  }
-  @media (max-width: 1320px) {
-    .macro-crumb { display: none !important; }
-  }
-  @media (max-width: 640px) {
-    .macro-switch { max-width: 100%; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
-    .macro-switch::-webkit-scrollbar { display: none; }
-    .macro-pill { padding: 5px 9px; font-size: 12px; white-space: nowrap; flex-shrink: 0; }
-  }
-  @media (max-width: 1080px) {
-    .site-header-inner { flex-wrap: wrap; }
   }
   .topbar {
     display: flex;
@@ -112,7 +100,14 @@
     flex-wrap: wrap;
     margin-bottom: 10px;
   }
-  .brand-wrap { display: flex; align-items: center; gap: 10px; flex-wrap: nowrap; min-width: 0; }
+  .brand-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: nowrap;
+    min-width: 0;
+    justify-self: start;
+  }
   .brand {
     font-family: Georgia, "Times New Roman", serif;
     font-size: 20px;
@@ -124,21 +119,32 @@
     white-space: nowrap;
   }
   .brand-meta { display: none; }
-  .header-nav-center { display: flex; align-items: center; flex-shrink: 0; }
-  .top-actions { display: flex; align-items: center; gap: 8px; flex-wrap: nowrap; flex-shrink: 0; }
+  .header-nav-center {
+    display: flex;
+    align-items: center;
+    justify-self: center;
+    min-width: 0;
+  }
+  .top-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: nowrap;
+    justify-self: end;
+  }
   .util-btn {
     border: none;
     background: var(--control);
     color: var(--ink);
-    padding: 6px 11px;
+    padding: 6px 10px;
     border-radius: 8px;
-    font-size: 12.5px;
+    font-size: 12px;
     font-weight: 600;
     cursor: pointer;
     box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
     display: inline-flex;
     align-items: center;
-    gap: 5px;
+    gap: 4px;
     min-height: 32px;
     white-space: nowrap;
     transition: background 0.12s ease;
@@ -146,6 +152,56 @@
   .util-btn:hover { background: var(--control-hover); text-decoration: none; }
   .util-btn.link-btn { color: var(--accent); background: var(--accent-soft); }
   .util-btn.link-btn:hover { background: #d6e8fb; }
+
+  @media (max-width: 1240px) {
+    .site-header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+  }
+  @media (max-width: 1040px) {
+    .site-header-inner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      grid-template-areas:
+        "brand actions"
+        "nav nav";
+      gap: 10px 12px;
+    }
+    .brand-wrap { grid-area: brand; }
+    .top-actions { grid-area: actions; }
+    .header-nav-center {
+      grid-area: nav;
+      justify-self: stretch;
+      width: 100%;
+    }
+    .macro-switch {
+      width: 100%;
+      justify-content: space-between;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+    .macro-switch::-webkit-scrollbar { display: none; }
+  }
+  @media (max-width: 600px) {
+    .site-header-inner {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        "brand"
+        "nav"
+        "actions";
+      gap: 8px;
+      padding: 10px 12px;
+    }
+    .brand { font-size: 18px; }
+    .top-actions { justify-self: start; flex-wrap: wrap; gap: 6px; }
+    .util-btn { font-size: 11.5px; padding: 5px 9px; min-height: 30px; }
+    .macro-switch { justify-content: flex-start; max-width: 100%; }
+    .macro-pill { padding: 5px 9px; font-size: 12px; white-space: nowrap; flex-shrink: 0; }
+  }
 
   /* --- Top-Level Category Tabs --- */
   .cat-tabs {
@@ -911,18 +967,6 @@
   }
   .macro-pill .tab-count { font-size: 11px; padding: 1px 6px; }
   .macro-pill.active .tab-count { background: var(--accent-soft); color: var(--accent); }
-  .macro-crumb {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--accent);
-    background: var(--accent-soft);
-    padding: 3px 9px;
-    border-radius: 999px;
-    white-space: nowrap;
-  }
 
   /* --- Brands Research Workspace (Universal 10: zero borders, light shadows & tints) --- */
   .kpi-grid {
@@ -1099,8 +1143,6 @@
     .b-col-hide-md { display: none; }
   }
   @media (max-width: 600px) {
-    .top-actions { flex-wrap: wrap; width: 100%; }
-    .util-btn { font-size: 12px; padding: 6px 10px; }
     .kpi-grid { grid-template-columns: 1fr; }
     .b-cards-grid { grid-template-columns: 1fr; }
     .b-drawer-grid { grid-template-columns: 1fr; }
@@ -1111,7 +1153,6 @@
     .b-bar-row { grid-template-columns: 115px 1fr 72px; font-size: 12px; }
     .b-controls { padding: 10px; }
     .b-select { max-width: 100%; flex: 1 1 140px; }
-    .macro-crumb { display: none; }
   }
 /* --- Brand Reviews 3rd Tab Pipeline --- */
 .rv-kpi-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; margin-bottom: 16px; }
@@ -1151,9 +1192,6 @@
 .rv-col-tooltip strong { display: block; font-size: 12px; font-weight: 700; color: #ffffff; margin-bottom: 3px; }
 @media (max-width: 1080px) { .rv-kpi-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (max-width: 640px) {
-  .site-header-inner { padding: 10px 12px; gap: 8px; }
-  .brand { font-size: 18px; }
-  .brand-meta { display: none; }
   .rv-kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
   .rv-kpi { padding: 12px; }
   .rv-kpi-val { font-size: 22px; }
@@ -1166,7 +1204,6 @@
   <div class="site-header-inner">
     <div class="brand-wrap">
       <h1 class="brand">Nappedia Research</h1>
-      <span class="macro-crumb" id="macroCrumb">Research &#8250; FAQs</span>
       <span class="brand-meta" id="brandMeta"></span>
     </div>
     <nav class="header-nav-center" aria-label="Primary Research Tabs">
@@ -1191,8 +1228,8 @@
     </nav>
     <div class="top-actions">
       <a class="util-btn link-btn" href="https://www.nappedia.com/reviews" target="_blank" rel="noopener">Nappedia.com &#8599;</a>
-      <a class="util-btn link-btn" id="sheetLink" href="#" target="_blank" rel="noopener">Google Sheet &#8599;</a>
-      <button class="util-btn" id="methodBtn" type="button">How Pages Are Validated</button>
+      <a class="util-btn link-btn" id="sheetLink" href="https://docs.google.com/spreadsheets/d/1gWCJk2daqLPbqArAC-Au6THynhg179FS2IoVdbWzrEc/edit" target="_blank" rel="noopener">Master Sheet &#8599;</a>
+      <button class="util-btn" id="methodBtn" type="button">Methodology</button>
     </div>
   </div>
 </header>
@@ -1629,11 +1666,6 @@ function renderTopbarAndTabs() {
   document.getElementById("cnt-macro-brands").textContent = bCounts.active_us_brands.toLocaleString();
   const rvCntEl = document.getElementById("cnt-macro-reviews");
   if (rvCntEl && rvData) rvCntEl.textContent = rvData.summary.total.toLocaleString();
-  document.getElementById("macroCrumb").innerHTML = isReviews
-    ? "Research &#8250; Brand Reviews"
-    : isBrands
-    ? "Research &#8250; Brands"
-    : "Research &#8250; FAQs";
 
   document.querySelectorAll(".macro-pill").forEach(btn => {
     const active = btn.dataset.macro === state.macro;
@@ -1664,20 +1696,8 @@ function renderTopbarAndTabs() {
   }
 
   const sl = document.getElementById("sheetLink");
-  const mb = document.getElementById("methodBtn");
-  if (isReviews || isBrands) {
-    sl.style.display = "none";
-    mb.textContent = isReviews ? "v3.1 QA Pipeline" : "Brands Methodology";
-  } else if (isBrandFaqs) {
-    sl.style.display = "";
-    sl.href = META.sheets["brand-faqs"] || META.sheets.overview;
-    sl.innerHTML = `Brand FAQs Sheet &#8599;`;
-    mb.textContent = "Brand FAQs Methodology";
-  } else {
-    sl.style.display = "";
+  if (sl && META.sheets && META.sheets.overview) {
     sl.href = META.sheets.overview;
-    sl.innerHTML = `Master Sheet &#8599;`;
-    mb.textContent = "How Pages Are Validated";
   }
 
   document.getElementById("catTabs").style.display = isFaqs ? "" : "none";
@@ -2633,8 +2653,7 @@ window.addEventListener("hashchange", () => { initFromHash(); render(); scrollAc
 
 const modal = document.getElementById("methodModal");
 document.getElementById("methodBtn").addEventListener("click", () => {
-  if (state.macro === "brands") setBrandSub("sources");
-  else modal.classList.add("open");
+  modal.classList.add("open");
 });
 document.getElementById("closeModalBtn").addEventListener("click", () => modal.classList.remove("open"));
 modal.addEventListener("click", e => { if (e.target === modal) modal.classList.remove("open"); });
