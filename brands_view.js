@@ -1014,6 +1014,7 @@
     const top8Cnt = items.filter(x => x.avg >= 8).length;
     const hiScaleCnt = items.filter(x => x.scale >= 8).length;
     const serpVerCnt = items.filter(x => x.serp_verdict === "Verified").length;
+    const affProvCnt = items.filter(x => x.aff_verdict === "Affiliates").length;
     const lowCompCnt = items.filter(x => (x.comp || 6) <= 5).length;
     const zeroHubCnt = items.filter(x => x.hub_pages === 0).length;
     const hiVolCnt = items.filter(x => x.vol >= 8).length;
@@ -1022,25 +1023,34 @@
     const totalEstPages = sum.total_est_pages || items.reduce((s, x) => s + (x.est_pages || 0), 0);
     const itemById = new Map(items.map(x => [String(x.id), x]));
 
-    const serpBadgeClass = v => v === "Verified" ? "ft-hi" : (v === "Mixed" ? "ft-lo" : "ft-low");
-    const serpRank = v => v === "Verified" ? 2 : (v === "Mixed" ? 1 : 0);
+    const serpBadgeClass = v => v === "Affiliates" ? "ft-hi" : (v === "Brand-Only" ? "ft-lo" : "ft-low");
+    const serpRank = v => v === "Affiliates" ? 2 : (v === "Brand-Only" ? 1 : 0);
 
     function buildFaqSerpPopoverHtml(x) {
+      const affExs = x.aff_examples || [];
+      const affHtml = affExs.map(e => `
+        <div class="sp-item">
+          <span class="sp-tag sp-tag-ded">Affiliate Standalone</span>
+          <a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.title)}</a>
+          <div class="sp-dom">${esc(e.domain)}</div>
+        </div>
+      `).join("");
       const exs = x.serp_examples || [];
       const rowsHtml = exs.map(e => `
         <div class="sp-item">
-          <span class="sp-tag ${e.dedicated ? "sp-tag-ded" : "sp-tag-gen"}">${e.dedicated ? "Dedicated Page" : "General / Review"}</span>
+          <span class="sp-tag ${e.dedicated ? "sp-tag-ded" : "sp-tag-gen"}">${e.dedicated ? "Dedicated" : "Review / General"} · ${esc(e.site_type || "Site")}</span>
           <a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.title)}</a>
           <div class="sp-dom">${esc(e.domain)}</div>
         </div>
       `).join("");
       return `
         <div class="sp-head">
-          <strong>Live SERP Proof</strong>
-          <span class="ft-score-pill ${serpBadgeClass(x.serp_verdict)}">${esc(x.serp_verdict || "Unchecked")} (${x.serp_ded || 0}/8)</span>
+          <strong>Affiliate &amp; SERP Proof</strong>
+          <span class="ft-score-pill ${serpBadgeClass(x.aff_verdict)}">${esc(x.aff_verdict || "Check")}</span>
         </div>
-        <div class="sp-meta">Test query: <code>${esc(x.serp_query || "")}</code></div>
-        <div class="sp-sec-lbl">${x.serp_ded >= 2 ? "Separate standalone pages confirmed in live SERPs:" : (x.serp_ded === 1 ? "1 standalone page + general reviews in live SERPs:" : "Mostly bundled inside main reviews / brand pages:")}</div>
+        <div class="sp-meta">Test query: <code>${esc(x.serp_query || "")}</code>${x.aff_sites ? ` · <strong>${x.aff_sites}</strong> major affiliates (${x.aff_urls} standalone URLs)` : ""}</div>
+        ${affHtml ? `<div class="sp-sec-lbl">Proven Affiliate Standalone Pages</div><div class="sp-list">${affHtml}</div>` : ""}
+        <div class="sp-sec-lbl">Live Top SERP Results (${x.serp_ded || 0}/8 dedicated)</div>
         <div class="sp-list">${rowsHtml || `<div class="sp-dom">No SERP examples cached.</div>`}</div>
       `;
     }
@@ -1050,7 +1060,7 @@
         <div class="rv-kpi">
           <div class="rv-kpi-lbl">Brand FAQ Page Types</div>
           <div style="font-size:26px;font-weight:800;margin-top:4px;">${items.length}</div>
-          <div style="font-size:12px;color:var(--sub);margin-top:2px;">${serpVerCnt} SERP-Verified · ${items.length - serpVerCnt} Mixed/Bundled</div>
+          <div style="font-size:12px;color:var(--sub);margin-top:2px;">${affProvCnt} Affiliate-Proven · ${items.length - affProvCnt} Brand-Only/Bundled</div>
         </div>
         <div class="rv-kpi">
           <div class="rv-kpi-lbl">Top Priority (3-Vector 8.0+)</div>
@@ -1076,13 +1086,14 @@
           <span><strong>Potential Volume (1–10):</strong> <code>9–10</code> Massive demand · <code>7–8</code> High recurring searches · <code>1–4</code> Niche</span>
           <span><strong>Convertibility (1–10):</strong> <code>9–10</code> Wallet out, ready to buy · <code>7–8</code> Strong pre-buy filter · <code>1–3</code> Post-purchase help</span>
           <span><strong>Page # / Scale (1–10):</strong> <code>9–10</code> 450–800+ pages · <code>8</code> 300–449 pages · <code>1–5</code> Under 120 pages (lowers total score)</span>
-          <span><strong>SERP Proof:</strong> <code>Verified</code> = 2+ standalone SERP pages · <code>Mixed</code> = 1 standalone · <code>Bundled</code> = mostly inside reviews</span>
+          <span><strong>SERP Proof:</strong> <code>Affiliates</code> = real mattress affiliates publish &amp; rank standalone pages · <code>Brand-Only</code> = mostly brand help docs · <code>Bundled</code> = inside main reviews</span>
         </div>
       </div>
 
       <div class="b-scope-bar" id="ftScopeBar">
         <button class="b-scope-pill active" data-ftscope="all" type="button">All Types <span>${items.length}</span></button>
         <button class="b-scope-pill" data-ftscope="top8" type="button">Top Priority (8.0+) <span>${top8Cnt}</span></button>
+        <button class="b-scope-pill" data-ftscope="aff_prov" type="button">Affiliates Rank <span>${affProvCnt}</span></button>
         <button class="b-scope-pill" data-ftscope="serp_ver" type="button">SERP Verified <span>${serpVerCnt}</span></button>
         <button class="b-scope-pill" data-ftscope="low_comp" type="button">Low Comp (1–5) <span>${lowCompCnt}</span></button>
         <button class="b-scope-pill" data-ftscope="hi_scale" type="button">300+ Pages (Scale 8+) <span>${hiScaleCnt}</span></button>
@@ -1112,7 +1123,7 @@
                 <th class="sortable num b-col-hide-sm" data-col="id" style="width:42px;">#</th>
                 <th class="sortable" data-col="template">FAQ Page Type</th>
                 <th class="sortable b-col-hide-sm" data-col="category">Category</th>
-                <th class="sortable b-col-hide-md" data-col="applies_to">Applies To</th>
+                <th class="sortable b-col-hide-md" data-col="applies_to">Level</th>
                 <th class="sortable num" data-col="vol">Vol</th>
                 <th class="sortable num" data-col="conv">Conv</th>
                 <th class="sortable num" data-col="scale">Pages</th>
@@ -1149,6 +1160,7 @@
       const q = bState.ftQ.trim().toLowerCase();
       let list = items.filter(x => {
         if (bState.ftScope === "top8" && x.avg < 8) return false;
+        if (bState.ftScope === "aff_prov" && x.aff_verdict !== "Affiliates") return false;
         if (bState.ftScope === "serp_ver" && x.serp_verdict !== "Verified") return false;
         if (bState.ftScope === "low_comp" && (x.comp || 6) > 5) return false;
         if (bState.ftScope === "hi_scale" && x.scale < 8) return false;
@@ -1175,7 +1187,7 @@
         else if (col === "scale") c = cmpNullable(a.est_pages, b.est_pages, dir, false) || cmpNullable(a.scale, b.scale, dir, false) || (b.avg - a.avg);
         else if (col === "comp") c = cmpNullable(a.comp, b.comp, dir, false) || (b.avg - a.avg);
         else if (col === "avg") c = cmpNullable(a.avg, b.avg, dir, false) || (b.scale - a.scale) || (b.conv - a.conv) || (b.vol - a.vol);
-        else if (col === "serp") c = cmpNullable(serpRank(a.serp_verdict), serpRank(b.serp_verdict), dir, false) || cmpNullable(a.serp_ded, b.serp_ded, dir, false);
+        else if (col === "serp") c = cmpNullable(serpRank(a.aff_verdict), serpRank(b.aff_verdict), dir, false) || cmpNullable(a.aff_sites, b.aff_sites, dir, false) || cmpNullable(a.serp_ded, b.serp_ded, dir, false);
         else if (col === "hub_pages") c = cmpNullable(a.hub_pages, b.hub_pages, dir, false);
         else if (col === "competes") c = cmpNullable(a._compRank, b._compRank, dir, false);
         return c || (a.id - b.id);
@@ -1198,8 +1210,8 @@
             <div class="ft-note">${esc(x.note)}</div>
             <div class="ft-mob-row">
               <span class="b-type-pill ft-mob-cat ${catClassMap[x.category] || "t-default"}">${esc(x.category)}</span>
-              <button class="serp-proof-btn ft-mob-serp ${serpBadgeClass(x.serp_verdict)}" type="button" data-faqid="${x.id}" aria-label="View live SERP examples for ${esc(x.template)}">
-                <span>${esc(x.serp_verdict || "Check")}${x.serp_ded ? ` (${x.serp_ded})` : ""}</span>
+              <button class="serp-proof-btn ft-mob-serp ${serpBadgeClass(x.aff_verdict)}" type="button" data-faqid="${x.id}" aria-label="View live SERP examples for ${esc(x.template)}">
+                <span>${esc(x.aff_verdict || "Check")}${x.aff_sites ? ` (${x.aff_sites})` : ""}</span>
                 <span class="sp-ico" aria-hidden="true">&#9432;</span>
               </button>
               <span class="ft-mob-comp">Comp: <strong>${x.comp || 6}/10</strong></span>
@@ -1216,8 +1228,8 @@
           <td class="num b-col-hide-sm">${compPill(x.comp || 6, x.comp_reason)}</td>
           <td class="num"><strong>${x.avg.toFixed(1)}</strong></td>
           <td class="b-col-hide-sm">
-            <button class="serp-proof-btn ${serpBadgeClass(x.serp_verdict)}" type="button" data-faqid="${x.id}" aria-label="View live SERP examples for ${esc(x.template)}">
-              <span>${esc(x.serp_verdict || "Check")}${x.serp_ded ? ` (${x.serp_ded})` : ""}</span>
+            <button class="serp-proof-btn ${serpBadgeClass(x.aff_verdict)}" type="button" data-faqid="${x.id}" aria-label="View live SERP examples for ${esc(x.template)}">
+              <span>${esc(x.aff_verdict || "Check")}${x.aff_sites ? ` (${x.aff_sites})` : ""}</span>
               <span class="sp-ico" aria-hidden="true">&#9432;</span>
             </button>
           </td>
@@ -1262,9 +1274,10 @@
       renderRows();
     });
     document.getElementById("ftExportCsv").addEventListener("click", () => {
-      const headers = ["id", "template", "category", "applies_to", "volume_1_10", "convertibility_1_10", "page_scale_1_10", "est_potential_pages", "competitiveness_1_10", "comp_domain_mix", "combined_score", "serp_verdict", "serp_dedicated_count", "serp_query", "serp_top_url", "in_hub_pages", "review_overlap", "note"];
+      const headers = ["id", "template", "category", "applies_to", "volume_1_10", "convertibility_1_10", "page_scale_1_10", "est_potential_pages", "competitiveness_1_10", "comp_domain_mix", "combined_score", "affiliate_proof", "affiliate_sites_count", "affiliate_standalone_urls", "serp_verdict", "serp_dedicated_count", "serp_query", "serp_top_url", "in_hub_pages", "review_overlap", "note"];
       const csvRows = [headers.join(",")].concat(currentFiltered.map(x => [
         x.id, x.template, x.category, x.applies_to, x.vol, x.conv, x.scale, x.est_pages, x.comp || 6, x.comp_reason || "", x.avg.toFixed(1),
+        x.aff_verdict || "", x.aff_sites || 0, x.aff_urls || 0,
         x.serp_verdict, x.serp_ded, x.serp_query, (x.serp_examples && x.serp_examples[0] && x.serp_examples[0].url) || "",
         x.hub_pages, x.competes, x.note
       ].map(v => `"${String(v).replace(/"/g, '""')}"`).join(",")));
