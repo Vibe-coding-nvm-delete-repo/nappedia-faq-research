@@ -1114,6 +1114,25 @@
   .fg-hist { background: #fef3c7; color: #92400e; }
   .fg-yes, .law-hit, .st-disc { background: #fee2e2; color: #991b1b; }
   .st-nonus { background: #f1f5f9; color: #475569; }
+  .ft-score-pill { display: inline-block; min-width: 34px; text-align: center; font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
+  .ft-hi { background: #dcfce7; color: #166534; }
+  .ft-mid { background: #e0f2fe; color: #0369a1; }
+  .ft-lo { background: #fef3c7; color: #92400e; }
+  .ft-low { background: #f1f5f9; color: #475569; }
+  .ft-title { font-weight: 600; color: var(--ink); line-height: 1.35; }
+  .ft-note { font-size: 12px; color: var(--sub); margin-top: 3px; line-height: 1.4; }
+  .ft-mob-cat { display: none; margin-top: 4px; white-space: normal; line-height: 1.25; max-width: 100%; }
+  .ft-legend { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 10px; font-size: 12px; color: var(--sub); }
+  .ft-kpi-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-bottom: 14px; }
+  @media (max-width: 900px) { .ft-kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 600px) {
+    .ft-mob-cat { display: inline-block; }
+    #ftTable { table-layout: fixed; width: 100%; }
+    #ftTable th[data-col="vol"], #ftTable th[data-col="conv"], #ftTable th[data-col="avg"] { width: 46px; padding: 8px 4px; text-align: center; }
+    #ftTable td.num { padding: 8px 3px; text-align: center; }
+    #ftTable .ft-score-pill { min-width: 28px; padding: 2px 5px; font-size: 11px; }
+  }
+  @media (max-width: 520px) { .ft-kpi-grid { grid-template-columns: 1fr; } }
   .b-dot-live { width: 7px; height: 7px; border-radius: 999px; background: #0066cc; flex-shrink: 0; }
   .b-table thead th.sortable { cursor: pointer; user-select: none; transition: background 0.1s ease, color 0.1s ease; }
   .b-table thead th.sortable:hover { background: #eef2f6; color: var(--ink); }
@@ -1349,6 +1368,10 @@
       <span>Models</span>
       <span class="tab-count" id="cnt-b-models">0</span>
     </button>
+    <button class="cat-tab" id="btab-faq-types" data-bsub="faq_types" role="tab" type="button">
+      <span>Brand FAQ Types</span>
+      <span class="tab-count" id="cnt-b-faq-types">110</span>
+    </button>
     <button class="cat-tab" id="btab-manufacturers" data-bsub="manufacturers" role="tab" type="button">
       <span>Manufacturers</span>
       <span class="tab-count" id="cnt-b-manufacturers">0</span>
@@ -1501,7 +1524,8 @@
 <script src="./data/brand_reviews_tracker.js?v=20261124v23"></script>
 <script src="./data/reviews_models_scored.js?v=20261124v23"></script>
 <script src="./brands_analytics.js"></script>
-<script src="./brands_view.js"></script>
+<script src="./data/brand_faq_types_110.js?v=20261124v24"></script>
+<script src="./brands_view.js?v=20261124v24"></script>
 <script src="./reviews_view.js?v=20261124v23"></script>
 <script src="./data/url_audit.js?v=20261124v21"></script>
 <script src="./urls_view.js?v=20261124v21"></script>
@@ -1636,6 +1660,9 @@ function initFromHash() {
     state.macro = "brands";
     state.brandSub = "models";
     state.brandModelFilter = params.get("brand") || "";
+  } else if (h === "brands-faq-types" || h === "brands-faq_types") {
+    state.macro = "brands";
+    state.brandSub = "faq_types";
   } else if (h === "brands-manufacturers") {
     state.macro = "brands";
     state.brandSub = "manufacturers";
@@ -1668,7 +1695,7 @@ function setMacro(macro, resetHash = true) {
       : macro === "reviews"
       ? "#reviews"
       : macro === "brands"
-      ? (state.brandSub === "benchmarks" ? "#brands" : "#brands-" + state.brandSub)
+      ? (state.brandSub === "benchmarks" ? "#brands" : "#brands-" + state.brandSub.replace(/_/g, "-"))
       : macro === "brand-faqs" ? "#brand-faqs"
       : "#" + state.cat;
     history.replaceState(null, "", nextHash);
@@ -1682,7 +1709,7 @@ function setBrandSub(sub, resetHash = true) {
   state.macro = "brands";
   state.brandSub = sub;
   if (sub !== "models") state.brandModelFilter = "";
-  if (resetHash) history.replaceState(null, "", sub === "benchmarks" ? "#brands" : "#brands-" + sub);
+  if (resetHash) history.replaceState(null, "", sub === "benchmarks" ? "#brands" : "#brands-" + sub.replace(/_/g, "-"));
   hideTooltip();
   render();
 }

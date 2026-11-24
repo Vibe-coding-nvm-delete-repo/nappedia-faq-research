@@ -140,6 +140,13 @@
     mfSortCol: "major", // major | name | type | founded | loc
     mfSortDir: "asc",
     mfLimit: 120,
+    // Brand FAQ Types tab state
+    ftScope: "all",     // all | top8 | zero_hub | hi_vol | hi_conv | no_overlap
+    ftCat: "",
+    ftLevel: "",
+    ftQ: "",
+    ftSortCol: "avg",   // id | template | category | applies_to | vol | conv | avg | hub_pages | competes
+    ftSortDir: "desc",
   };
 
   const mounted = {};
@@ -153,6 +160,7 @@
       <div id="bpanel-analytics" style="display:none;"></div>
       <div id="bpanel-directory" style="display:none;"></div>
       <div id="bpanel-models" style="display:none;"></div>
+      <div id="bpanel-faq_types" style="display:none;"></div>
       <div id="bpanel-manufacturers" style="display:none;"></div>
       <div id="bpanel-schema" style="display:none;"></div>
       <div id="bpanel-sources" style="display:none;"></div>
@@ -967,6 +975,233 @@
     `;
   }
 
+  function mountFaqTypes(panel) {
+    const payload = window.NAPPEDIA_BRAND_FAQ_TYPES;
+    if (!payload || !Array.isArray(payload.items)) {
+      panel.innerHTML = `<div class="card b-intro-card"><h3>Brand FAQ Types</h3><p class="b-card-desc">Dataset failed to load.</p></div>`;
+      return;
+    }
+    const items = payload.items;
+    const sum = payload.summary || {};
+    const cats = payload.categories || [...new Set(items.map(x => x.category))];
+    const levels = [...new Set(items.map(x => x.applies_to))].sort();
+
+    items.forEach(x => {
+      x._q = `${x.template} ${x.category} ${x.applies_to} ${x.note}`.toLowerCase();
+      x._compRank = x.competes === "No" ? 0 : (x.competes === "Low" ? 1 : (x.competes === "Medium" ? 2 : 3));
+    });
+
+    const catClassMap = {};
+    const palette = ["t-foam", "t-hybrid", "t-latex", "t-organic", "t-spring", "t-smart", "t-grid", "t-crib", "t-rv", "t-foam", "t-hybrid", "t-smart"];
+    cats.forEach((c, idx) => { catClassMap[c] = palette[idx % palette.length]; });
+
+    const scorePill = v => {
+      const cls = v >= 8 ? "ft-hi" : (v >= 6 ? "ft-mid" : (v >= 4 ? "ft-lo" : "ft-low"));
+      return `<span class="ft-score-pill ${cls}">${v}</span>`;
+    };
+    const overlapPill = c => {
+      if (c === "No") return `<span class="b-fg-pill fg-no">No</span>`;
+      if (c === "Low") return `<span class="b-fg-pill st-nonus">Low</span>`;
+      if (c === "Medium") return `<span class="b-fg-pill fg-hist">Medium</span>`;
+      return `<span class="b-fg-pill fg-yes">High</span>`;
+    };
+
+    const top8Cnt = items.filter(x => x.avg >= 8).length;
+    const zeroHubCnt = items.filter(x => x.hub_pages === 0).length;
+    const hiVolCnt = items.filter(x => x.vol >= 8).length;
+    const hiConvCnt = items.filter(x => x.conv >= 8).length;
+    const noOverCnt = items.filter(x => x.competes === "No").length;
+
+    panel.innerHTML = `
+      <div class="ft-kpi-grid">
+        <div class="rv-kpi">
+          <div class="rv-kpi-lbl">Total FAQ Page Types</div>
+          <div style="font-size:26px;font-weight:800;margin-top:4px;">${items.length}</div>
+          <div style="font-size:12px;color:var(--sub);margin-top:2px;">Across ${cats.length} plain-English categories</div>
+        </div>
+        <div class="rv-kpi">
+          <div class="rv-kpi-lbl">Top Priority (Avg 8.0+)</div>
+          <div style="font-size:26px;font-weight:800;margin-top:4px;color:#15803d;">${top8Cnt}</div>
+          <div style="font-size:12px;color:var(--sub);margin-top:2px;">High search volume + ready-to-buy intent</div>
+        </div>
+        <div class="rv-kpi">
+          <div class="rv-kpi-lbl">0 Pages in Hub Today</div>
+          <div style="font-size:26px;font-weight:800;margin-top:4px;color:var(--accent);">${zeroHubCnt}</div>
+          <div style="font-size:12px;color:var(--sub);margin-top:2px;">Wide-open brand FAQ gaps to mine next</div>
+        </div>
+        <div class="rv-kpi">
+          <div class="rv-kpi-lbl">Avg Rating (1–10 Scale)</div>
+          <div style="font-size:26px;font-weight:800;margin-top:4px;">${sum.avg_vol || "6.3"} <span style="font-size:14px;font-weight:600;color:var(--sub);">Vol</span> · ${sum.avg_conv || "5.2"} <span style="font-size:14px;font-weight:600;color:var(--sub);">Conv</span></div>
+          <div style="font-size:12px;color:var(--sub);margin-top:2px;">${hiVolCnt} High Vol (8+) · ${hiConvCnt} High Conv (8+)</div>
+        </div>
+      </div>
+
+      <div class="card b-intro-card" style="margin-bottom:14px;">
+        <h3>All 110 Brand &amp; Model Mattress FAQ Page Types</h3>
+        <p class="b-card-desc">Every brand and model FAQ page type we could write across your 543 live brands (591 with upcoming), rated on a 1–10 scale for <strong>Potential Volume</strong> and <strong>Convertibility</strong>. Click any column header to sort.</p>
+        <div class="ft-legend">
+          <span><strong>Potential Volume (1–10):</strong> <code>9–10</code> Massive demand across many brands · <code>7–8</code> High recurring searches · <code>5–6</code> Solid mid-tier · <code>1–4</code> Niche / long-tail</span>
+          <span><strong>Convertibility (1–10):</strong> <code>9–10</code> Wallet out, ready to buy (comparisons, promos, HSA/FSA, discounts) · <code>7–8</code> Strong pre-buy filter (fiberglass, weight limit, back pain) · <code>1–3</code> Post-purchase help or support</span>
+        </div>
+      </div>
+
+      <div class="b-scope-bar" id="ftScopeBar">
+        <button class="b-scope-pill active" data-ftscope="all" type="button">All Types <span>${items.length}</span></button>
+        <button class="b-scope-pill" data-ftscope="top8" type="button">Top ROI (Avg 8+) <span>${top8Cnt}</span></button>
+        <button class="b-scope-pill" data-ftscope="zero_hub" type="button">0 in Hub Today <span>${zeroHubCnt}</span></button>
+        <button class="b-scope-pill" data-ftscope="hi_vol" type="button">High Volume (8+) <span>${hiVolCnt}</span></button>
+        <button class="b-scope-pill" data-ftscope="hi_conv" type="button">High Convertibility (8+) <span>${hiConvCnt}</span></button>
+        <button class="b-scope-pill" data-ftscope="no_overlap" type="button">No Review Overlap <span>${noOverCnt}</span></button>
+      </div>
+
+      <div class="card">
+        <div class="b-controls">
+          <input id="ftSearch" class="b-input" type="search" placeholder="Search FAQ type, category, or note (e.g. fiberglass, HSA, Costco, warranty)...">
+          <select id="ftCatSel" class="b-select" aria-label="Filter by Category">
+            <option value="">All Categories (${cats.length})</option>
+            ${cats.map(c => `<option value="${esc(c)}">${esc(c)} (${items.filter(x => x.category === c).length})</option>`).join("")}
+          </select>
+          <select id="ftLevelSel" class="b-select" aria-label="Filter by Applies To">
+            <option value="">Applies To: All</option>
+            ${levels.map(l => `<option value="${esc(l)}">${esc(l)}</option>`).join("")}
+          </select>
+          <button id="ftExportCsv" class="util-btn" type="button">Export CSV</button>
+        </div>
+        <div class="b-table-wrap">
+          <table class="b-table" id="ftTable">
+            <thead id="ftThead">
+              <tr>
+                <th class="sortable num b-col-hide-sm" data-col="id" style="width:46px;">#</th>
+                <th class="sortable" data-col="template">FAQ Page Type</th>
+                <th class="sortable b-col-hide-sm" data-col="category">Category</th>
+                <th class="sortable b-col-hide-md" data-col="applies_to">Applies To</th>
+                <th class="sortable num" data-col="vol">Vol</th>
+                <th class="sortable num" data-col="conv">Conv</th>
+                <th class="sortable num" data-col="avg">Score</th>
+                <th class="sortable num b-col-hide-sm" data-col="hub_pages">In Hub</th>
+                <th class="sortable b-col-hide-md" data-col="competes">Overlap</th>
+              </tr>
+            </thead>
+            <tbody id="ftTbody"></tbody>
+          </table>
+        </div>
+        <div class="b-foot" id="ftFoot"></div>
+      </div>
+    `;
+
+    const thead = document.getElementById("ftThead");
+    const tbody = document.getElementById("ftTbody");
+    const foot = document.getElementById("ftFoot");
+    let currentFiltered = [];
+
+    function updateHeaders() {
+      thead.querySelectorAll("th.sortable").forEach(th => {
+        const active = th.dataset.col === bState.ftSortCol;
+        th.classList.toggle("sorted", active);
+        const base = th.dataset.label || th.textContent.replace(/ [▲▼]$/, "");
+        th.dataset.label = base;
+        th.textContent = active ? `${base} ${bState.ftSortDir === "asc" ? "▲" : "▼"}` : base;
+      });
+    }
+
+    function renderRows() {
+      const q = bState.ftQ.trim().toLowerCase();
+      let list = items.filter(x => {
+        if (bState.ftScope === "top8" && x.avg < 8) return false;
+        if (bState.ftScope === "zero_hub" && x.hub_pages !== 0) return false;
+        if (bState.ftScope === "hi_vol" && x.vol < 8) return false;
+        if (bState.ftScope === "hi_conv" && x.conv < 8) return false;
+        if (bState.ftScope === "no_overlap" && x.competes !== "No") return false;
+        if (bState.ftCat && x.category !== bState.ftCat) return false;
+        if (bState.ftLevel && x.applies_to !== bState.ftLevel) return false;
+        if (q && !x._q.includes(q)) return false;
+        return true;
+      });
+
+      const col = bState.ftSortCol;
+      const dir = bState.ftSortDir;
+      list.sort((a, b) => {
+        let c = 0;
+        if (col === "id") c = cmpNullable(a.id, b.id, dir, false);
+        else if (col === "template") c = cmpNullable(a.template, b.template, dir, true);
+        else if (col === "category") c = cmpNullable(a.category, b.category, dir, true);
+        else if (col === "applies_to") c = cmpNullable(a.applies_to, b.applies_to, dir, true);
+        else if (col === "vol") c = cmpNullable(a.vol, b.vol, dir, false) || (b.conv - a.conv);
+        else if (col === "conv") c = cmpNullable(a.conv, b.conv, dir, false) || (b.vol - a.vol);
+        else if (col === "avg") c = cmpNullable(a.avg, b.avg, dir, false) || (b.conv - a.conv) || (b.vol - a.vol);
+        else if (col === "hub_pages") c = cmpNullable(a.hub_pages, b.hub_pages, dir, false);
+        else if (col === "competes") c = cmpNullable(a._compRank, b._compRank, dir, false);
+        return c || (a.id - b.id);
+      });
+
+      currentFiltered = list;
+      updateHeaders();
+
+      if (!list.length) {
+        tbody.innerHTML = `<tr><td colspan="9" style="text-align:center;padding:24px;color:var(--sub);">No FAQ page types match your filters.</td></tr>`;
+        foot.textContent = "Showing 0 of 110 Brand FAQ page types";
+        return;
+      }
+
+      tbody.innerHTML = list.map(x => `
+        <tr>
+          <td class="num b-muted b-col-hide-sm">${x.id}</td>
+          <td>
+            <div class="ft-title">${esc(x.template)}</div>
+            <div class="ft-note">${esc(x.note)}</div>
+            <span class="b-type-pill ft-mob-cat ${catClassMap[x.category] || "t-default"}">${esc(x.category)}</span>
+          </td>
+          <td class="b-col-hide-sm"><span class="b-type-pill ${catClassMap[x.category] || "t-default"}">${esc(x.category)}</span></td>
+          <td class="b-col-hide-md" style="white-space:nowrap;">${esc(x.applies_to)}</td>
+          <td class="num">${scorePill(x.vol)}</td>
+          <td class="num">${scorePill(x.conv)}</td>
+          <td class="num"><strong>${x.avg.toFixed(1)}</strong></td>
+          <td class="num b-col-hide-sm">${x.hub_pages === 0 ? `<span class="b-muted">0</span>` : `<strong>${x.hub_pages}</strong>`}</td>
+          <td class="b-col-hide-md">${overlapPill(x.competes)}</td>
+        </tr>
+      `).join("");
+
+      const avgV = (list.reduce((s, x) => s + x.vol, 0) / list.length).toFixed(1);
+      const avgC = (list.reduce((s, x) => s + x.conv, 0) / list.length).toFixed(1);
+      foot.textContent = `Showing ${list.length} of ${items.length} Brand FAQ page types · Filtered Avg Volume: ${avgV}/10 · Filtered Avg Convertibility: ${avgC}/10`;
+    }
+
+    document.getElementById("ftScopeBar").addEventListener("click", e => {
+      const btn = e.target.closest(".b-scope-pill");
+      if (!btn) return;
+      bState.ftScope = btn.dataset.ftscope || "all";
+      document.querySelectorAll("#ftScopeBar .b-scope-pill").forEach(b => b.classList.toggle("active", b === btn));
+      renderRows();
+    });
+    document.getElementById("ftSearch").addEventListener("input", debounce(e => { bState.ftQ = e.target.value; renderRows(); }, 120));
+    document.getElementById("ftCatSel").addEventListener("change", e => { bState.ftCat = e.target.value; renderRows(); });
+    document.getElementById("ftLevelSel").addEventListener("change", e => { bState.ftLevel = e.target.value; renderRows(); });
+    thead.addEventListener("click", e => {
+      const th = e.target.closest("th.sortable");
+      if (!th) return;
+      const col = th.dataset.col;
+      if (bState.ftSortCol === col) bState.ftSortDir = bState.ftSortDir === "desc" ? "asc" : "desc";
+      else {
+        bState.ftSortCol = col;
+        bState.ftSortDir = (col === "vol" || col === "conv" || col === "avg" || col === "hub_pages") ? "desc" : "asc";
+      }
+      renderRows();
+    });
+    document.getElementById("ftExportCsv").addEventListener("click", () => {
+      const headers = ["id", "template", "category", "applies_to", "volume_1_10", "convertibility_1_10", "avg_score", "in_hub_pages", "review_overlap", "note"];
+      const csvRows = [headers.join(",")].concat(currentFiltered.map(x => [
+        x.id, x.template, x.category, x.applies_to, x.vol, x.conv, x.avg.toFixed(1), x.hub_pages, x.competes, x.note
+      ].map(v => `"${String(v).replace(/"/g, '""')}"`).join(",")));
+      const blob = new Blob([csvRows.join("\n")], { type: "text/csv;charset=utf-8;" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "nappedia_brand_faq_types_110_scored.csv";
+      a.click();
+    });
+
+    renderRows();
+  }
+
   window.renderBrandsWorkspace = function (subTab, brandFilterSlug) {
     const data = window.NAPPEDIA_BRANDS;
     const root = document.getElementById("brandsContent");
@@ -982,7 +1217,7 @@
       btn.setAttribute("aria-selected", act ? "true" : "false");
     });
 
-    const subKeys = ["benchmarks", "analytics", "directory", "models", "manufacturers", "schema", "sources"];
+    const subKeys = ["benchmarks", "analytics", "directory", "models", "faq_types", "manufacturers", "schema", "sources"];
     for (let i = 0; i < subKeys.length; i++) {
       const k = subKeys[i];
       const p = document.getElementById("bpanel-" + k);
@@ -996,6 +1231,7 @@
       else if (bState.sub === "analytics" && window.mountBrandsAnalytics) window.mountBrandsAnalytics(activePanel, data);
       else if (bState.sub === "directory") mountDirectory(activePanel, data);
       else if (bState.sub === "models") mountModels(activePanel, data);
+      else if (bState.sub === "faq_types") mountFaqTypes(activePanel);
       else if (bState.sub === "manufacturers") mountManufacturers(activePanel, data);
       else if (bState.sub === "schema") mountSchema(activePanel, data);
       else if (bState.sub === "sources") mountSources(activePanel, data);
