@@ -1008,18 +1008,43 @@
 
     const top8Cnt = items.filter(x => x.avg >= 8).length;
     const hiScaleCnt = items.filter(x => x.scale >= 8).length;
+    const serpVerCnt = items.filter(x => x.serp_verdict === "Verified").length;
     const zeroHubCnt = items.filter(x => x.hub_pages === 0).length;
     const hiVolCnt = items.filter(x => x.vol >= 8).length;
     const hiConvCnt = items.filter(x => x.conv >= 8).length;
     const noOverCnt = items.filter(x => x.competes === "No").length;
     const totalEstPages = sum.total_est_pages || items.reduce((s, x) => s + (x.est_pages || 0), 0);
+    const itemById = new Map(items.map(x => [String(x.id), x]));
+
+    const serpBadgeClass = v => v === "Verified" ? "ft-hi" : (v === "Mixed" ? "ft-lo" : "ft-low");
+    const serpRank = v => v === "Verified" ? 2 : (v === "Mixed" ? 1 : 0);
+
+    function buildFaqSerpPopoverHtml(x) {
+      const exs = x.serp_examples || [];
+      const rowsHtml = exs.map(e => `
+        <div class="sp-item">
+          <span class="sp-tag ${e.dedicated ? "sp-tag-ded" : "sp-tag-gen"}">${e.dedicated ? "Dedicated Page" : "General / Review"}</span>
+          <a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.title)}</a>
+          <div class="sp-dom">${esc(e.domain)}</div>
+        </div>
+      `).join("");
+      return `
+        <div class="sp-head">
+          <strong>Live SERP Proof</strong>
+          <span class="ft-score-pill ${serpBadgeClass(x.serp_verdict)}">${esc(x.serp_verdict || "Unchecked")} (${x.serp_ded || 0}/8)</span>
+        </div>
+        <div class="sp-meta">Test query: <code>${esc(x.serp_query || "")}</code></div>
+        <div class="sp-sec-lbl">${x.serp_ded >= 2 ? "Separate standalone pages confirmed in live SERPs:" : (x.serp_ded === 1 ? "1 standalone page + general reviews in live SERPs:" : "Mostly bundled inside main reviews / brand pages:")}</div>
+        <div class="sp-list">${rowsHtml || `<div class="sp-dom">No SERP examples cached.</div>`}</div>
+      `;
+    }
 
     panel.innerHTML = `
       <div class="ft-kpi-grid">
         <div class="rv-kpi">
           <div class="rv-kpi-lbl">Brand FAQ Page Types</div>
           <div style="font-size:26px;font-weight:800;margin-top:4px;">${items.length}</div>
-          <div style="font-size:12px;color:var(--sub);margin-top:2px;">Across ${cats.length} categories (comparisons moved out)</div>
+          <div style="font-size:12px;color:var(--sub);margin-top:2px;">${serpVerCnt} SERP-Verified · ${items.length - serpVerCnt} Mixed/Bundled</div>
         </div>
         <div class="rv-kpi">
           <div class="rv-kpi-lbl">Top Priority (3-Vector 8.0+)</div>
@@ -1040,17 +1065,19 @@
 
       <div class="card b-intro-card" style="margin-bottom:14px;">
         <h3>All ${items.length} Brand &amp; Model Mattress FAQ Page Types</h3>
-        <p class="b-card-desc">Every non-comparison brand and model FAQ page type we can write across your 543 live brands (591 with upcoming), rated on 3 vectors (1–10 each): <strong>Potential Volume</strong>, <strong>Convertibility</strong>, and <strong>Page # (Scale)</strong>. Small-scale topics can't reach Top Priority. Comparison pages now live in their own <a href="#model-comparisons" style="color:var(--accent);font-weight:600;">Comparisons</a> section.</p>
+        <p class="b-card-desc">Every non-comparison brand and model FAQ page type across your 543 live brands, rated on 3 vectors (1–10 each) and checked against live SERPs. <strong>Hover over (or click) any SERP Proof badge</strong> to inspect real live ranking URLs and confirm standalone pages exist. Comparison pages live in <a href="#model-comparisons" style="color:var(--accent);font-weight:600;">Comparisons</a>.</p>
         <div class="ft-legend">
-          <span><strong>Potential Volume (1–10):</strong> <code>9–10</code> Massive demand · <code>7–8</code> High recurring searches · <code>5–6</code> Solid mid-tier · <code>1–4</code> Niche</span>
+          <span><strong>Potential Volume (1–10):</strong> <code>9–10</code> Massive demand · <code>7–8</code> High recurring searches · <code>1–4</code> Niche</span>
           <span><strong>Convertibility (1–10):</strong> <code>9–10</code> Wallet out, ready to buy · <code>7–8</code> Strong pre-buy filter · <code>1–3</code> Post-purchase help</span>
-          <span><strong>Page # / Scale (1–10):</strong> <code>9–10</code> 450–800+ pages · <code>8</code> 300–449 pages · <code>6–7</code> 120–299 pages · <code>1–5</code> Under 120 pages (lowers total score)</span>
+          <span><strong>Page # / Scale (1–10):</strong> <code>9–10</code> 450–800+ pages · <code>8</code> 300–449 pages · <code>1–5</code> Under 120 pages (lowers total score)</span>
+          <span><strong>SERP Proof:</strong> <code>Verified</code> = 2+ standalone SERP pages · <code>Mixed</code> = 1 standalone · <code>Bundled</code> = mostly inside reviews</span>
         </div>
       </div>
 
       <div class="b-scope-bar" id="ftScopeBar">
         <button class="b-scope-pill active" data-ftscope="all" type="button">All Types <span>${items.length}</span></button>
         <button class="b-scope-pill" data-ftscope="top8" type="button">Top Priority (8.0+) <span>${top8Cnt}</span></button>
+        <button class="b-scope-pill" data-ftscope="serp_ver" type="button">SERP Verified <span>${serpVerCnt}</span></button>
         <button class="b-scope-pill" data-ftscope="hi_scale" type="button">300+ Pages (Scale 8+) <span>${hiScaleCnt}</span></button>
         <button class="b-scope-pill" data-ftscope="zero_hub" type="button">0 in Hub Today <span>${zeroHubCnt}</span></button>
         <button class="b-scope-pill" data-ftscope="hi_vol" type="button">High Volume (8+) <span>${hiVolCnt}</span></button>
@@ -1075,7 +1102,7 @@
           <table class="b-table" id="ftTable">
             <thead id="ftThead">
               <tr>
-                <th class="sortable num b-col-hide-sm" data-col="id" style="width:44px;">#</th>
+                <th class="sortable num b-col-hide-sm" data-col="id" style="width:42px;">#</th>
                 <th class="sortable" data-col="template">FAQ Page Type</th>
                 <th class="sortable b-col-hide-sm" data-col="category">Category</th>
                 <th class="sortable b-col-hide-md" data-col="applies_to">Applies To</th>
@@ -1083,6 +1110,7 @@
                 <th class="sortable num" data-col="conv">Conv</th>
                 <th class="sortable num" data-col="scale">Pages</th>
                 <th class="sortable num" data-col="avg">Score</th>
+                <th class="sortable b-col-hide-sm" data-col="serp">SERP Proof</th>
                 <th class="sortable num b-col-hide-sm" data-col="hub_pages">In Hub</th>
                 <th class="sortable b-col-hide-md" data-col="competes">Overlap</th>
               </tr>
@@ -1113,6 +1141,7 @@
       const q = bState.ftQ.trim().toLowerCase();
       let list = items.filter(x => {
         if (bState.ftScope === "top8" && x.avg < 8) return false;
+        if (bState.ftScope === "serp_ver" && x.serp_verdict !== "Verified") return false;
         if (bState.ftScope === "hi_scale" && x.scale < 8) return false;
         if (bState.ftScope === "zero_hub" && x.hub_pages !== 0) return false;
         if (bState.ftScope === "hi_vol" && x.vol < 8) return false;
@@ -1136,6 +1165,7 @@
         else if (col === "conv") c = cmpNullable(a.conv, b.conv, dir, false) || (b.scale - a.scale) || (b.vol - a.vol);
         else if (col === "scale") c = cmpNullable(a.est_pages, b.est_pages, dir, false) || cmpNullable(a.scale, b.scale, dir, false) || (b.avg - a.avg);
         else if (col === "avg") c = cmpNullable(a.avg, b.avg, dir, false) || (b.scale - a.scale) || (b.conv - a.conv) || (b.vol - a.vol);
+        else if (col === "serp") c = cmpNullable(serpRank(a.serp_verdict), serpRank(b.serp_verdict), dir, false) || cmpNullable(a.serp_ded, b.serp_ded, dir, false);
         else if (col === "hub_pages") c = cmpNullable(a.hub_pages, b.hub_pages, dir, false);
         else if (col === "competes") c = cmpNullable(a._compRank, b._compRank, dir, false);
         return c || (a.id - b.id);
@@ -1145,7 +1175,7 @@
       updateHeaders();
 
       if (!list.length) {
-        tbody.innerHTML = `<tr><td colspan="10" style="text-align:center;padding:24px;color:var(--sub);">No FAQ page types match your filters.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="11" style="text-align:center;padding:24px;color:var(--sub);">No FAQ page types match your filters.</td></tr>`;
         foot.textContent = `Showing 0 of ${items.length} Brand FAQ page types`;
         return;
       }
@@ -1156,7 +1186,13 @@
           <td>
             <div class="ft-title">${esc(x.template)}</div>
             <div class="ft-note">${esc(x.note)}</div>
-            <span class="b-type-pill ft-mob-cat ${catClassMap[x.category] || "t-default"}">${esc(x.category)}</span>
+            <div class="ft-mob-row">
+              <span class="b-type-pill ft-mob-cat ${catClassMap[x.category] || "t-default"}">${esc(x.category)}</span>
+              <button class="serp-proof-btn ft-mob-serp ${serpBadgeClass(x.serp_verdict)}" type="button" data-faqid="${x.id}" aria-label="View live SERP examples for ${esc(x.template)}">
+                <span>${esc(x.serp_verdict || "Check")}${x.serp_ded ? ` (${x.serp_ded})` : ""}</span>
+                <span class="sp-ico" aria-hidden="true">&#9432;</span>
+              </button>
+            </div>
           </td>
           <td class="b-col-hide-sm"><span class="b-type-pill ${catClassMap[x.category] || "t-default"}">${esc(x.category)}</span></td>
           <td class="b-col-hide-md" style="white-space:nowrap;">${esc(x.applies_to)}</td>
@@ -1167,6 +1203,12 @@
             <div class="ft-est-sub">~${(x.est_pages || 0).toLocaleString()}</div>
           </td>
           <td class="num"><strong>${x.avg.toFixed(1)}</strong></td>
+          <td class="b-col-hide-sm">
+            <button class="serp-proof-btn ${serpBadgeClass(x.serp_verdict)}" type="button" data-faqid="${x.id}" aria-label="View live SERP examples for ${esc(x.template)}">
+              <span>${esc(x.serp_verdict || "Check")}${x.serp_ded ? ` (${x.serp_ded})` : ""}</span>
+              <span class="sp-ico" aria-hidden="true">&#9432;</span>
+            </button>
+          </td>
           <td class="num b-col-hide-sm">${x.hub_pages === 0 ? `<span class="b-muted">0</span>` : `<strong>${x.hub_pages}</strong>`}</td>
           <td class="b-col-hide-md">${overlapPill(x.competes)}</td>
         </tr>
@@ -1177,6 +1219,13 @@
       const avgP = (list.reduce((s, x) => s + x.scale, 0) / list.length).toFixed(1);
       const sumP = list.reduce((s, x) => s + (x.est_pages || 0), 0).toLocaleString();
       foot.textContent = `Showing ${list.length} of ${items.length} Brand FAQ page types · Avg Vol: ${avgV}/10 · Avg Conv: ${avgC}/10 · Avg Page #: ${avgP}/10 (~${sumP} est. pages)`;
+    }
+
+    if (window.bindSerpPopover) {
+      window.bindSerpPopover(tbody, ".serp-proof-btn", btn => {
+        const x = itemById.get(btn.dataset.faqid);
+        return x ? buildFaqSerpPopoverHtml(x) : "";
+      });
     }
 
     document.getElementById("ftScopeBar").addEventListener("click", e => {
@@ -1196,19 +1245,21 @@
       if (bState.ftSortCol === col) bState.ftSortDir = bState.ftSortDir === "desc" ? "asc" : "desc";
       else {
         bState.ftSortCol = col;
-        bState.ftSortDir = (col === "vol" || col === "conv" || col === "scale" || col === "avg" || col === "hub_pages") ? "desc" : "asc";
+        bState.ftSortDir = (col === "vol" || col === "conv" || col === "scale" || col === "avg" || col === "serp" || col === "hub_pages") ? "desc" : "asc";
       }
       renderRows();
     });
     document.getElementById("ftExportCsv").addEventListener("click", () => {
-      const headers = ["id", "template", "category", "applies_to", "volume_1_10", "convertibility_1_10", "page_scale_1_10", "est_potential_pages", "combined_score", "in_hub_pages", "review_overlap", "note"];
+      const headers = ["id", "template", "category", "applies_to", "volume_1_10", "convertibility_1_10", "page_scale_1_10", "est_potential_pages", "combined_score", "serp_verdict", "serp_dedicated_count", "serp_query", "serp_top_url", "in_hub_pages", "review_overlap", "note"];
       const csvRows = [headers.join(",")].concat(currentFiltered.map(x => [
-        x.id, x.template, x.category, x.applies_to, x.vol, x.conv, x.scale, x.est_pages, x.avg.toFixed(1), x.hub_pages, x.competes, x.note
+        x.id, x.template, x.category, x.applies_to, x.vol, x.conv, x.scale, x.est_pages, x.avg.toFixed(1),
+        x.serp_verdict, x.serp_ded, x.serp_query, (x.serp_examples && x.serp_examples[0] && x.serp_examples[0].url) || "",
+        x.hub_pages, x.competes, x.note
       ].map(v => `"${String(v).replace(/"/g, '""')}"`).join(",")));
       const blob = new Blob([csvRows.join("\n")], { type: "text/csv;charset=utf-8;" });
       const a = document.createElement("a");
       a.href = URL.createObjectURL(blob);
-      a.download = "nappedia_brand_faq_types_106_scored.csv";
+      a.download = "nappedia_brand_faq_types_106_serp_verified.csv";
       a.click();
     });
 

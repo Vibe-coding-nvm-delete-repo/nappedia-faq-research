@@ -1114,24 +1114,75 @@
   .ft-title { font-weight: 600; color: var(--ink); line-height: 1.35; }
   .ft-note { font-size: 12px; color: var(--sub); margin-top: 3px; line-height: 1.4; }
   .ft-est-sub { font-size: 10.5px; color: var(--sub); margin-top: 2px; line-height: 1.1; white-space: nowrap; }
+  .ft-mob-row { display: none; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 5px; }
   .ft-mob-cat { display: none; margin-top: 4px; white-space: normal; line-height: 1.25; max-width: 100%; }
+  .ft-mob-row .ft-mob-cat { margin-top: 0; }
   .ft-legend { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 10px; font-size: 12px; color: var(--sub); }
   .ft-kpi-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-bottom: 14px; }
   .cmp-steps-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+  /* SERP Proof Hoverover Button & Floating Popover (Universal 10: zero borders, light shadow) */
+  .serp-proof-btn {
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11.5px;
+    font-weight: 700;
+    padding: 4px 8px;
+    border-radius: 999px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: transform 0.1s ease, filter 0.12s ease;
+  }
+  .serp-proof-btn:hover { filter: brightness(0.95); transform: translateY(-1px); }
+  .serp-proof-btn .sp-ico { opacity: 0.7; font-size: 11px; }
+  #serpPopover {
+    position: fixed;
+    z-index: 9999;
+    width: 390px;
+    max-width: calc(100vw - 24px);
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 13px 15px;
+    box-shadow: 0 14px 36px rgba(15, 23, 42, 0.18), 0 2px 8px rgba(15, 23, 42, 0.08);
+    display: none;
+    font-size: 12.5px;
+    color: var(--ink);
+  }
+  #serpPopover.open { display: block; }
+  .sp-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 5px; }
+  .sp-meta { font-size: 11.5px; color: var(--sub); margin-bottom: 8px; line-height: 1.35; }
+  .sp-meta code { background: #f1f5f9; padding: 1px 5px; border-radius: 5px; font-size: 11px; color: var(--ink); }
+  .sp-sec-lbl { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; color: var(--sub); margin: 8px 0 5px; }
+  .sp-list { display: flex; flex-direction: column; gap: 7px; max-height: 230px; overflow-y: auto; }
+  .sp-item { background: #f8fafc; border-radius: 8px; padding: 7px 9px; line-height: 1.3; }
+  .sp-item a { color: #0066cc; font-weight: 600; text-decoration: none; display: block; margin-top: 3px; word-break: break-word; }
+  .sp-item a:hover { text-decoration: underline; }
+  .sp-tag { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 6px; border-radius: 999px; }
+  .sp-tag-ded { background: #dcfce7; color: #166534; }
+  .sp-tag-gen { background: #e2e8f0; color: #475569; }
+  .sp-dom { font-size: 11px; color: var(--sub); margin-top: 2px; }
+  .sp-ac-wrap { display: flex; flex-wrap: wrap; gap: 5px; }
+  .sp-ac-chip { background: #eef6ff; color: #0369a1; font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 999px; }
   @media (max-width: 900px) {
     .ft-kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .cmp-steps-grid { grid-template-columns: 1fr; }
   }
   @media (max-width: 600px) {
+    .ft-mob-row { display: flex; }
     .ft-mob-cat { display: inline-block; }
-    #ftTable, #cmpTable { table-layout: fixed; width: 100%; }
-    #ftTable th[data-col="vol"], #ftTable th[data-col="conv"] { width: 40px; padding: 8px 2px; text-align: center; font-size: 10.5px; }
-    #ftTable th[data-col="scale"] { width: 48px; padding: 8px 2px; text-align: center; font-size: 10.5px; }
-    #ftTable th[data-col="avg"] { width: 44px; padding: 8px 2px; text-align: center; font-size: 10.5px; }
+    #ftTable, #cmpTable, #cmpPairsTable { table-layout: fixed; width: 100%; }
+    #ftTable th[data-col="vol"], #ftTable th[data-col="conv"] { width: 38px; padding: 8px 2px; text-align: center; font-size: 10.5px; }
+    #ftTable th[data-col="scale"] { width: 46px; padding: 8px 2px; text-align: center; font-size: 10.5px; }
+    #ftTable th[data-col="avg"] { width: 42px; padding: 8px 2px; text-align: center; font-size: 10.5px; }
+    #cmpPairsTable th[data-col="vol"], #cmpPairsTable th[data-col="conv"] { width: 34px; padding: 8px 2px; text-align: center; font-size: 10.5px; }
+    #cmpPairsTable th[data-col="serp_cnt"] { width: 92px; padding: 8px 2px; font-size: 10.5px; }
     #cmpTable th.num { width: 48px; padding: 8px 2px; text-align: center; font-size: 10.5px; }
-    #ftTable td.num, #cmpTable td.num { padding: 8px 2px; text-align: center; }
-    #ftTable .ft-score-pill, #cmpTable .ft-score-pill { min-width: 26px; padding: 2px 4px; font-size: 11px; }
+    #ftTable td.num, #cmpTable td.num, #cmpPairsTable td.num { padding: 8px 2px; text-align: center; }
+    #ftTable .ft-score-pill, #cmpTable .ft-score-pill, #cmpPairsTable .ft-score-pill { min-width: 26px; padding: 2px 4px; font-size: 11px; }
     #ftTable .ft-est-sub, #cmpTable .ft-est-sub { font-size: 9.5px; }
+    #cmpPairsTable .serp-proof-btn { font-size: 10px; padding: 3px 6px; }
+    #cmpPairsTable .serp-proof-btn .sp-ico { display: none; }
   }
   @media (max-width: 520px) { .ft-kpi-grid { grid-template-columns: 1fr; } }
   .b-dot-live { width: 7px; height: 7px; border-radius: 999px; background: #0066cc; flex-shrink: 0; }
@@ -1287,7 +1338,7 @@
         </button>
         <button class="macro-pill" id="macro-comparisons" data-macro="model-comparisons" role="tab" type="button" aria-selected="false">
           <span>Comparisons</span>
-          <span class="tab-count" id="cnt-macro-comparisons">4</span>
+          <span class="tab-count" id="cnt-macro-comparisons">1,170</span>
         </button>
         <button class="macro-pill" id="macro-brands" data-macro="brands" role="tab" type="button" aria-selected="false">
           <span>Brands</span>
@@ -1534,9 +1585,79 @@
 <script src="./data/brand_reviews_tracker.js?v=20261124v23"></script>
 <script src="./data/reviews_models_scored.js?v=20261124v23"></script>
 <script src="./brands_analytics.js"></script>
-<script src="./data/brand_faq_types_110.js?v=20261124v25"></script>
-<script src="./comparisons_view.js?v=20261124v25"></script>
-<script src="./brands_view.js?v=20261124v25"></script>
+<div id="serpPopover" role="tooltip" aria-hidden="true"></div>
+<script>
+(function () {
+  const pop = document.getElementById("serpPopover");
+  let hideTimer = null;
+  let pinnedBtn = null;
+
+  function placePopover(btn) {
+    const r = btn.getBoundingClientRect();
+    pop.classList.add("open");
+    pop.setAttribute("aria-hidden", "false");
+    const pw = pop.offsetWidth || 390;
+    const ph = pop.offsetHeight || 220;
+    let left = r.left - pw + r.width;
+    if (left < 12) left = Math.min(window.innerWidth - pw - 12, Math.max(12, r.left));
+    if (left + pw > window.innerWidth - 12) left = window.innerWidth - pw - 12;
+    let top = r.bottom + 6;
+    if (top + ph > window.innerHeight - 12) top = Math.max(12, r.top - ph - 6);
+    pop.style.left = left + "px";
+    pop.style.top = top + "px";
+  }
+
+  function hideNow() {
+    clearTimeout(hideTimer);
+    pinnedBtn = null;
+    pop.classList.remove("open");
+    pop.setAttribute("aria-hidden", "true");
+  }
+
+  function scheduleHide() {
+    if (pinnedBtn) return;
+    clearTimeout(hideTimer);
+    hideTimer = setTimeout(hideNow, 220);
+  }
+
+  pop.addEventListener("mouseenter", () => clearTimeout(hideTimer));
+  pop.addEventListener("mouseleave", scheduleHide);
+  document.addEventListener("click", e => {
+    if (!pop.contains(e.target) && !e.target.closest(".serp-proof-btn")) hideNow();
+  });
+  document.addEventListener("keydown", e => { if (e.key === "Escape") hideNow(); });
+
+  window.bindSerpPopover = function (container, selector, getHtml) {
+    container.addEventListener("mouseover", e => {
+      const btn = e.target.closest(selector);
+      if (!btn || pinnedBtn) return;
+      clearTimeout(hideTimer);
+      const html = getHtml(btn);
+      if (!html) return;
+      pop.innerHTML = html;
+      placePopover(btn);
+    });
+    container.addEventListener("mouseout", e => {
+      if (e.target.closest(selector)) scheduleHide();
+    });
+    container.addEventListener("click", e => {
+      const btn = e.target.closest(selector);
+      if (!btn) return;
+      e.stopPropagation();
+      if (pinnedBtn === btn) { hideNow(); return; }
+      const html = getHtml(btn);
+      if (!html) return;
+      pinnedBtn = btn;
+      pop.innerHTML = html;
+      placePopover(btn);
+    });
+  };
+})();
+</script>
+<script src="./data/brand_faq_types_110.js?v=20261124v26"></script>
+<script src="./data/comparisons_serp_data.js?v=20261124v26"></script>
+<script src="./comparisons_view.js?v=20261124v26"></script>
+<script src="./brands_view.js?v=20261124v26"></script>
 <script src="./reviews_view.js?v=20261124v23"></script>
 <script src="./data/url_audit.js?v=20261124v22"></script>
 <script src="./urls_view.js?v=20261124v22"></script>
@@ -1790,6 +1911,8 @@ function renderTopbarAndTabs() {
   document.getElementById("cnt-macro-faqs").textContent = META.total_kept_pages.toLocaleString();
   const bfMacroEl = document.getElementById("cnt-macro-brand-faqs");
   if (bfMacroEl) bfMacroEl.textContent = (bfSum.kept_pages || 0).toLocaleString();
+  const cmpCntEl = document.getElementById("cnt-macro-comparisons");
+  if (cmpCntEl && window.NAPPEDIA_COMPARISONS_SERP) cmpCntEl.textContent = window.NAPPEDIA_COMPARISONS_SERP.total_pairs.toLocaleString();
   document.getElementById("cnt-macro-brands").textContent = bCounts.active_us_brands.toLocaleString();
   const rvCntEl = document.getElementById("cnt-macro-reviews");
   if (rvCntEl && rvData) rvCntEl.textContent = rvData.summary.total.toLocaleString();
