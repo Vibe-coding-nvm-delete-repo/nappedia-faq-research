@@ -1316,6 +1316,7 @@
     const forumCnt = byType["Community / Forum"] || 0;
     const t1Cnt = byTier["Tier 1: Mega Authority"] || 0;
     const smCnt = domains.filter(d => (d.sitemap_vs || 0) > 0).length;
+    const fgDomCnt = domains.filter(d => (d.fg_kws || 0) > 0).length;
 
     const TYPE_PILL = {
       "Mattress Review / Affiliate": "t-smart",
@@ -1365,6 +1366,7 @@
 
       <div class="b-scope-bar" id="sdScopeBar">
         <button class="b-scope-pill active" data-sdscope="all" type="button">All Domains <span>${domains.length.toLocaleString()}</span></button>
+        <button class="b-scope-pill" data-sdscope="fg_only" type="button">Fiberglass SERPs <span>${fgDomCnt.toLocaleString()}</span></button>
         <button class="b-scope-pill" data-sdscope="aff" type="button">Mattress Affiliates <span>${affCnt}</span></button>
         <button class="b-scope-pill" data-sdscope="media" type="button">Major Media <span>${mediaCnt}</span></button>
         <button class="b-scope-pill" data-sdscope="brand" type="button">Official Brands <span>${brandCnt}</span></button>
@@ -1428,6 +1430,7 @@
     function renderRows() {
       const q = sdState.q.trim().toLowerCase();
       let list = domains.filter(d => {
+        if (sdState.scope === "fg_only" && !(d.fg_kws > 0)) return false;
         if (sdState.scope === "aff" && d.site_type !== "Mattress Review / Affiliate") return false;
         if (sdState.scope === "media" && d.site_type !== "Major Media / News") return false;
         if (sdState.scope === "brand" && d.site_type !== "Mattress Brand (Official)") return false;
@@ -1525,6 +1528,7 @@
       const btn = e.target.closest(".b-scope-pill");
       if (!btn) return;
       sdState.scope = btn.dataset.sdscope || "all";
+      if (sdState.scope === "fg_only") { sdState.sortCol = "fg_kws"; sdState.sortDir = "desc"; }
       sdState.limit = 150;
       document.querySelectorAll("#sdScopeBar .b-scope-pill").forEach(b => b.classList.toggle("active", b === btn));
       renderRows();
