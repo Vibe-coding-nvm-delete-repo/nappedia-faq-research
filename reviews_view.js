@@ -17,7 +17,7 @@
     lmQ: "",
     lmSortKey: "b",     // b=Brand, m=Model, wk=Wave, t=Type, p=Queen $, w=Words, d=Verified
     lmSortDir: "asc",
-    lmLimit: 200,
+    lmLimit: 250,
     // Models catalog subtab state
     mBrand: "",
     mStatus: "all",     // all | A | D
@@ -37,6 +37,7 @@
   };
 
   const WAVE_BADGE = {
+    b25: { short: "25-Brand Fill (New)",     color: "#0f766e", bg: "#ccfbf1" },
     s4:  { short: "Story 4 (New Flagships)", color: "#15803d", bg: "#dcfce7" },
     s3:  { short: "Story 3 (v1 Retired)",    color: "#0369a1", bg: "#e0f2fe" },
     s12: { short: "Story 1+2 (Tier 0)",      color: "#5b21b6", bg: "#ede9fe" },
@@ -191,7 +192,7 @@
 
     const k = rvState.lmSortKey;
     const dir = rvState.lmSortDir === "asc" ? 1 : -1;
-    const waveRank = { s4: 1, s3: 2, s12: 3 };
+    const waveRank = { b25: 0, s4: 1, s3: 2, s12: 3 };
     out.sort((a, b) => {
       let va = k === "wk" ? (waveRank[a.wk] || 9) : a[k];
       let vb = k === "wk" ? (waveRank[b.wk] || 9) : b[k];
@@ -617,6 +618,7 @@
 
       const lmWavePills = [
         { k: "all", label: "All Live v3.3", count: totalLiveMods },
+        { k: "b25", label: "25-Brand Fill (New)", count: wc.b25 || 0, color: "#0f766e" },
         { k: "s4",  label: "Story 4: New Flagships", count: wc.s4, color: "#15803d" },
         { k: "s3",  label: "Story 3: Legacy v1 Retired", count: wc.s3, color: "#0369a1" },
         { k: "s12", label: "Story 1+2: Tier 0", count: wc.s12, color: "#5b21b6" },
