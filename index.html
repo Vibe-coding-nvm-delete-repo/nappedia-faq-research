@@ -1385,6 +1385,7 @@
     <button class="cat-tab" id="tab-mattress-types" data-cat="mattress-types" role="tab" type="button"><span class="dot-done" aria-hidden="true"></span><span>Types</span><span class="tab-count" id="cnt-mattress-types">151</span></button>
     <button class="cat-tab" id="tab-buying-process" data-cat="buying-process" role="tab" type="button"><span class="dot-done" aria-hidden="true"></span><span>Buying</span><span class="tab-count" id="cnt-buying-process">26</span></button>
     <button class="cat-tab" id="tab-safety-certs" data-cat="safety-certs" role="tab" type="button"><span class="dot-done" aria-hidden="true"></span><span>Safety</span><span class="tab-count" id="cnt-safety-certs">45</span></button>
+    <button class="cat-tab" id="tab-nonbrand-fiberglass" data-cat="nonbrand-fiberglass" role="tab" type="button"><span class="dot-done" aria-hidden="true"></span><span>Fiberglass</span><span class="tab-count" id="cnt-nonbrand-fiberglass">170</span></button>
     <button class="cat-tab" id="tab-toppers-bedding" data-cat="toppers-bedding" role="tab" type="button"><span class="dot-done" aria-hidden="true"></span><span>Toppers</span><span class="tab-count" id="cnt-toppers-bedding">281</span></button>
     <button class="cat-tab" id="tab-sizes-fit" data-cat="sizes-fit" role="tab" type="button"><span class="dot-done" aria-hidden="true"></span><span>Sizes</span><span class="tab-count" id="cnt-sizes-fit">109</span></button>
     <button class="cat-tab" id="tab-foundations-bases" data-cat="foundations-bases" role="tab" type="button"><span class="dot-done" aria-hidden="true"></span><span>Bases</span><span class="tab-count" id="cnt-foundations-bases">81</span></button>
@@ -1514,6 +1515,11 @@
       </div>
       <div class="table-foot" id="resTfoot"></div>
     </main>
+  </section>
+
+  <!-- VIEW 3B: NON-BRAND FIBERGLASS (170 VALIDATED PAGES) -->
+  <section id="nbfgView" style="display:none;">
+    <div id="nbfgContent"></div>
   </section>
 
   <!-- VIEW 4: MACRO PILLAR - BRANDS RESEARCH -->
@@ -1676,6 +1682,8 @@
 <script src="./reviews_view.js?v=20261126v32"></script>
 <script src="./data/url_audit.js?v=20261126v32"></script>
 <script src="./urls_view.js?v=20261124v22"></script>
+<script src="./data/nonbrand_fiberglass.js?v=20261127v1"></script>
+<script src="./nonbrand_fiberglass_view.js?v=20261127v1"></script>
 <script>
 const META = window.NAPPEDIA_META;
 const CATS = window.NAPPEDIA_CATS;
@@ -1830,6 +1838,9 @@ function initFromHash() {
       const sub = h === "brand-faqs-brands" ? "brands" : (h === "brand-faqs-audit" ? "audit" : "explorer");
       window.setBrandFaqSub(sub, false);
     }
+  } else if (h === "nonbrand-fiberglass" || h === "fiberglass") {
+    state.macro = "faqs";
+    state.cat = "nonbrand-fiberglass";
   } else if (h === "overview" || h === "research" || Boolean(CATS[h])) {
     state.macro = "faqs";
     state.cat = h;
@@ -1987,6 +1998,8 @@ function renderTopbarAndTabs() {
   document.getElementById("overviewView").style.display = (isFaqs && state.cat === "overview") ? "" : "none";
   document.getElementById("categoryView").style.display = (isFaqs && Boolean(CATS[state.cat])) ? "" : "none";
   document.getElementById("researchView").style.display = (isFaqs && state.cat === "research") ? "" : "none";
+  const nbfgEl = document.getElementById("nbfgView");
+  if (nbfgEl) nbfgEl.style.display = (isFaqs && state.cat === "nonbrand-fiberglass") ? "" : "none";
   document.getElementById("brandFaqsView").style.display = isBrandFaqs ? "" : "none";
   document.getElementById("comparisonsHubView").style.display = isModelComp ? "" : "none";
   document.getElementById("brandsView").style.display = isBrands ? "" : "none";
@@ -2905,6 +2918,8 @@ function render() {
     if (window.renderBrandsWorkspace) window.renderBrandsWorkspace(state.brandSub, state.brandModelFilter);
   } else if (state.cat === "overview") {
     if (!overviewRendered) { renderOverview(); overviewRendered = true; }
+  } else if (state.cat === "nonbrand-fiberglass") {
+    if (window.renderNbfgView) window.renderNbfgView();
   } else if (state.cat === "research") renderResearchView();
   else renderCategoryWorkspace();
 }
