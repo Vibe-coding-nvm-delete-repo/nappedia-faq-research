@@ -73,7 +73,7 @@
       { lbl: "Commercial Guides", val: s.kept_commercial, sub: `${s.comm_net_new} net-new · ${s.comm_overlaps_live_guide} overlap /guides/` },
       { lbl: "Total Validated Pages", val: s.kept_total, sub: `${s.faq_retailer_pages} retailer FAQs · ${s.faq_drafted_ready} drafted ready` },
       { lbl: "90/10 Exhaustion", val: "DRY", sub: `${s.total_probes.toLocaleString()} probes · ${s.total_unique_in_scope_kws.toLocaleString()} US KWs` },
-      { lbl: "Dual-Critic Gate", val: "PASS", sub: "Critic A 9.80/10 · Critic B 9.90/10" },
+      { lbl: "Dual-Critic Gate", val: "PASS", sub: "Wave 2: 9.80/9.90 · Wave 3: 9.85/10" },
     ];
 
     let thead = "";
