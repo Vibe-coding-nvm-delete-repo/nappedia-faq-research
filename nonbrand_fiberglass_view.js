@@ -73,7 +73,7 @@
       { lbl: "Commercial Guides", val: s.kept_commercial, sub: `${s.comm_net_new} net-new · ${s.comm_overlaps_live_guide} overlap /guides/` },
       { lbl: "Total Validated Pages", val: s.kept_total, sub: `${s.faq_retailer_pages} retailer FAQs · ${s.faq_drafted_ready} drafted ready` },
       { lbl: "90/10 Exhaustion", val: "DRY", sub: `${s.total_probes.toLocaleString()} probes · ${s.total_unique_in_scope_kws.toLocaleString()} US KWs` },
-      { lbl: "Dual-Critic Gate", val: "PASS", sub: "Critic A 10.00/10 · Critic B 9.85/10" },
+      { lbl: "Dual-Critic Gate", val: "PASS", sub: "Critic A 9.80/10 · Critic B 9.90/10" },
     ];
 
     let thead = "";
@@ -149,7 +149,7 @@
       <main class="card">
         <div class="card-head" style="flex-wrap:wrap;gap:12px;">
           <div>
-            <h2 class="card-title" style="margin:0;">Non-Brand Fiberglass + Mattress FAQs (170 Validated Pages)</h2>
+            <h2 class="card-title" style="margin:0;">Non-Brand Fiberglass + Mattress FAQs (${s.kept_total} Validated Pages)</h2>
             <div class="stat-line">57 seed clusters across 10 MECE families · 0 drops (${s.gate_total.toLocaleString()} candidates reconciled) · Live /guides/ overlaps tagged, never hidden</div>
           </div>
           <div class="seg-group" role="tablist" aria-label="Non-Brand Fiberglass Views" style="flex-wrap:wrap;">
