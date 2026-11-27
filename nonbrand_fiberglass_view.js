@@ -127,32 +127,40 @@
           <td style="display:flex;flex-wrap:wrap;gap:4px;">${tags.join("") || '<span style="font-size:11px;color:#9ca3af;">FAQ</span>'}</td>
         </tr>`;
       }).join("");
-    } else if (isEpicTab) {
-      thead = `<tr><th style="width:68px;">Story</th><th style="width:170px;">Wave</th><th>User Story, Value Proposition &amp; Definition of Done</th><th class="num" style="width:72px;">Pages</th><th style="width:150px;">Split</th></tr>`;
-      tbody = shown.map(st => {
-        const typePill = st.type === "pillar_hub"
-          ? pill("Pillar Hub", "#fce7f3", "#9d174d")
-          : st.type === "faq_batch"
-          ? pill("FAQ Batch", "#e4f2e9", "#166534")
-          : st.type === "commercial_batch"
-          ? pill("Commercial", "#ede9fe", "#5b21b6")
-          : pill(st.type, "#f3f4f6", "#4b5563");
-        const pagesList = (st.pages_preview || []).length
-          ? `<details style="margin-top:8px;"><summary style="cursor:pointer;font-size:12px;font-weight:600;color:#0066cc;">View all ${st.page_count} assigned pages</summary><div style="margin-top:6px;display:flex;flex-direction:column;gap:3px;font-size:12px;">${st.pages_preview.map((p, idx) => `<div><strong>${idx + 1}.</strong> <code>${esc(p.id)}</code> [${esc(p.tier)}|${Number(p.score).toFixed(2)}] ${esc(p.title)} <span style="color:#6b7280;">(/answers/${esc(p.slug)})</span></div>`).join("")}</div></details>`
-          : "";
-        return `<tr>
-          <td><strong><code>${esc(st.id)}</code></strong><div style="margin-top:4px;">${typePill}</div></td>
-          <td style="font-size:12px;color:var(--muted,#4b5563);">${esc(st.wave)}</td>
-          <td>
-            <div style="font-weight:700;color:var(--ink,#111827);font-size:14px;">${esc(st.title)}</div>
-            <div style="font-size:12px;color:var(--muted,#374151);margin-top:4px;line-height:1.45;">${esc(st.value_prop)}</div>
-            <div style="font-size:11px;color:#4b5563;margin-top:6px;"><strong>DoD:</strong> ${esc((st.dod || []).join(" · "))}</div>
+    let epicCardsHtml = "";
+    if (isEpicTab) {
+      const fmtCode = s => esc(s).replace(/`([^`]+)`/g, '<code style="background:#f3f4f6;padding:1px 4px;border-radius:4px;font-size:11px;">$1</code>');
+      epicCardsHtml = `<div style="display:flex;flex-direction:column;gap:12px;padding:12px 16px 16px;">${
+        shown.map(st => {
+          const typePill = st.type === "pillar_hub"
+            ? pill("Pillar Hub", "#fce7f3", "#9d174d")
+            : st.type === "faq_batch"
+            ? pill("FAQ Batch", "#e4f2e9", "#166534")
+            : st.type === "commercial_batch"
+            ? pill("Commercial", "#ede9fe", "#5b21b6")
+            : pill(st.type, "#f3f4f6", "#4b5563");
+          const splitPills = st.page_count
+            ? `${pill(st.page_count + " Pages", "#e8f0fe", "#1d4ed8")} ${pill(st.net_new_count + " NET_NEW", "#e4f2e9", "#166534")} ${st.overlap_count ? pill(st.overlap_count + " OVERLAP", "#fef3c7", "#92400e") : ""}`
+            : pill("Hub / Ops", "#f3f4f6", "#4b5563");
+          const pagesList = (st.pages_preview || []).length
+            ? `<details style="margin-top:10px;"><summary style="cursor:pointer;font-size:12px;font-weight:600;color:#0066cc;">View all ${st.page_count} assigned pages</summary><div style="margin-top:8px;display:flex;flex-direction:column;gap:4px;font-size:12px;word-break:break-word;">${st.pages_preview.map((p, idx) => `<div><strong>${idx + 1}.</strong> <code>${esc(p.id)}</code> [${esc(p.tier)}|${Number(p.score).toFixed(2)}] ${esc(p.title)} <span style="color:#6b7280;">(/answers/${esc(p.slug)})</span></div>`).join("")}</div></details>`
+            : "";
+          return `<article style="background:#ffffff;border-radius:12px;padding:14px 16px;box-shadow:0 1px 4px rgba(15,23,42,0.08);">
+            <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px;">
+              <div style="display:flex;flex-wrap:wrap;align-items:center;gap:6px;">
+                <strong style="font-size:13px;"><code>${esc(st.id)}</code></strong>
+                ${typePill}
+                <span style="font-size:12px;color:var(--muted,#6b7280);">${esc(st.wave)}</span>
+              </div>
+              <div style="display:flex;flex-wrap:wrap;gap:4px;">${splitPills}</div>
+            </div>
+            <div style="font-weight:700;color:var(--ink,#111827);font-size:15px;line-height:1.35;">${fmtCode(st.title)}</div>
+            <div style="font-size:13px;color:var(--muted,#374151);margin-top:6px;line-height:1.5;">${fmtCode(st.value_prop)}</div>
+            <div style="font-size:12px;color:#4b5563;margin-top:8px;line-height:1.45;"><strong>Definition of Done:</strong> ${fmtCode((st.dod || []).join(" · "))}</div>
             ${pagesList}
-          </td>
-          <td class="num"><strong>${st.page_count}</strong></td>
-          <td style="font-size:12px;">${st.page_count ? `${pill(st.net_new_count + " NET_NEW", "#e4f2e9", "#166534")} ${st.overlap_count ? pill(st.overlap_count + " OVERLAP", "#fef3c7", "#92400e") : ""}` : pill("Hub / Ops", "#f3f4f6", "#4b5563")}</td>
-        </tr>`;
-      }).join("");
+          </article>`;
+        }).join("") || '<div style="text-align:center;padding:24px;color:#6b7280;">No matching stories.</div>'
+      }</div>`;
     } else if (nbfgState.sub === "merged") {
       thead = `<tr><th style="width:96px;">ID</th><th>Family</th><th>Original Query</th><th>Merged Into Canonical Page</th><th>Reason</th></tr>`;
       tbody = shown.map(r => `<tr>
@@ -200,20 +208,22 @@
         </div>
 
         <div class="toolbar" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;">
-          <input id="nbfgSearch" type="search" placeholder="Search all ${rows.length} rows (title, query, slug, family)..." value="${esc(nbfgState.q)}" style="flex:1;min-width:220px;padding:8px 12px;border-radius:8px;border:none;background:#f3f4f6;font-size:13px;" />
-          <select id="nbfgFamily" style="padding:8px 10px;border-radius:8px;border:none;background:#f3f4f6;font-size:13px;">
-            <option value="">All 10 Families</option>
-            ${families.map(f => `<option value="${esc(f)}" ${nbfgState.family === f ? "selected" : ""}>${esc(f)}</option>`).join("")}
-          </select>
+          <input id="nbfgSearch" type="search" placeholder="Search all ${rows.length} rows (title, query, slug, family)..." value="${esc(nbfgState.q)}" style="flex:1;min-width:200px;max-width:100%;padding:8px 12px;border-radius:8px;border:none;background:#f3f4f6;font-size:13px;" />
+          ${!isEpicTab ? `
+            <select id="nbfgFamily" style="max-width:100%;padding:8px 10px;border-radius:8px;border:none;background:#f3f4f6;font-size:13px;">
+              <option value="">All 10 Families</option>
+              ${families.map(f => `<option value="${esc(f)}" ${nbfgState.family === f ? "selected" : ""}>${esc(f)}</option>`).join("")}
+            </select>
+          ` : ""}
           ${isKeptTab ? `
-            <select id="nbfgStatus" style="padding:8px 10px;border-radius:8px;border:none;background:#f3f4f6;font-size:13px;">
+            <select id="nbfgStatus" style="max-width:100%;padding:8px 10px;border-radius:8px;border:none;background:#f3f4f6;font-size:13px;">
               <option value="" ${nbfgState.status === "" ? "selected" : ""}>All Statuses</option>
               <option value="net_new" ${nbfgState.status === "net_new" ? "selected" : ""}>NET_NEW Only</option>
               <option value="overlap" ${nbfgState.status === "overlap" ? "selected" : ""}>OVERLAPS_LIVE_GUIDE Only</option>
               <option value="retailer" ${nbfgState.status === "retailer" ? "selected" : ""}>Retailer FAQs Only</option>
               <option value="drafted" ${nbfgState.status === "drafted" ? "selected" : ""}>Draft Ready Only</option>
             </select>
-            <select id="nbfgTier" style="padding:8px 10px;border-radius:8px;border:none;background:#f3f4f6;font-size:13px;">
+            <select id="nbfgTier" style="max-width:100%;padding:8px 10px;border-radius:8px;border:none;background:#f3f4f6;font-size:13px;">
               <option value="" ${nbfgState.tier === "" ? "selected" : ""}>All Tiers</option>
               <option value="T1" ${nbfgState.tier === "T1" ? "selected" : ""}>T1 Only</option>
               <option value="T2" ${nbfgState.tier === "T2" ? "selected" : ""}>T2 Only</option>
@@ -223,12 +233,14 @@
           <button id="nbfgCsvBtn" class="mini-btn" type="button">Export CSV (${filtered.length})</button>
         </div>
 
+        ${isEpicTab ? epicCardsHtml : `
         <div class="table-wrap" style="overflow-x:auto;">
           <table>
             <thead>${thead}</thead>
             <tbody>${tbody || '<tr><td colspan="8" style="text-align:center;padding:24px;color:#6b7280;">No matching rows.</td></tr>'}</tbody>
           </table>
         </div>
+        `}
 
         <div class="table-foot">
           <span>Showing ${shown.length.toLocaleString()} of ${filtered.length.toLocaleString()} rows</span>
