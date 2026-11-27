@@ -1,11 +1,12 @@
 /* Interactive Non-Brand Fiberglass (170 Validated Pages) Workspace for Nappedia Research Hub */
 (function () {
   const nbfgState = {
-    sub: "faqs",      // faqs | commercial | overlap | merged | oos
+    sub: "faqs",      // faqs | commercial | epic | overlap | merged | oos
     q: "",
     family: "",
     status: "",       // "" | net_new | overlap | retailer | drafted
     tier: "",         // "" | T1 | T2 | T3
+    storyId: "",      // "" | S00..S14
     limit: 200,
   };
 
@@ -44,14 +45,24 @@
 
     // Filter active dataset
     const q = nbfgState.q.trim().toLowerCase();
+    const isEpicTab = (nbfgState.sub === "epic");
     let rows = [];
     if (nbfgState.sub === "faqs") rows = data.faq_pages;
     else if (nbfgState.sub === "commercial") rows = data.commercial_guides;
+    else if (nbfgState.sub === "epic") rows = (data.epic_stories || []);
     else if (nbfgState.sub === "overlap") rows = overlapAll;
     else if (nbfgState.sub === "merged") rows = data.merged_twins;
     else rows = data.out_of_scope;
 
     const filtered = rows.filter(r => {
+      if (isEpicTab) {
+        if (nbfgState.storyId && r.id !== nbfgState.storyId) return false;
+        if (q) {
+          const hay = `${r.id} ${r.wave} ${r.title} ${r.value_prop} ${(r.pages_preview || []).map(p => p.title).join(" ")}`.toLowerCase();
+          if (!hay.includes(q)) return false;
+        }
+        return true;
+      }
       if (nbfgState.family && r.family !== nbfgState.family) return false;
       if (nbfgState.tier && r.tier !== nbfgState.tier) return false;
       if (nbfgState.status === "net_new" && r.live_guide_overlap !== "NET_NEW") return false;
@@ -116,6 +127,32 @@
           <td style="display:flex;flex-wrap:wrap;gap:4px;">${tags.join("") || '<span style="font-size:11px;color:#9ca3af;">FAQ</span>'}</td>
         </tr>`;
       }).join("");
+    } else if (isEpicTab) {
+      thead = `<tr><th style="width:68px;">Story</th><th style="width:170px;">Wave</th><th>User Story, Value Proposition &amp; Definition of Done</th><th class="num" style="width:72px;">Pages</th><th style="width:150px;">Split</th></tr>`;
+      tbody = shown.map(st => {
+        const typePill = st.type === "pillar_hub"
+          ? pill("Pillar Hub", "#fce7f3", "#9d174d")
+          : st.type === "faq_batch"
+          ? pill("FAQ Batch", "#e4f2e9", "#166534")
+          : st.type === "commercial_batch"
+          ? pill("Commercial", "#ede9fe", "#5b21b6")
+          : pill(st.type, "#f3f4f6", "#4b5563");
+        const pagesList = (st.pages_preview || []).length
+          ? `<details style="margin-top:8px;"><summary style="cursor:pointer;font-size:12px;font-weight:600;color:#0066cc;">View all ${st.page_count} assigned pages</summary><div style="margin-top:6px;display:flex;flex-direction:column;gap:3px;font-size:12px;">${st.pages_preview.map((p, idx) => `<div><strong>${idx + 1}.</strong> <code>${esc(p.id)}</code> [${esc(p.tier)}|${Number(p.score).toFixed(2)}] ${esc(p.title)} <span style="color:#6b7280;">(/answers/${esc(p.slug)})</span></div>`).join("")}</div></details>`
+          : "";
+        return `<tr>
+          <td><strong><code>${esc(st.id)}</code></strong><div style="margin-top:4px;">${typePill}</div></td>
+          <td style="font-size:12px;color:var(--muted,#4b5563);">${esc(st.wave)}</td>
+          <td>
+            <div style="font-weight:700;color:var(--ink,#111827);font-size:14px;">${esc(st.title)}</div>
+            <div style="font-size:12px;color:var(--muted,#374151);margin-top:4px;line-height:1.45;">${esc(st.value_prop)}</div>
+            <div style="font-size:11px;color:#4b5563;margin-top:6px;"><strong>DoD:</strong> ${esc((st.dod || []).join(" · "))}</div>
+            ${pagesList}
+          </td>
+          <td class="num"><strong>${st.page_count}</strong></td>
+          <td style="font-size:12px;">${st.page_count ? `${pill(st.net_new_count + " NET_NEW", "#e4f2e9", "#166534")} ${st.overlap_count ? pill(st.overlap_count + " OVERLAP", "#fef3c7", "#92400e") : ""}` : pill("Hub / Ops", "#f3f4f6", "#4b5563")}</td>
+        </tr>`;
+      }).join("");
     } else if (nbfgState.sub === "merged") {
       thead = `<tr><th style="width:96px;">ID</th><th>Family</th><th>Original Query</th><th>Merged Into Canonical Page</th><th>Reason</th></tr>`;
       tbody = shown.map(r => `<tr>
@@ -155,6 +192,7 @@
           <div class="seg-group" role="tablist" aria-label="Non-Brand Fiberglass Views" style="flex-wrap:wrap;">
             <button class="seg-btn ${nbfgState.sub === "faqs" ? "active" : ""}" data-nbfgsub="faqs" type="button">Non-Brand FAQs (${s.kept_faq})</button>
             <button class="seg-btn ${nbfgState.sub === "commercial" ? "active" : ""}" data-nbfgsub="commercial" type="button">Commercial Guides (${s.kept_commercial})</button>
+            <button class="seg-btn ${nbfgState.sub === "epic" ? "active" : ""}" data-nbfgsub="epic" type="button">Epic &amp; Stories (${(data.epic_stories || []).length})</button>
             <button class="seg-btn ${nbfgState.sub === "overlap" ? "active" : ""}" data-nbfgsub="overlap" type="button">Live /guides/ Overlap (${overlapAll.length})</button>
             <button class="seg-btn ${nbfgState.sub === "merged" ? "active" : ""}" data-nbfgsub="merged" type="button">Merged Twins (${s.merged_twins})</button>
             <button class="seg-btn ${nbfgState.sub === "oos" ? "active" : ""}" data-nbfgsub="oos" type="button">Out-of-Scope (${s.out_of_scope})</button>
