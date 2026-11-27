@@ -89,6 +89,7 @@
 
     let thead = "";
     let tbody = "";
+    let epicCardsHtml = "";
     if (isKeptTab) {
       thead = `<tr>
         <th class="num" style="width:48px;">#</th>
@@ -127,8 +128,7 @@
           <td style="display:flex;flex-wrap:wrap;gap:4px;">${tags.join("") || '<span style="font-size:11px;color:#9ca3af;">FAQ</span>'}</td>
         </tr>`;
       }).join("");
-    let epicCardsHtml = "";
-    if (isEpicTab) {
+    } else if (isEpicTab) {
       const fmtCode = s => esc(s).replace(/`([^`]+)`/g, '<code style="background:#f3f4f6;padding:1px 4px;border-radius:4px;font-size:11px;">$1</code>');
       epicCardsHtml = `<div style="display:flex;flex-direction:column;gap:12px;padding:12px 16px 16px;">${
         shown.map(st => {
